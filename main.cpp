@@ -1,8 +1,10 @@
 #include <QCoreApplication>
-#include <QSettings>
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlRecord>
+#include <QSqlError>
+#include <QSettings>
+#include <QDir>
 #include <QTextStream>
 #include <iostream>
 
@@ -10,8 +12,11 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
+    QDir::setCurrent(QCoreApplication::applicationDirPath());
+    QString configFilePath = QDir(QCoreApplication::applicationDirPath()).filePath("config.ini");
+
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-    QSettings settings("config.ini", QSettings::IniFormat);
+    QSettings settings(configFilePath, QSettings::IniFormat);
     db.setHostName(settings.value("Database/HostName").toString());
     db.setUserName(settings.value("Database/UserName").toString());
     db.setPassword(settings.value("Database/Password").toString());
@@ -36,7 +41,7 @@ int main(int argc, char *argv[])
             int solde = query.value("credit").toInt();
             std::cout << "Bienvenue " << username.toStdString() << ", Votre solde est de : " << solde << "€" <<std::endl;
         } else {
-            std::cout << "Identifiants pas bons." << std::endl;
+            std::cout << "Identifiants non corrects." << std::endl;
         }
 
     } else {
