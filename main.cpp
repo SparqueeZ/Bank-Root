@@ -1,57 +1,62 @@
 #include <QCoreApplication>
-#include <QSqlDatabase>
-#include <QSqlQuery>
-#include <QSqlRecord>
-#include <QSqlError>
-#include <QSettings>
-#include <QDir>
-#include <QTextStream>
 #include <iostream>
 #include <windows.h>
 #include "operations.h"
+#include "user.h"
+#include <cstdlib> // Pour la fonction system()
 
-
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
-
-    QDir::setCurrent(QCoreApplication::applicationDirPath());
-    QString configFilePath = QDir(QCoreApplication::applicationDirPath()).filePath("config.ini");
-
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-    QSettings settings(configFilePath, QSettings::IniFormat);
-    db.setHostName(settings.value("Database/HostName").toString());
-    db.setUserName(settings.value("Database/UserName").toString());
-    db.setPassword(settings.value("Database/Password").toString());
-    db.setDatabaseName(settings.value("Database/DatabaseName").toString());
-
+    // Création d'un utilisateur
+    User user;
     Operations operations;
 
-    if (db.open()) {
-        std::cout << "BDD Connecte" << std::endl;
+    // Connexion de l'utilisateur
+    if (user.logIn()) {
+        operations.choices(username);
+        std::system("cls");
+        std::cout << "----------------------------------------------" << std::endl;
+        std::cout << "DEBUG : Connexion reussie !" << std::endl;
 
-        QTextStream stream(stdin);
+        // Utiliser user pour accéder aux informations de l'utilisateur
 
-        std::cout << "Entrez votre nom d'utilisateur : ";
-        QString username = stream.readLine();
-        std::cout << "Entrez votre mot de passe : ";
-        QString password = stream.readLine();
+        std::cout << "DEBUG : login : " << user.getLogin().toStdString() << std::endl;
+        std::cout << "Prenom : " << user.getFirstName().toStdString() << std::endl;
+        std::cout << "Nom : " << user.getLastName().toStdString() << std::endl;
+        std::cout << "Solde : " << user.getBalance() << std::endl;
 
-        QSqlQuery query;
-        query.prepare("SELECT * FROM users WHERE login = :username AND password = :password");
-        query.bindValue(":username", username);
-        query.bindValue(":password", password);
+        std::cout << "----------------------------------------------" << std::endl;
 
-        if (query.exec() && query.next()) {
+        if (user.isAdmin(user.getLogin())) {
+            // temp
+            std::cout << "DEBUG : Vous etes connecte en tant qu'administrateur." << std::endl;
 
-            operations.choices(username);
+            // Afficher les options disponibles pour l'administrateur
+            std::cout << "Que souhaitez-vous faire ?" << std::endl;
+            std::cout << "1. Creer un compte client" << std::endl;
+            std::cout << "2. Effectuer un virement" << std::endl;
 
+            int option;
+            std::cin >> option;
+
+            switch (option) {
+            case 1:
+                std::system("cls");
+                user.createAccount();
+                break;
+            case 2:
+                // TODO : Ajouter d'autres options.
+                break;
+            default:
+                std::cout << "Option invalide." << std::endl;
+                break;
+            }
         } else {
-            std::cout << "Identifiants non corrects." << std::endl;
+            // temp
+            std::cout << "DEBUG : Vous etes connecte en tant que client." << std::endl;
         }
-
     } else {
-        std::cout << "Pas connecte" << db.lastError().text().toStdString() << std::endl;
+        std::cout << "La connexion a echoue. Veuillez verifier vos identifiants." << std::endl;
     }
 
     return a.exec();
