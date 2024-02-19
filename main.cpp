@@ -7,6 +7,9 @@
 #include <QDir>
 #include <QTextStream>
 #include <iostream>
+#include <windows.h>
+#include "operations.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -22,8 +25,10 @@ int main(int argc, char *argv[])
     db.setPassword(settings.value("Database/Password").toString());
     db.setDatabaseName(settings.value("Database/DatabaseName").toString());
 
+    Operations operations;
+
     if (db.open()) {
-        std::cout << "Connecte" << std::endl;
+        std::cout << "BDD Connecte" << std::endl;
 
         QTextStream stream(stdin);
 
@@ -38,15 +43,18 @@ int main(int argc, char *argv[])
         query.bindValue(":password", password);
 
         if (query.exec() && query.next()) {
-            int solde = query.value("credit").toInt();
-            std::cout << "Bienvenue " << username.toStdString() << ", Votre solde est de : " << solde << "€" <<std::endl;
+
+            operations.choices(username);
+
         } else {
             std::cout << "Identifiants non corrects." << std::endl;
         }
 
     } else {
-        std::cout << "Pas connecte" << std::endl;
+        std::cout << "Pas connecte" << db.lastError().text().toStdString() << std::endl;
     }
 
     return a.exec();
 }
+
+//commentaire
