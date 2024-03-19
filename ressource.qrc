@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/logo.png</file>
+        <file>assets/croix-exit.png</file>
+        <file>assets/lock.png</file>
+        <file>assets/people.png</file>
+        <file>assets/downarrow-btn.png</file>
+        <file>assets/exit-btn.png</file>
+        <file>assets/window-btn.png</file>
+        <file>assets/window-btn-disabled.png</file>
+    </qresource>
+</RCC>
