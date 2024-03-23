@@ -8,25 +8,53 @@
 #include <iostream>
 #include <synchapi.h>
 
+#include <QSettings>
+#include <QDir>
+#include <QSqlDatabase>
+#include <QCoreApplication>
+
 User::User() {}
 
-User::User(const QString& login, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, double balance)
-    : m_login(login), m_lastName(lastName), m_firstName(firstName), m_dateOfBirth(dateOfBirth), m_balance(balance) {
+User::User(const QString& login, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, QString balance, int isLoggedIn)
+    : m_login(login), m_lastName(lastName), m_firstName(firstName), m_dateOfBirth(dateOfBirth), m_balance(balance), m_isLoggedIn(isLoggedIn) {
 }
 
-bool User::logIn(const QString& username, const QString& password) {
-    QString login = username;
-    QString pass = password;
+bool User::signin(QString login, QString password) {
+    QDir::setCurrent(QCoreApplication::applicationDirPath());
+    QString configFilePath = QDir(QCoreApplication::applicationDirPath()).filePath("config.ini");
 
-    // Si les valeurs des paramètres ne sont pas fournies, demander les identifiants dans la console
-    if (username.isEmpty() && password.isEmpty()) {
-        QTextStream stream(stdin);
-        std::cout << "Entrez votre identifiant : ";
-        login = stream.readLine().trimmed();
-        std::cout << "Entrez votre mot de passe : ";
-        pass = stream.readLine().trimmed();
+    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
+    QSettings settings(configFilePath, QSettings::IniFormat);
+    db.setHostName("90.26.217.25");
+    db.setUserName("test");
+    db.setPassword("I-B*!O0vGqyFkMed");
+    db.setDatabaseName("bank_root");
+    if (!db.open()) {
+        qDebug() << "Erreur lors de la connexion a  la base de donnees :" << db.lastError().text();
+        return false;
+    };
+
+    // Requete pour recuperer les informations de l'utilisateur
+    QSqlQuery query;
+    query.prepare("SELECT * FROM accounts JOIN users ON users.accountId = accounts.id WHERE users.login = :login and users.password = :password");
+    query.bindValue(":login", login);
+    query.bindValue(":password", password);
+    if (query.exec() && query.next()) {
+        // Utilisateur trouve
+        m_firstName = query.value("firstname").toString();
+        m_lastName = query.value("lastname").toString();
+        m_balance = query.value("balance").toString();
+        m_login = query.value("login").toString();
+        m_isLoggedIn = 1;
+
+        std::cout << m_balance.toDouble() << m_firstName.toStdString() ;
+        return true;
+    } else {
+        return false;
     }
+}
 
+bool User::logIn(QString login, QString password) {
     // Connexion à la base de données MySQL
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("90.26.217.25");
@@ -34,26 +62,39 @@ bool User::logIn(const QString& username, const QString& password) {
     db.setPassword("I-B*!O0vGqyFkMed");
     db.setDatabaseName("bank_root");
     if (!db.open()) {
-        qDebug() << "Erreur lors de la connexion à la base de données :" << db.lastError().text();
+        qDebug() << "Erreur lors de la connexion à  la base de données :" << db.lastError().text();
         return false;
     };
-
-    // Requête pour récupérer les informations de l'utilisateur
+    // Requete pour recuperer les informations de l'utilisateur
     QSqlQuery query;
     query.prepare("SELECT * FROM accounts JOIN users ON users.accountId = accounts.id WHERE users.login = :login and users.password = :password");
     query.bindValue(":login", login);
-    query.bindValue(":password", pass);
+    query.bindValue(":password", password);
     if (query.exec() && query.next()) {
-        // Utilisateur trouvé
+        // Utilisateur trouve
         m_firstName = query.value("firstname").toString();
         m_lastName = query.value("lastname").toString();
-        m_balance = query.value("balance").toDouble();
+        m_balance = query.value("balance").toString();
         m_login = query.value("login").toString();
+        m_isLoggedIn = 1;
         return true;
     } else {
         qDebug() << "Identifiants incorrects :" << query.lastError().text();
         return false;
     }
+}
+
+void User::disconnect() {
+    QSqlDatabase::removeDatabase("qt_sql_default_connection");
+
+    // Réinitialiser les informations de l'utilisateur
+    m_firstName.clear();
+    m_lastName.clear();
+    m_balance.clear();
+    m_login.clear();
+    m_isLoggedIn = 0;
+
+    system("cls");
 }
 
 void User::createAccount() {
@@ -122,11 +163,11 @@ void User::createAccount() {
         return;
     }
 
-    std::cout << "Le compte utilisateur a ete cree avec succès. Numero de compte utilisateur : " << accountNumber.toStdString() << std::endl;
+    std::cout << "Le compte utilisateur a ete cree avec succes. Numero de compte utilisateur : " << accountNumber.toStdString() << std::endl;
     std::cout << "Mot de passe provisoire : " << randomPassword.toStdString() << std::endl;
 
     Sleep(3000);
-    operations.choices("Baptiste", 1);
+    //operations.choices();
 }
 
 QString User::generateAccountNumber() const {
@@ -166,11 +207,14 @@ QString User::getFirstName() const {
 QString User::getLastName() const {
     return m_lastName;
 }
-double User::getBalance() const  {
+QString User::getBalance() const  {
     return m_balance;
 }
 QString User::getLogin() const  {
     return m_login;
+}
+int User::getIsLoggedIn() const {
+    return m_isLoggedIn;
 }
 int User::getRole() const  {
     return m_role;

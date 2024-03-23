@@ -5,12 +5,15 @@
 
 class Operations {
 public:
-    static void transfert(QString username, int role);
-    static void ajout(QString amount, QString cible, QString username, int role);
-    static void retrait(QString amount, QString username, int role);
-    static void choices(QString username, int role);
-    static void setvalue(QString username, int role);
-    static void defaultChoices(QString username, int role);
+    // Nouveau système de classes
+    static void mainchoice(int choice);
+
+    static void transfert();
+    static void ajout(QString amount, QString cible);
+    static void retrait(QString amount);
+    static void choices(QString choice);
+    static void setvalue();
+    static void defaultChoices(QString choice);
 };
 
 #endif // OPERATIONS_H

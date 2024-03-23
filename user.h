@@ -8,9 +8,11 @@
 class User {
 public:
     User();
-    User(const QString& login, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, double balance);
+    User(const QString& login, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, QString balance, int isLoggedIn);
 
-    bool logIn(const QString& username = "", const QString& password = "");
+    bool signin(QString login , QString password);
+
+    bool logIn(QString login, QString password);
     void createAccount();
     QString generateAccountNumber() const;
     QString generateRandomPassword() const;
@@ -18,22 +20,28 @@ public:
 
     // Nouvelle méthode pour récupérer les informations de l'utilisateur connecté
     User getLoggedInUser() const;
+    int getIsLoggedIn() const;
+
+    void disconnect(); // Nouvelle méthode pour déconnecter l'utilisateur
     // Nouvelle méthode pour récupérer le nom d'utilisateur
     QString getFirstName() const;
     QString getLastName() const;
     QString getLogin() const;
-    double getBalance() const;
+    QString getBalance() const;
     int getRole() const;
     void setCredentials(const QString& username, const QString& password);
+
 private:
     int m_role;
     QString m_login;
     QString m_lastName;
     QString m_firstName;
     QDate m_dateOfBirth;
-    double m_balance;
+    QString m_balance;
     QSqlDatabase m_database;
     QString m_password;
+    int m_isLoggedIn;
 };
 
 #endif // USER_H
+

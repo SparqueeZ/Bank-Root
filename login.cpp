@@ -46,7 +46,6 @@ void Login::on_toolButton_3_clicked()
 }
 
 
-
 void Login::on_pushButton_clicked()
 {
     QString username = ui->lineEdit_3->text(); // Récupérer le nom d'utilisateur depuis le champ de saisie

@@ -1,5 +1,4 @@
 #include <QApplication>
-#include <QCoreApplication>
 #include <QMessageBox>
 #include <QMainWindow>
 #include <QProcess>
@@ -8,13 +7,130 @@
 #include "user.h"
 #include "operations.h"
 #include <cstdlib>
+#include <synchapi.h>
 
+class UI {
+public:
+    virtual void AffLogin()=0;
+    virtual void AffMainPage()=0;
+    virtual void AffAdminPage()=0;
+    virtual void AffAccountChoices()=0;
+    virtual void CreationCompte()=0;
+};
+
+
+class Console : public UI {
+private:
+    User* user;
+
+public:
+    Console(User* u) : user(u) {}
+    Operations operations;
+
+    void AffMsg(QString Msg) {
+        std::cout << Msg.toStdString() << std::endl;
+    }
+
+    void AffLogin() override {
+        QTextStream stream(stdin);
+        bool loggedIn = false;
+
+        while (!loggedIn) {
+            system("CLS");
+            std::cout << "Login : ";
+            QString login = stream.readLine().trimmed();
+            std::cout << "Mot de Passe : ";
+            QString password = stream.readLine().trimmed();
+            loggedIn = user->signin(login, password); // Modifiez votre méthode signin pour qu'elle retourne un booléen
+
+            if (!loggedIn) {
+                //AffMsg("Identifiants incorrects. Voulez-vous reessayer ? (O/N)");
+                //QString retryChoice = stream.readLine().trimmed().toUpper();
+                //if (retryChoice != "O")
+                    //break;
+            }
+        }
+    }
+
+    void AffMainPage() override {
+        QTextStream stream(stdin);
+        system("CLS");
+        std::cout << "Bienvenue " << user->getFirstName().toStdString() << ", Votre solde est de : " << user->getBalance().toStdString() << " euros" << std::endl;
+        AffMsg("[1] Envoyer de l'argent \n[2] Definir sa quantite d'argent \n[3] Deposer de l'argent \n[4] Retirer de l'argent \n\n[9] Quitter");
+        QString choice = stream.readLine().trimmed();
+        //operations.defaultChoices(choice);
+
+        if (choice == "9") {
+            user->disconnect(); // Déconnecter l'utilisateur
+            AffLogin(); // Rediriger vers la page de connexion
+        } else {
+            operations.mainchoice(choice.toInt());
+        }
+    };
+
+    void AffAdminPage() override {
+        QTextStream stream(stdin);
+        AffMsg("Que souhaitez-vous faire ?");
+        AffMsg("1. Creer un compte client");
+        AffMsg("2. Acceder a son compte client");
+        QString choice =stream.readLine().trimmed();
+        operations.choices(choice);
+    }
+
+    void AffAccountChoices() override {
+
+    }
+
+    void CreationCompte() override {
+
+    }
+
+};
+
+
+class GUI : public UI {
+private:
+    int argc;
+    char **argv;
+    User* user;
+
+public:
+    GUI(int argc, char **argv, User* u) : argc(argc), argv(argv), user(u){}
+
+    void AffLogin() override {
+        QApplication a(argc, argv);
+        Login w;
+        w.show();
+        a.exec();
+    }
+
+    void AffMainPage() override {
+
+    }
+
+    void AffAdminPage() override {
+
+    }
+
+    void AffAccountChoices() override {
+
+    }
+
+    void CreationCompte() override {
+
+    }
+};
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------
 
 
 int main(int argc, char *argv[]) {
+    User user;
+    UI* interfaceUtilisateur = nullptr;
     QApplication app(argc, argv);
 
-    // Affichage de la boÃ®te de dialogue demandant le mode d'ouverture
+    // Affichage de la boîte de dialogue demandant le mode d'ouverture
     QMessageBox msgBox;
     msgBox.setText("Voulez-vous ouvrir le logiciel en mode console ou en mode graphique ?");
     msgBox.addButton("Mode Console", QMessageBox::AcceptRole);
@@ -22,69 +138,36 @@ int main(int argc, char *argv[]) {
     msgBox.setDefaultButton(QMessageBox::NoButton);
     int choice = msgBox.exec();
 
-    if (choice == 0) {
-        // Mode Console
-        QCoreApplication a(argc, argv);
-        // CrÃ©ation d'un utilisateur
-        User user;
-        Operations operations;
+    if (choice == 0){
+        interfaceUtilisateur = new Console(&user);
+    }
+    else {
+        interfaceUtilisateur = new GUI(argc, argv, &user);
+    }
 
-        // Connexion de l'utilisateur
-        if (user.logIn()) {
-            std::system("cls");
-            std::cout << "----------------------------------------------" << std::endl;
-            std::cout << "DEBUG : Connexion reussie !" << std::endl;
+    interfaceUtilisateur->AffLogin();
 
-            // Utiliser user pour accÃ©der aux informations de l'utilisateur
-
-            std::cout << "DEBUG : login : " << user.getLogin().toStdString() << std::endl;
-            std::cout << "Prenom : " << user.getFirstName().toStdString() << std::endl;
-            std::cout << "Nom : " << user.getLastName().toStdString() << std::endl;
-            std::cout << "Solde : " << user.getBalance() << std::endl;
-
-            std::cout << "----------------------------------------------" << std::endl;
-
-            operations.choices(user.getLogin(), user.getRole());
-
-            /*if (user.isAdmin(user.getLogin())) {
-                // temp
-                std::cout << "DEBUG : Vous etes connecte en tant qu'administrateur." << std::endl;
-
-                // Afficher les options disponibles pour l'administrateur
-                std::cout << "Que souhaitez-vous faire ?" << std::endl;
-                std::cout << "1. Creer un compte client" << std::endl;
-                std::cout << "2. Effectuer un virement" << std::endl;
-
-                int option;
-                std::cin >> option;
-
-                switch (option) {
-                case 1:
-                    std::system("cls");
-                    user.createAccount();
-                    break;
-                case 2:
-                    // TODO : Ajouter d'autres options.
-                    break;
-                default:
-                    std::cout << "Option invalide." << std::endl;
-                    break;
-                }
-            } else {
-                // temp
-                std::cout << "DEBUG : Vous etes connecte en tant que client." << std::endl;
-            }*/
-        } else {
-            std::cout << "La connexion a echoue. Veuillez verifier vos identifiants." << std::endl;
+    if (user.getIsLoggedIn() == 1) {
+        interfaceUtilisateur->AffMainPage();
+        while (user.getIsLoggedIn() == 1) {
+            interfaceUtilisateur->AffMainPage();
         }
-
-        return a.exec();
+        QSqlDatabase::removeDatabase("qt_sql_default_connection");
     } else {
-        QApplication a(argc, argv);
-        Login w;
-        w.show();
-        return a.exec();
+        std::cout << "User not found." << std::endl;
     }
 
     return app.exec();
 }
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+class Choice {
+protected:
+    int choice;
+
+public:
+    Choice(int choice) : choice(choice) {}
+};
+
+
