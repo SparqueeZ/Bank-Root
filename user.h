@@ -8,7 +8,7 @@
 class User {
 public:
     User();
-    User(const QString& login, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, QString balance, int isLoggedIn);
+    User(const QString& login, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, double balance, int isLoggedIn, int role, double PELBalance, double LCBalance, int firstAccountId);
 
     bool signin(QString login , QString password);
 
@@ -22,14 +22,22 @@ public:
     User getLoggedInUser() const;
     int getIsLoggedIn() const;
 
+    int getFirstAccountId() const;
+    int getPELAccountId() const;
+    int getLCAccountId() const;
+
+    double getPELBalance() const;
+    double getLCBalance() const;
+    double getBalance() const;
+
     void disconnect(); // Nouvelle méthode pour déconnecter l'utilisateur
     // Nouvelle méthode pour récupérer le nom d'utilisateur
     QString getFirstName() const;
     QString getLastName() const;
     QString getLogin() const;
-    QString getBalance() const;
     int getRole() const;
     void setCredentials(const QString& username, const QString& password);
+
 
 private:
     int m_role;
@@ -37,10 +45,17 @@ private:
     QString m_lastName;
     QString m_firstName;
     QDate m_dateOfBirth;
-    QString m_balance;
+    double m_balance;
+    double m_PELBalance;
+    double m_LCBalance;
     QSqlDatabase m_database;
     QString m_password;
     int m_isLoggedIn;
+
+    // Accounts
+    int m_firstAccountId;
+    int m_PELAccountId;
+    int m_LCAccountId;
 };
 
 #endif // USER_H

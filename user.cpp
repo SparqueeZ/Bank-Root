@@ -15,8 +15,8 @@
 
 User::User() {}
 
-User::User(const QString& login, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, QString balance, int isLoggedIn)
-    : m_login(login), m_lastName(lastName), m_firstName(firstName), m_dateOfBirth(dateOfBirth), m_balance(balance), m_isLoggedIn(isLoggedIn) {
+User::User(const QString& login, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, double balance, int isLoggedIn, int role, double PELBalance, double LCBalance, int firstAccountId)
+    : m_role(role), m_login(login), m_lastName(lastName), m_firstName(firstName), m_dateOfBirth(dateOfBirth), m_balance(balance), m_PELBalance(PELBalance), m_LCBalance(LCBalance), m_isLoggedIn(isLoggedIn), m_firstAccountId(firstAccountId) {
 }
 
 bool User::signin(QString login, QString password) {
@@ -36,24 +36,32 @@ bool User::signin(QString login, QString password) {
 
     // Requete pour recuperer les informations de l'utilisateur
     QSqlQuery query;
-    query.prepare("SELECT * FROM accounts JOIN users ON users.accountId = accounts.id WHERE users.login = :login and users.password = :password");
+    query.prepare("SELECT u.firstname AS firstname, u.lastname AS lastname, u.dateOfBirth AS dateofbirth, u.role AS role, u.login AS login, a1.balance AS balance, a1.id AS firstAccountId, a2.balance AS balancePEL, a3.balance AS balanceLC FROM users u LEFT JOIN accounts a1 ON u.id = a1.userId AND a1.type = 0 LEFT JOIN accounts a2 ON u.id = a2.userId AND a2.type = 1 LEFT JOIN accounts a3 ON u.id = a3.userId AND a3.type = 2 WHERE u.login = :login AND u.password = :password");
     query.bindValue(":login", login);
     query.bindValue(":password", password);
     if (query.exec() && query.next()) {
         // Utilisateur trouve
         m_firstName = query.value("firstname").toString();
         m_lastName = query.value("lastname").toString();
-        m_balance = query.value("balance").toString();
+        m_balance = query.value("balance").toDouble();
         m_login = query.value("login").toString();
+        m_role = query.value("role").toInt();
         m_isLoggedIn = 1;
 
-        std::cout << m_balance.toDouble() << m_firstName.toStdString() ;
+        m_PELBalance = query.value("balancePEL").toDouble();
+        m_LCBalance = query.value("balanceLC").toDouble();
+
+        m_firstAccountId = query.value("firstAccountId").toInt();
         return true;
     } else {
+        std::system("cls");
+        std::cout << "Identifiants incorrects" << std::endl;
+        Sleep(1500);
         return false;
     }
 }
 
+// A supprimer
 bool User::logIn(QString login, QString password) {
     // Connexion à la base de données MySQL
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
@@ -74,7 +82,7 @@ bool User::logIn(QString login, QString password) {
         // Utilisateur trouve
         m_firstName = query.value("firstname").toString();
         m_lastName = query.value("lastname").toString();
-        m_balance = query.value("balance").toString();
+        m_balance = query.value("balance").toDouble();
         m_login = query.value("login").toString();
         m_isLoggedIn = 1;
         return true;
@@ -90,7 +98,9 @@ void User::disconnect() {
     // Réinitialiser les informations de l'utilisateur
     m_firstName.clear();
     m_lastName.clear();
-    m_balance.clear();
+    m_balance = 0;
+    m_PELBalance = 0;
+    m_LCBalance = 0;
     m_login.clear();
     m_isLoggedIn = 0;
 
@@ -207,9 +217,6 @@ QString User::getFirstName() const {
 QString User::getLastName() const {
     return m_lastName;
 }
-QString User::getBalance() const  {
-    return m_balance;
-}
 QString User::getLogin() const  {
     return m_login;
 }
@@ -218,6 +225,26 @@ int User::getIsLoggedIn() const {
 }
 int User::getRole() const  {
     return m_role;
+}
+int User::getFirstAccountId() const {
+    return m_firstAccountId;
+}
+int User::getPELAccountId() const {
+    return m_PELAccountId;
+}
+int User::getLCAccountId() const {
+    return m_LCAccountId;
+}
+
+
+double User::getPELBalance() const {
+    return m_PELBalance;
+}
+double User::getLCBalance() const {
+    return m_LCBalance;
+}
+double User::getBalance() const {
+    return m_balance;
 }
 
 void User::setCredentials(const QString& username, const QString& password) {

@@ -14,8 +14,8 @@ public:
     virtual void AffLogin()=0;
     virtual void AffMainPage()=0;
     virtual void AffAdminPage()=0;
-    virtual void AffAccountChoices()=0;
     virtual void CreationCompte()=0;
+    virtual void AffVirement()=0;
 };
 
 
@@ -31,6 +31,14 @@ public:
         std::cout << Msg.toStdString() << std::endl;
     }
 
+    void clearScreen() {
+        std::system("cls");
+    }
+
+    void AffSeparator() {
+        std::cout << "------------------------------------------------------------" << std::endl;
+    }
+
     void AffLogin() override {
         QTextStream stream(stdin);
         bool loggedIn = false;
@@ -41,44 +49,86 @@ public:
             QString login = stream.readLine().trimmed();
             std::cout << "Mot de Passe : ";
             QString password = stream.readLine().trimmed();
-            loggedIn = user->signin(login, password); // Modifiez votre méthode signin pour qu'elle retourne un booléen
-
-            if (!loggedIn) {
-                //AffMsg("Identifiants incorrects. Voulez-vous reessayer ? (O/N)");
-                //QString retryChoice = stream.readLine().trimmed().toUpper();
-                //if (retryChoice != "O")
-                    //break;
-            }
+            loggedIn = user->signin(login, password);
         }
     }
 
     void AffMainPage() override {
         QTextStream stream(stdin);
         system("CLS");
-        std::cout << "Bienvenue " << user->getFirstName().toStdString() << ", Votre solde est de : " << user->getBalance().toStdString() << " euros" << std::endl;
-        AffMsg("[1] Envoyer de l'argent \n[2] Definir sa quantite d'argent \n[3] Deposer de l'argent \n[4] Retirer de l'argent \n\n[9] Quitter");
+        std::cout << "Bienvenue " << user->getFirstName().toStdString() << "." << std::endl;
+
+        std::cout << "\nVos comptes bancaires --------------------------------------" << std::endl;
+
+        if(user->getBalance()) {
+            std::cout << "Compte courant : " << user->getBalance() << " euros." << std::endl;
+        }
+
+        if(user->getPELBalance()) {
+            std::cout << "Compte PEL : " << user->getPELBalance() << " euros." << std::endl;
+        }
+
+        if(user->getLCBalance()) {
+            std::cout << "Compte Livret C : " << user->getLCBalance() << " euros." << std::endl;
+        }
+
+        AffSeparator();
+
+        if (user->getRole() != 1) {
+            AffMsg("[1] Envoyer de l'argent \n[2] Definir sa quantite d'argent \n[3] Deposer de l'argent \n[4] Retirer de l'argent \n\n[9] Deconnexion");
+        } else {
+            AffMsg("[1] Envoyer de l'argent \n[2] Definir sa quantite d'argent \n[3] Deposer de l'argent \n[4] Retirer de l'argent \n\n[8] Revenir en arriere\n[9] Deconnexion");
+        }
+
+
         QString choice = stream.readLine().trimmed();
         //operations.defaultChoices(choice);
 
         if (choice == "9") {
-            user->disconnect(); // Déconnecter l'utilisateur
-            AffLogin(); // Rediriger vers la page de connexion
-        } else {
-            operations.mainchoice(choice.toInt());
+            user->disconnect();
+            AffLogin();
+        } else if (choice == "1") {
+            AffVirement();
+        }
+        else if (choice == "8" && user->getRole() == 1) {
+            AffAdminPage();
+        }
+        else {
+            //operations.mainchoice(choice.toInt());
         }
     };
 
     void AffAdminPage() override {
+        clearScreen();
         QTextStream stream(stdin);
-        AffMsg("Que souhaitez-vous faire ?");
+        std::cout << "Bienvenue " << user->getFirstName().toStdString() << ", que voulez-vous faire ?" << std::endl;
         AffMsg("1. Creer un compte client");
-        AffMsg("2. Acceder a son compte client");
+        AffMsg("2. Acceder a mon compte client");
         QString choice =stream.readLine().trimmed();
-        operations.choices(choice);
+        if(choice == "1") {
+            user->createAccount();
+        } else if (choice == "2") {
+            AffMainPage();
+        } else if (choice == "9") {
+            user->disconnect();
+            AffLogin();
+        }
     }
 
-    void AffAccountChoices() override {
+    void AffVirement() override {
+        QTextStream stream(stdin);
+        clearScreen();
 
+        std::cout << "Entrez l'identifiant du compte qui vas recevoir votre argent : ";
+        QString destId = stream.readLine().trimmed();
+
+        clearScreen();
+
+        std::cout << "Entrez le montant a envoye : ";
+        QString amount = stream.readLine().trimmed();
+
+        operations.virement(user->getFirstAccountId(), destId.toInt(), amount.toDouble());
+        // Recharger les données de l'user
     }
 
     void CreationCompte() override {
@@ -112,11 +162,11 @@ public:
 
     }
 
-    void AffAccountChoices() override {
+    void CreationCompte() override {
 
     }
 
-    void CreationCompte() override {
+    void AffVirement() override{
 
     }
 };
@@ -148,9 +198,12 @@ int main(int argc, char *argv[]) {
     interfaceUtilisateur->AffLogin();
 
     if (user.getIsLoggedIn() == 1) {
-        interfaceUtilisateur->AffMainPage();
         while (user.getIsLoggedIn() == 1) {
-            interfaceUtilisateur->AffMainPage();
+            if(user.getRole() == 1){
+                interfaceUtilisateur->AffAdminPage();
+            } else {
+                interfaceUtilisateur->AffMainPage();
+            }
         }
         QSqlDatabase::removeDatabase("qt_sql_default_connection");
     } else {

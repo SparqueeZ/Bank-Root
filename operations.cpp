@@ -6,10 +6,135 @@
 #include <windows.h>
 
 void Operations::mainchoice(int choice) {
-    if(choice == 1) {
-
+    QTextStream stream(stdin);
+    Operations operations;
+    User user;
+    if (choice == 1) {
+        operations.transfert();
+    } else if (choice == 2) {
+        operations.setvalue();
+    } else if (choice == 3) {
+        system("CLS");
+        std::cout << "Combien ?" << std::endl;
+        QString value = stream.readLine();
+        operations.ajout(value, user.getLogin());
+    } else if (choice == 4) {
+        system("CLS");
+        std::cout << "Combien ?" << std::endl;
+        QString value2 = stream.readLine();
+        operations.retrait(value2);
+    } else {
+        std::cout << "User ou compte proprietaire non trouve." << std::endl;
     }
 }
+
+void Operations::adminChoice(int choice) {
+    Operations operations;
+    User user;
+
+    if (choice == 1) {
+        std::system("cls");
+        //user.createAccount();
+    }
+    else if (choice == 2){
+        std::system("cls");
+        //operations.defaultChoices();
+    }   else {
+        std::cout << "Option invalide." << std::endl;
+    }
+}
+
+void Operations::virement(int accountPropId, int accountDestId, double amount) {
+
+    // Récupère la balance actuelle de l'user qui vas etre debite.
+    QSqlQuery queryProp;
+    // Ancienne version pour le niveau 1 : queryProp.prepare("SELECT balance FROM accounts JOIN users ON users.accountId = accounts.id WHERE users.login = :login");
+    queryProp.prepare("SELECT balance FROM accounts WHERE id = :id");
+    queryProp.bindValue(":id", accountPropId);
+
+    if(queryProp.exec() && queryProp.next()) {
+        double balanceProp = queryProp.value("balance").toDouble();
+
+        // Vérification si l'user a assez d'argent.
+        if(balanceProp >= amount) {
+            // Récupère la balance actuelle de l'user qui vas etre credite.
+            QSqlQuery queryDest;
+            queryDest.prepare("SELECT balance FROM accounts WHERE id = :id");
+            queryDest.bindValue(":id", accountDestId);
+
+            if(queryDest.exec() && queryDest.next()) {
+                //double balanceDest = queryDest.value("balance").toDouble();
+
+                addBalance(amount, accountDestId);
+                removeBalance(amount, accountPropId);
+
+            }
+
+        } else {
+            return;
+        }
+
+
+    }
+
+
+
+    // Fait le calcul
+
+    // Envoi en bdd
+
+    // Retourne le nouveau solde ??
+
+
+
+}
+
+void Operations::addBalance(double amount, int destinataireId) {
+    QSqlQuery queryAdd;
+    Operations operations;
+    // ajoute l'argent au compte cible
+    queryAdd.prepare("UPDATE accounts SET balance = balance + :amount WHERE id = :destinataireId");
+    queryAdd.bindValue(":destinataireId", destinataireId);
+    queryAdd.bindValue(":amount", amount);
+
+    if (queryAdd.exec()) {
+        system("CLS");
+        std::cout << "Ajout effectue" << std::endl;
+        Sleep(500);
+        system("CLS");
+        //operations.choices();
+    } else {
+        system("CLS");
+        std::cout << "L'ajout n'a pas ete effectue." << std::endl;
+        Sleep(500);
+        system("CLS");
+        //operations.choices();
+    }
+}
+
+void Operations::removeBalance(double amount, int destinataireId) {
+    QSqlQuery queryAdd;
+    Operations operations;
+    // ajoute l'argent au compte cible
+    queryAdd.prepare("UPDATE accounts SET balance = balance - :amount WHERE id = :destinataireId");
+    queryAdd.bindValue(":destinataireId", destinataireId);
+    queryAdd.bindValue(":amount", amount);
+
+    if (queryAdd.exec()) {
+        system("CLS");
+        std::cout << "Retrait effectue" << std::endl;
+        Sleep(500);
+        system("CLS");
+        //operations.choices();
+    } else {
+        system("CLS");
+        std::cout << "Le retrait n'a pas ete effectue." << std::endl;
+        Sleep(500);
+        system("CLS");
+        //operations.choices();
+    }
+}
+
 
 
 

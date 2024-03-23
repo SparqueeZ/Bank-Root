@@ -48,23 +48,18 @@ void Login::on_toolButton_3_clicked()
 
 void Login::on_pushButton_clicked()
 {
-    QString username = ui->lineEdit_3->text(); // Récupérer le nom d'utilisateur depuis le champ de saisie
-    QString password = ui->lineEdit_2->text(); // Récupérer le mot de passe depuis le champ de saisie
+    QString username = ui->lineEdit_3->text();
+    QString password = ui->lineEdit_2->text();
 
     if (username.isEmpty() || password.isEmpty()) {
-        // Afficher un message d'erreur si les champs sont vides
         QMessageBox::warning(this, "Erreur", "Veuillez remplir tous les champs.");
     } else {
-        // Créer une instance de la classe User
         User user;
 
-        // Appeler la fonction logIn avec les identifiants récupérés depuis l'interface graphique
         if (user.logIn(username, password)) {
-            // Connexion réussie, créer une nouvelle fenêtre NewMainWindow et l'afficher
             Home *home = new Home();
             home->show();
 
-            // Cacher la fenêtre actuelle
             this->hide();
         } else {
             // Afficher un message d'erreur si l'authentification a échoué
@@ -75,12 +70,11 @@ void Login::on_pushButton_clicked()
 
 void Login::on_reduced_clicked()
 {
-    showMinimized(); // Réduire la fenêtre
+    showMinimized();
 }
 
 void Login::on_fullscreen_clicked()
 {
-    // Mettre la fenêtre à la taille de l'écran de l'ordinateur
     QRect mainScreenSize = QGuiApplication::primaryScreen()->availableGeometry();
     setGeometry(mainScreenSize);
 }
