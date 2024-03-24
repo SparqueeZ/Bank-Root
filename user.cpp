@@ -15,8 +15,8 @@
 
 User::User() {}
 
-User::User(const QString& login, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, double balance, int isLoggedIn, int role, double PELBalance, double LCBalance, int firstAccountId, int userId)
-    : m_role(role), m_login(login), m_lastName(lastName), m_firstName(firstName), m_dateOfBirth(dateOfBirth), m_balance(balance), m_PELBalance(PELBalance), m_LCBalance(LCBalance), m_isLoggedIn(isLoggedIn), m_firstAccountId(firstAccountId), m_userId(userId) {
+User::User(const QString& login, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, double balance, int isLoggedIn, int role, double PELBalance, double LCBalance, int firstAccountId, int PELAccountId, int LCAccountId, int userId)
+    : m_role(role), m_login(login), m_lastName(lastName), m_firstName(firstName), m_dateOfBirth(dateOfBirth), m_balance(balance), m_PELBalance(PELBalance), m_LCBalance(LCBalance), m_isLoggedIn(isLoggedIn), m_firstAccountId(firstAccountId), m_PELAccountId(PELAccountId), m_LCAccountId(LCAccountId), m_userId(userId) {
 }
 
 bool User::signin(QString login, QString password) {
@@ -36,7 +36,7 @@ bool User::signin(QString login, QString password) {
 
     // Requete pour recuperer les informations de l'utilisateur
     QSqlQuery query;
-    query.prepare("SELECT u.firstname AS firstname, u.lastname AS lastname, u.dateOfBirth AS dateofbirth, u.role AS role, u.login AS login, a1.balance AS balance, a1.id AS firstAccountId, a2.balance AS balancePEL, a3.balance AS balanceLC FROM users u LEFT JOIN accounts a1 ON u.id = a1.userId AND a1.type = 0 LEFT JOIN accounts a2 ON u.id = a2.userId AND a2.type = 1 LEFT JOIN accounts a3 ON u.id = a3.userId AND a3.type = 2 WHERE u.login = :login AND u.password = :password");
+    query.prepare("SELECT u.id AS id, u.firstname AS firstname, u.lastname AS lastname, u.dateOfBirth AS dateofbirth, u.role AS role, u.login AS login, a1.balance AS balance, a1.id AS firstAccountId, a2.balance AS balancePEL, a2.id AS PELAccountId, a3.balance AS balanceLC, a3.id AS LCAccountId FROM users u LEFT JOIN accounts a1 ON u.id = a1.userId AND a1.type = 0 LEFT JOIN accounts a2 ON u.id = a2.userId AND a2.type = 1 LEFT JOIN accounts a3 ON u.id = a3.userId AND a3.type = 2 WHERE u.login = :login AND u.password = :password");
     query.bindValue(":login", login);
     query.bindValue(":password", password);
     if (query.exec() && query.next()) {
@@ -52,6 +52,8 @@ bool User::signin(QString login, QString password) {
         m_LCBalance = query.value("balanceLC").toDouble();
 
         m_firstAccountId = query.value("firstAccountId").toInt();
+        m_PELAccountId = query.value("PELAccountId").toInt();
+        m_LCAccountId = query.value("LCAccountId").toInt();
 
         m_userId = query.value("id").toInt();
         return true;
@@ -109,11 +111,82 @@ void User::disconnect() {
     system("cls");
 }
 
+void User::refreshUserData() {
+    QSqlQuery query;
+    query.prepare("SELECT u.id AS id, u.firstname AS firstname, u.lastname AS lastname, u.dateOfBirth AS dateofbirth, u.role AS role, u.login AS login, a1.balance AS balance, a1.id AS firstAccountId, a2.balance AS balancePEL, a3.balance AS balanceLC FROM users u LEFT JOIN accounts a1 ON u.id = a1.userId AND a1.type = 0 LEFT JOIN accounts a2 ON u.id = a2.userId AND a2.type = 1 LEFT JOIN accounts a3 ON u.id = a3.userId AND a3.type = 2 WHERE u.id = :userId");
+    query.bindValue(":userId", m_userId);
+
+    if (query.exec() && query.next()) {
+        m_firstName = query.value("firstname").toString();
+        m_lastName = query.value("lastname").toString();
+        m_balance = query.value("balance").toDouble();
+        m_PELBalance = query.value("balancePEL").toDouble();
+        m_LCBalance = query.value("balanceLC").toDouble();
+
+    } else {
+        qDebug() << "Erreur lors de la mise a jour des donnaes de l'utilisateur :" << query.lastError().text();
+        Sleep(5000);
+    }
+}
+
+void User::addBeneficiaire(int beneficiaireId, int propId) {
+    // Verification si l'identifiant du beneficiaire existe.
+    QSqlQuery idCheckQuery;
+    idCheckQuery.prepare("SELECT COUNT(*) FROM accounts WHERE id = :beneficiaireId");
+    idCheckQuery.bindValue(":beneficiaireId", beneficiaireId);
+    if (!idCheckQuery.exec()) {
+        qDebug() << "Erreur lors de la verification de l'identifiant du beneficiaire :" << idCheckQuery.lastError().text();
+        Sleep(2000);
+        return;
+    }
+    idCheckQuery.next();
+    int idCount = idCheckQuery.value(0).toInt();
+    if (idCount == 0) {
+        std::cout << "L'identifiant du beneficiaire n'existe pas.";
+        Sleep(2000);
+        return;
+    }
+
+    // Verification si le beneficiaire est deja ajoute au compte.
+    QSqlQuery checkQuery;
+    checkQuery.prepare("SELECT COUNT(*) FROM added_beneficiaires WHERE prop_id = :propId AND beneficiaire_id = :beneficiaireId");
+    checkQuery.bindValue(":propId", propId);
+    checkQuery.bindValue(":beneficiaireId", beneficiaireId);
+    if (!checkQuery.exec()) {
+        qDebug() << "Erreur lors de la verification du beneficiaire existant :" << checkQuery.lastError().text();
+        return;
+    }
+    checkQuery.next();
+    int count = checkQuery.value(0).toInt();
+    if (count > 0) {
+        std::cout << "Le beneficiaire est deja ajoute a ce compte.";
+        Sleep(2000);
+        return;
+    }
+
+    // Insertion du beneficiaire dans la table added_beneficiaires.
+    QSqlQuery query;
+    query.prepare("INSERT INTO added_beneficiaires (prop_id, beneficiaire_id) VALUES (:propId, :beneficiaireId)");
+    query.bindValue(":propId", propId);
+    query.bindValue(":beneficiaireId", beneficiaireId);
+
+    std::cout << propId << beneficiaireId;
+    Sleep(2000);
+
+    if (query.exec()) {
+        std::cout << "Beneficiaire ajoute avec succes.";
+        Sleep(2000);
+    } else {
+        qDebug() << "Erreur lors de l'insertion du beneficiaire :" << query.lastError().text();
+        Sleep(5000);
+    }
+}
+
 void User::createAccount() {
     QTextStream stream(stdin);
     Operations operations;
 
-    // Demander les informations nécessaires pour créer un compte
+    // Demander les informations nécessaires pour créer un compte.
     std::cout << "Nom du client :";
     QString clientLastname = stream.readLine().trimmed();
     std::cout << "Prenom du client : ";

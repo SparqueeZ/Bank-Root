@@ -17,6 +17,8 @@ public:
     virtual void AffAdminPage()=0;
     virtual void CreationCompte()=0;
     virtual void AffVirement()=0;
+    virtual void AffAddBeneficiaire()=0;
+    virtual void AffRetrait()=0;
 };
 
 
@@ -55,32 +57,27 @@ public:
     }
 
     void AffMainPage() override {
+        user->refreshUserData();
         QTextStream stream(stdin);
-        system("CLS");
+        std::system("cls");
         std::cout << "Bienvenue " << user->getFirstName().toStdString() << "." << std::endl;
-
         std::cout << "\nVos comptes bancaires --------------------------------------" << std::endl;
-
-        if(user->getBalance()) {
+        // Si le compte a un ID, alors on affiche le compte.
+        if(user->getFirstAccountId()) {
             std::cout << "Compte courant : " << user->getBalance() << " euros." << std::endl;
         }
-
-        if(user->getPELBalance()) {
+        if(user->getPELAccountId()) {
             std::cout << "Compte PEL : " << user->getPELBalance() << " euros." << std::endl;
         }
-
-        if(user->getLCBalance()) {
+        if(user->getLCAccountId()) {
             std::cout << "Compte Livret C : " << user->getLCBalance() << " euros." << std::endl;
         }
-
         AffSeparator();
-
         if (user->getRole() != 1) {
-            AffMsg("[1] Envoyer de l'argent \n[2] Definir sa quantite d'argent \n[3] Deposer de l'argent \n[4] Retirer de l'argent \n\n[9] Deconnexion");
+            AffMsg("[1] Realiser un transfert \n[2] Ajouter un beneficiaire \n[3] Deposer de l'argent \n[4] Retirer de l'argent \n\n[9] Deconnexion");
         } else {
-            AffMsg("[1] Envoyer de l'argent \n[2] Definir sa quantite d'argent \n[3] Deposer de l'argent \n[4] Retirer de l'argent \n\n[8] Revenir en arriere\n[9] Deconnexion");
+            AffMsg("[1] Realiser un transfert \n[2] Ajouter un beneficiaire \n[3] Deposer de l'argent \n[4] Retirer de l'argent \n\n[8] Revenir en arriere\n[9] Deconnexion");
         }
-
 
         QString choice = stream.readLine().trimmed();
         //operations.defaultChoices(choice);
@@ -90,8 +87,11 @@ public:
             AffLogin();
         } else if (choice == "1") {
             AffVirement();
-        }
-        else if (choice == "8" && user->getRole() == 1) {
+        } else if (choice == "2") {
+            AffAddBeneficiaire();
+        } else if (choice == "3") {
+            AffRetrait();
+        } else if (choice == "8" && user->getRole() == 1) {
             AffAdminPage();
         }
         else {
@@ -119,76 +119,215 @@ public:
     void AffVirement() override {
         QTextStream stream(stdin);
         clearScreen();
-
         // Récupération de la connexion existante à la base de données
-        QSqlDatabase db = QSqlDatabase::database(); // Utilise la connexion par défaut
-
+        QSqlDatabase db = QSqlDatabase::database();
         // Vérification de la connexion
         if (!db.isValid()) {
             qDebug() << "Erreur: Aucune connexion valide à la base de données n'a été trouvée";
             return;
         }
 
-        // ID de l'utilisateur que vous souhaitez récupérer
-        int userId = 1; // Remplacez 1 par l'ID de l'utilisateur que vous voulez récupérer
 
-        // Préparation de la requête SQL pour récupérer l'utilisateur avec l'ID spécifié et ses comptes associés
-        QSqlQuery query(db); // Utilisation de la connexion existante
-        query.prepare("SELECT u.firstname AS user_firstname, sa.account_id, a.type, u2.firstname AS account_owner_firstname "
-                      "FROM saved_accounts AS sa "
-                      "JOIN users AS u ON u.id = sa.user_id "
-                      "JOIN accounts AS a ON sa.account_id = a.id "
-                      "JOIN users AS u2 ON u2.id = a.userId "
-                      "WHERE u.id = :userId");
-        query.bindValue(":userId", userId);
+        // Partie proprietaire -------------------
+        QString selectedPropId;
+        QSqlQuery getAccounts(db);
+        getAccounts.prepare("SELECT "
+                            "MAX(CASE WHEN a.type = 0 THEN a.id END) AS principalId, "
+                            "MAX(CASE WHEN a.type = 1 THEN a.id END) AS PELId, "
+                            "MAX(CASE WHEN a.type = 2 THEN a.id END) AS LCId "
+                            "FROM accounts AS a "
+                            "WHERE userId = :userId "
+                            "AND a.type IN (0, 1, 2)");
+        getAccounts.bindValue(":userId", user->getUserId());
+        if (!getAccounts.exec()) {
+            //qDebug() << "Erreur lors de l'exécution de la requête : " << getAccounts.lastError().text();
+            return;
+        }
 
-        // Exécution de la requête SQL
-        if (!query.exec()) {
+        // Affichage des résultats
+        std::cout << "Liste des comptes proprietaires ----------------------------" << std:: endl;
+        if (getAccounts.next()) {
+            QMap<int, QString> accountMap;
+            int count = 1;
+            QString principalId = getAccounts.value("principalId").toString();
+            QString PELId = getAccounts.value("PELId").toString();
+            QString LCId = getAccounts.value("LCId").toString();
+
+            if (principalId.toInt() != 0) {
+                std::cout << "[" << count << "] Principal : " << principalId.toStdString() << std::endl;
+                accountMap.insert(count, principalId);
+                count++;
+            }
+            if (PELId.toInt() != 0) {
+                std::cout << "[" << count << "] PEL : " << PELId.toStdString() << std::endl;
+                accountMap.insert(count, PELId);
+                count++;
+            }
+            if (LCId.toInt() != 0) {
+                std::cout << "[" << count << "] Livret C : " << LCId.toStdString() << std::endl;
+                accountMap.insert(count, LCId);
+                count++;
+            }
+
+            AffSeparator();
+            std::cout << "Selectionnez le compte a debiter." << std:: endl;
+            int choice = stream.readLine().trimmed().toInt();
+            if (!accountMap.contains(choice)) {
+                qDebug() << "Choix invalide";
+                return;
+            }
+            selectedPropId = accountMap.value(choice);
+        } else {
+            qDebug() << "Aucun compte trouve pour l'utilisateur specifie.";
+        }
+
+
+        // Partie beneficiaire -------------------
+        std::system("cls");
+        QSqlQuery getBeneficiaires(db);
+        getBeneficiaires.prepare("SELECT "
+                                 "u.firstname AS prop_firstname, "
+                                 "ab.beneficiaire_id, "
+                                 "a.type, "
+                                 "u_beneficiary.firstname AS beneficiary_firstname, "
+                                 "a_beneficiary.userId AS beneficiary_user_id "
+                                 "FROM added_beneficiaires AS ab "
+                                 "JOIN accounts AS a ON ab.beneficiaire_id = a.id "
+                                 "JOIN users AS u ON u.id = ab.prop_id "
+                                 "JOIN accounts AS a_beneficiary ON ab.beneficiaire_id = a_beneficiary.id "
+                                 "JOIN users AS u_beneficiary ON a_beneficiary.userId = u_beneficiary.id "
+                                 "WHERE u.id = :userId");
+        getBeneficiaires.bindValue(":userId", user->getUserId());
+
+        if (!getBeneficiaires.exec()) {
             qDebug() << "Erreur lors de l'exécution de la requête SQL";
+            Sleep(3000);
             return;
         }
 
         // Affichage des informations récupérées
-        std::cout << "Liste des comptes --------------------------------------" << std:: endl;
-        QMap<int, QString> accountMap; // Pour stocker les correspondances ID de compte - choix de l'utilisateur
-        int count = 1;
-        while (query.next()) {
-            QString userFirstName = query.value("user_firstname").toString();
-            QString accountOwnerId = query.value("account_owner_firstname").toString();
-            QString accountId = query.value("account_id").toString();
-            QString accountType = query.value("type").toString();
+        std::cout << "Liste des comptes beneficiaires ----------------------------" << std::endl;
+        QMap<int, QString> accountMap;
+        int count2 = 1;
+        while (getBeneficiaires.next()) {
+            QString accountOwnerId = getBeneficiaires.value("beneficiary_firstname").toString();
+            QString accountId = getBeneficiaires.value("beneficiaire_id").toString();
+            QString accountType = getBeneficiaires.value("type").toString();
 
-            if(accountType == '0') {
+            if(accountType == "0") {
                 accountType = "Courant";
             } else if (accountType == "1") {
-                accountType = "Livret C";
-            } else if (accountType == "2") {
                 accountType = "PEL";
+            } else if (accountType == "2") {
+                accountType = "Livret C";
             }
 
-            // Affichage des informations récupérées
-            std::cout << "[" << count << "] " << accountOwnerId.toStdString() << " (" << accountType.toStdString() << ") : " << accountId.toInt() << std::endl;
+            // Enlever le compte qui correspond au compte prop choisi.
+            if(selectedPropId == accountId) {
+                //continue;
+            }
 
-            // Stockage de la correspondance entre le choix de l'utilisateur et l'ID du compte
-            accountMap.insert(count, accountId);
-            count++;
+            std::cout << "[" << count2 << "] " << accountOwnerId.toStdString() << " (" << accountType.toStdString() << ") : " << accountId.toInt() << std::endl;
+            accountMap.insert(count2, accountId);
+            count2++;
         }
 
-        int choice = stream.readLine().trimmed().toInt();
-        if (!accountMap.contains(choice)) {
+
+        AffSeparator();
+        std::cout << "Selectionnez le compte a crediter." << std:: endl;
+        int choice2 = stream.readLine().trimmed().toInt();
+        if (!accountMap.contains(choice2)) {
             qDebug() << "Choix invalide";
+            Sleep(3000);
             return;
         }
 
-        QString selectedAccountId = accountMap.value(choice);
+        QString selectedDestId = accountMap.value(choice2);
 
+        // Partie du montant ---------------------
         clearScreen();
-
-        std::cout << "Entrez le montant à envoyer : ";
+        std::cout << "Entrez le montant a envoyer : ";
         QString amount = stream.readLine().trimmed();
 
-        operations.virement(user->getFirstAccountId(), selectedAccountId.toInt(), amount.toDouble());
-        // Recharger les données de l'utilisateur si nécessaire
+        operations.virement(selectedPropId.toInt(), selectedDestId.toInt(), amount.toDouble());
+        user->refreshUserData();
+    }
+
+    void AffAddBeneficiaire() override {
+        QTextStream stream(stdin);
+        std::system("cls");
+        std::cout << "Entrez l'identifiant bancaire de la personne a qui vous voulez envoyer de l'argent." << std::endl;
+
+        QString beneficiaireId = stream.readLine().trimmed();
+        user->addBeneficiaire(beneficiaireId.toInt(), user->getUserId());
+    }
+
+    void AffRetrait() override {
+        QTextStream stream(stdin);
+        clearScreen();
+        // Récupération de la connexion existante à la base de données
+        QSqlDatabase db = QSqlDatabase::database();
+        // Vérification de la connexion
+        if (!db.isValid()) {
+            qDebug() << "Erreur: Aucune connexion valide à la base de données n'a été trouvée";
+            return;
+        }
+
+
+        // Partie proprietaire -------------------
+        QString selectedPropId;
+        QSqlQuery getAccounts(db);
+        getAccounts.prepare("SELECT "
+                            "MAX(CASE WHEN a.type = 0 THEN a.id END) AS principalId, "
+                            "MAX(CASE WHEN a.type = 1 THEN a.id END) AS PELId, "
+                            "MAX(CASE WHEN a.type = 2 THEN a.id END) AS LCId "
+                            "FROM accounts AS a "
+                            "WHERE userId = :userId "
+                            "AND a.type IN (0, 1, 2)");
+        getAccounts.bindValue(":userId", user->getUserId());
+        if (!getAccounts.exec()) {
+            //qDebug() << "Erreur lors de l'exécution de la requête : " << getAccounts.lastError().text();
+            return;
+        }
+
+        // Affichage des résultats
+        std::cout << "Liste des comptes proprietaires ----------------------------" << std:: endl;
+        if (getAccounts.next()) {
+            QMap<int, QString> accountMap;
+            int count = 1;
+            QString principalId = getAccounts.value("principalId").toString();
+            QString PELId = getAccounts.value("PELId").toString();
+            QString LCId = getAccounts.value("LCId").toString();
+
+            if (principalId.toInt() != 0) {
+                std::cout << "[" << count << "] Principal : " << principalId.toStdString() << std::endl;
+                accountMap.insert(count, principalId);
+                count++;
+            }
+            if (PELId.toInt() != 0) {
+                std::cout << "[" << count << "] PEL : " << PELId.toStdString() << std::endl;
+                accountMap.insert(count, PELId);
+                count++;
+            }
+            if (LCId.toInt() != 0) {
+                std::cout << "[" << count << "] Livret C : " << LCId.toStdString() << std::endl;
+                accountMap.insert(count, LCId);
+                count++;
+            }
+
+            AffSeparator();
+            std::cout << "Selectionnez le compte sur lequel vous allez retirer le l'argent : ";
+            int choice = stream.readLine().trimmed().toInt();
+            if (!accountMap.contains(choice)) {
+                qDebug() << "Choix invalide";
+                return;
+            }
+            selectedPropId = accountMap.value(choice);
+
+            operations.removeBalance(10, selectedPropId.toInt());
+        } else {
+            qDebug() << "Aucun compte trouve pour l'utilisateur specifie.";
+        }
     }
 
     void CreationCompte() override {
@@ -214,21 +353,17 @@ public:
         a.exec();
     }
 
-    void AffMainPage() override {
+    void AffMainPage() override {}
 
-    }
+    void AffAdminPage() override {}
 
-    void AffAdminPage() override {
+    void CreationCompte() override {}
 
-    }
+    void AffVirement() override{}
 
-    void CreationCompte() override {
+    void AffAddBeneficiaire() override{}
 
-    }
-
-    void AffVirement() override{
-
-    }
+    void AffRetrait() override {}
 };
 
 

@@ -67,7 +67,6 @@ void Operations::virement(int accountPropId, int accountDestId, double amount) {
 
                 addBalance(amount, accountDestId);
                 removeBalance(amount, accountPropId);
-
             }
 
         } else {
