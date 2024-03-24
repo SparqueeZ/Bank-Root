@@ -8,7 +8,7 @@
 class User {
 public:
     User();
-    User(const QString& login, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, double balance, int isLoggedIn, int role, double PELBalance, double LCBalance, int firstAccountId);
+    User(const QString& login, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, double balance, int isLoggedIn, int role, double PELBalance, double LCBalance, int firstAccountId, int userId);
 
     bool signin(QString login , QString password);
 
@@ -38,6 +38,8 @@ public:
     int getRole() const;
     void setCredentials(const QString& username, const QString& password);
 
+    int getUserId() const;
+
 
 private:
     int m_role;
@@ -56,6 +58,8 @@ private:
     int m_firstAccountId;
     int m_PELAccountId;
     int m_LCAccountId;
+
+    int m_userId;
 };
 
 #endif // USER_H

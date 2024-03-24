@@ -15,8 +15,8 @@
 
 User::User() {}
 
-User::User(const QString& login, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, double balance, int isLoggedIn, int role, double PELBalance, double LCBalance, int firstAccountId)
-    : m_role(role), m_login(login), m_lastName(lastName), m_firstName(firstName), m_dateOfBirth(dateOfBirth), m_balance(balance), m_PELBalance(PELBalance), m_LCBalance(LCBalance), m_isLoggedIn(isLoggedIn), m_firstAccountId(firstAccountId) {
+User::User(const QString& login, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, double balance, int isLoggedIn, int role, double PELBalance, double LCBalance, int firstAccountId, int userId)
+    : m_role(role), m_login(login), m_lastName(lastName), m_firstName(firstName), m_dateOfBirth(dateOfBirth), m_balance(balance), m_PELBalance(PELBalance), m_LCBalance(LCBalance), m_isLoggedIn(isLoggedIn), m_firstAccountId(firstAccountId), m_userId(userId) {
 }
 
 bool User::signin(QString login, QString password) {
@@ -52,6 +52,8 @@ bool User::signin(QString login, QString password) {
         m_LCBalance = query.value("balanceLC").toDouble();
 
         m_firstAccountId = query.value("firstAccountId").toInt();
+
+        m_userId = query.value("id").toInt();
         return true;
     } else {
         std::system("cls");
@@ -210,7 +212,6 @@ bool User::isAdmin(const QString& login) const {
 User User::getLoggedInUser() const {
     return *this;
 }
-
 QString User::getFirstName() const {
     return m_firstName;
 }
@@ -245,6 +246,10 @@ double User::getLCBalance() const {
 }
 double User::getBalance() const {
     return m_balance;
+}
+
+int User::getUserId() const {
+    return m_userId;
 }
 
 void User::setCredentials(const QString& username, const QString& password) {

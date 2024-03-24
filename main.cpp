@@ -4,6 +4,7 @@
 #include <QProcess>
 #include "login.h"
 #include <iostream>
+#include "qsqlquery.h"
 #include "user.h"
 #include "operations.h"
 #include <cstdlib>
@@ -102,8 +103,8 @@ public:
         clearScreen();
         QTextStream stream(stdin);
         std::cout << "Bienvenue " << user->getFirstName().toStdString() << ", que voulez-vous faire ?" << std::endl;
-        AffMsg("1. Creer un compte client");
-        AffMsg("2. Acceder a mon compte client");
+        AffMsg("[1] Creer un compte client");
+        AffMsg("[2] Acceder votre espace client");
         QString choice =stream.readLine().trimmed();
         if(choice == "1") {
             user->createAccount();
@@ -119,16 +120,75 @@ public:
         QTextStream stream(stdin);
         clearScreen();
 
-        std::cout << "Entrez l'identifiant du compte qui vas recevoir votre argent : ";
-        QString destId = stream.readLine().trimmed();
+        // Récupération de la connexion existante à la base de données
+        QSqlDatabase db = QSqlDatabase::database(); // Utilise la connexion par défaut
+
+        // Vérification de la connexion
+        if (!db.isValid()) {
+            qDebug() << "Erreur: Aucune connexion valide à la base de données n'a été trouvée";
+            return;
+        }
+
+        // ID de l'utilisateur que vous souhaitez récupérer
+        int userId = 1; // Remplacez 1 par l'ID de l'utilisateur que vous voulez récupérer
+
+        // Préparation de la requête SQL pour récupérer l'utilisateur avec l'ID spécifié et ses comptes associés
+        QSqlQuery query(db); // Utilisation de la connexion existante
+        query.prepare("SELECT u.firstname AS user_firstname, sa.account_id, a.type, u2.firstname AS account_owner_firstname "
+                      "FROM saved_accounts AS sa "
+                      "JOIN users AS u ON u.id = sa.user_id "
+                      "JOIN accounts AS a ON sa.account_id = a.id "
+                      "JOIN users AS u2 ON u2.id = a.userId "
+                      "WHERE u.id = :userId");
+        query.bindValue(":userId", userId);
+
+        // Exécution de la requête SQL
+        if (!query.exec()) {
+            qDebug() << "Erreur lors de l'exécution de la requête SQL";
+            return;
+        }
+
+        // Affichage des informations récupérées
+        std::cout << "Liste des comptes --------------------------------------" << std:: endl;
+        QMap<int, QString> accountMap; // Pour stocker les correspondances ID de compte - choix de l'utilisateur
+        int count = 1;
+        while (query.next()) {
+            QString userFirstName = query.value("user_firstname").toString();
+            QString accountOwnerId = query.value("account_owner_firstname").toString();
+            QString accountId = query.value("account_id").toString();
+            QString accountType = query.value("type").toString();
+
+            if(accountType == '0') {
+                accountType = "Courant";
+            } else if (accountType == "1") {
+                accountType = "Livret C";
+            } else if (accountType == "2") {
+                accountType = "PEL";
+            }
+
+            // Affichage des informations récupérées
+            std::cout << "[" << count << "] " << accountOwnerId.toStdString() << " (" << accountType.toStdString() << ") : " << accountId.toInt() << std::endl;
+
+            // Stockage de la correspondance entre le choix de l'utilisateur et l'ID du compte
+            accountMap.insert(count, accountId);
+            count++;
+        }
+
+        int choice = stream.readLine().trimmed().toInt();
+        if (!accountMap.contains(choice)) {
+            qDebug() << "Choix invalide";
+            return;
+        }
+
+        QString selectedAccountId = accountMap.value(choice);
 
         clearScreen();
 
-        std::cout << "Entrez le montant a envoye : ";
+        std::cout << "Entrez le montant à envoyer : ";
         QString amount = stream.readLine().trimmed();
 
-        operations.virement(user->getFirstAccountId(), destId.toInt(), amount.toDouble());
-        // Recharger les données de l'user
+        operations.virement(user->getFirstAccountId(), selectedAccountId.toInt(), amount.toDouble());
+        // Recharger les données de l'utilisateur si nécessaire
     }
 
     void CreationCompte() override {
