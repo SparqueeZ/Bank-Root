@@ -15,5 +15,17 @@
 	<file>assets/plus.png</file>
 	<file>assets/transfert.png</file>
 	<file>assets/hexagone.png</file>
+	<file>assets/deco.png</file>
+	
+	<file>assets/cursor.png</file>
+	<file>assets/add.png</file>
+	<file>assets/warning.png</file>
+	<file>assets/user.png</file>
+	<file>assets/transfer.png</file>
+	<file>assets/nut.png</file>
+	<file>assets/logout.png</file>
+	<file>assets/plus.png</file>
+	<file>assets/clock.png</file>
+	<file>assets/wallet.png</file>
     </qresource>
 </RCC>
