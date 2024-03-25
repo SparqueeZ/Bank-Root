@@ -9,6 +9,7 @@
 #include "operations.h"
 #include <cstdlib>
 #include <synchapi.h>
+#include <conio.h>
 
 class UI {
 public:
@@ -19,6 +20,7 @@ public:
     virtual void AffVirement()=0;
     virtual void AffAddBeneficiaire()=0;
     virtual void AffRetrait()=0;
+    virtual void AffHistory()=0;
 };
 
 
@@ -74,9 +76,9 @@ public:
         }
         AffSeparator();
         if (user->getRole() != 1) {
-            AffMsg("[1] Realiser un transfert \n[2] Ajouter un beneficiaire \n[3] Deposer de l'argent \n[4] Retirer de l'argent \n\n[9] Deconnexion");
+            AffMsg("[1] Realiser un transfert \n[2] Ajouter un beneficiaire \n[3] Retirer de l'argent \n[4] Deposer de l'argent \n[5] Consulter l'historique \n\n[9] Deconnexion");
         } else {
-            AffMsg("[1] Realiser un transfert \n[2] Ajouter un beneficiaire \n[3] Deposer de l'argent \n[4] Retirer de l'argent \n\n[8] Revenir en arriere\n[9] Deconnexion");
+            AffMsg("[1] Realiser un transfert \n[2] Ajouter un beneficiaire \n[3] Retirer de l'argent \n[4] Deposer de l'argent \n[5] Consulter l'historique \n\n[8] Revenir en arriere\n[9] Deconnexion");
         }
 
         QString choice = stream.readLine().trimmed();
@@ -91,6 +93,10 @@ public:
             AffAddBeneficiaire();
         } else if (choice == "3") {
             AffRetrait();
+        } else if (choice == "4") {
+            // AffAjout();
+        } else if (choice == "5") {
+            AffHistory();
         } else if (choice == "8" && user->getRole() == 1) {
             AffAdminPage();
         }
@@ -330,6 +336,50 @@ public:
         }
     }
 
+    //void AffAjout() override {};
+
+    void AffHistory() override {
+        QTextStream stream(stdin);
+        clearScreen();
+
+        std::cout << "Pour retourner a l'accueil, appuyez sur une touche." << std::endl;
+
+        // Récupération de la connexion existante à la base de données
+        QSqlDatabase db = QSqlDatabase::database();
+
+        // Vérifier si la connexion à la base de données est valide
+        if (db.isValid()) {
+            // Exécuter la requête SQL pour récupérer les données de l'historique
+            QSqlQuery query("SELECT * FROM history", db);
+
+            // Itérer sur les résultats de la requête
+            while (query.next()) {
+                // Récupérer les valeurs des colonnes
+                int id_history = query.value(0).toInt();
+                double montant = query.value(1).toDouble();
+                QDateTime date = query.value(2).toDateTime();
+                int id_compte_emetteur = query.value(3).toInt();
+                int id_compte_destinataire = query.value(4).toInt();
+                QString type = query.value(5).toString();
+
+                // Afficher les valeurs récupérées sur la console avec un menu
+                std::cout << "-------------------------" << std::endl;
+                std::cout << "ID Historique: " << id_history << std::endl;
+                std::cout << "Montant: " << montant << std::endl;
+                std::cout << "Date: " << date.toString("yyyy-MM-dd hh:mm:ss").toStdString() << std::endl;
+                std::cout << "Compte emetteur: " << id_compte_emetteur << std::endl;
+                std::cout << "Compte destinataire: " << id_compte_destinataire << std::endl;
+                std::cout << "Type: " << type.toStdString() << std::endl;
+                std::cout << "-------------------------" << std::endl;
+            }
+        } else {
+            std::cout << "Erreur : Connexion a la base de donnees invalide" << std::endl;
+        }
+
+
+        getch();
+    }
+
     void CreationCompte() override {
 
     }
@@ -364,6 +414,8 @@ public:
     void AffAddBeneficiaire() override{}
 
     void AffRetrait() override {}
+
+    void AffHistory() override {}
 };
 
 

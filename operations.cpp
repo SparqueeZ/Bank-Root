@@ -134,9 +134,11 @@ void Operations::removeBalance(double amount, int destinataireId) {
     }
 }
 
+//Operations::addToHistory(int )
 
 
 
+// A supprimer
 void Operations::transfert() {
     QTextStream stream(stdin);
     User user;

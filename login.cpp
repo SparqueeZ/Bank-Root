@@ -58,10 +58,10 @@ void Login::on_pushButton_clicked()
 
         if (user.logIn(username, password)) {
             Home *home = new Home();
+            home->setUserInformation(user); // Envoyer les informations de l'utilisateur à la page d'accueil
             home->show();
-
             this->hide();
-        } else {
+        } else  {
             // Afficher un message d'erreur si l'authentification a échoué
 
         }
