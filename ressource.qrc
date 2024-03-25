@@ -8,5 +8,12 @@
         <file>assets/exit-btn.png</file>
         <file>assets/window-btn.png</file>
         <file>assets/window-btn-disabled.png</file>
+	<file>assets/clock.png</file>
+	<file>assets/comptes.png</file>
+	<file>assets/limits.png</file>
+	<file>assets/actions.png</file>
+	<file>assets/plus.png</file>
+	<file>assets/transfert.png</file>
+	<file>assets/hexagone.png</file>
     </qresource>
 </RCC>

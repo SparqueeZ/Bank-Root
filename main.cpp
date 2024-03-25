@@ -418,4 +418,3 @@ public:
     Choice(int choice) : choice(choice) {}
 };
 
-
