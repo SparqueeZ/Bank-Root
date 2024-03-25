@@ -77,7 +77,7 @@ border-radius: 10px;
       <string>Transfert</string>
      </property>
     </widget>
-    <widget class="QToolButton" name="toolButton_5">
+    <widget class="QToolButton" name="virement">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -863,7 +863,7 @@ background-position: center;
 border-radius: 10px; 
 }</string>
     </property>
-    <widget class="QToolButton" name="toolButton_4">
+    <widget class="QToolButton" name="logoff">
      <property name="geometry">
       <rect>
        <x>10</x>

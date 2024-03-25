@@ -22,6 +22,10 @@ private slots:
 
     void on_toolButton_3_clicked();
 
+    void on_logoff_clicked();
+
+    void on_virement_clicked();
+
 private:
     Ui::Home *ui;
     void mousePressEvent(QMouseEvent *event);

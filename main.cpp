@@ -9,6 +9,7 @@
 #include "operations.h"
 #include <cstdlib>
 #include <synchapi.h>
+#include "home.h"
 
 class UI {
 public:
@@ -348,7 +349,7 @@ public:
 
     void AffLogin() override {
         QApplication a(argc, argv);
-        Login w;
+        Home w;
         w.show();
         a.exec();
     }

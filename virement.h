@@ -15,6 +15,13 @@ public:
     explicit virement(QWidget *parent = nullptr);
     ~virement();
 
+private slots:
+    void on_reduced_clicked();
+
+    void on_return2_clicked();
+
+    void on_send_clicked();
+
 private:
     Ui::virement *ui;
 };

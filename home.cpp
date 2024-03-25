@@ -3,6 +3,8 @@
 #include "ui_home.h"
 #include <QMessageBox>
 #include <QGuiApplication>
+#include "login.h"
+#include "virement.h"
 
 Home::Home(QWidget *parent)
     : QWidget(parent)
@@ -46,3 +48,16 @@ void Home::on_fullscreen_clicked()
     setGeometry(mainScreenSize);
 }
 
+void Home::on_logoff_clicked()
+{
+    Login *login = new Login();
+    login->show();
+
+    this->hide();
+}
+
+void Home::on_virement_clicked()
+{
+    virement *Virement = new virement();
+    Virement->show();
+}
