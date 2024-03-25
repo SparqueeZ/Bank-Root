@@ -4,6 +4,7 @@
 #include <QProcess>
 #include "login.h"
 #include <iostream>
+#include "qsqlerror.h"
 #include "qsqlquery.h"
 #include "user.h"
 #include "operations.h"
@@ -342,7 +343,6 @@ public:
         QTextStream stream(stdin);
         clearScreen();
 
-        std::cout << "Pour retourner a l'accueil, appuyez sur une touche." << std::endl;
 
         // Récupération de la connexion existante à la base de données
         QSqlDatabase db = QSqlDatabase::database();
@@ -350,7 +350,14 @@ public:
         // Vérifier si la connexion à la base de données est valide
         if (db.isValid()) {
             // Exécuter la requête SQL pour récupérer les données de l'historique
-            QSqlQuery query("SELECT * FROM history", db);
+            QSqlQuery query(db);
+            query.prepare("SELECT * FROM history WHERE id_compte_emetteur = :id ORDER BY date DESC");
+            query.bindValue(":id", user->getUserId());
+
+            if (!query.exec()) {
+                std::cout << "Erreur lors de l'execution de la requete : " << query.lastError().text().toStdString() << std::endl;
+                return;
+            }
 
             // Itérer sur les résultats de la requête
             while (query.next()) {
@@ -361,15 +368,26 @@ public:
                 int id_compte_emetteur = query.value(3).toInt();
                 int id_compte_destinataire = query.value(4).toInt();
                 QString type = query.value(5).toString();
+                if (query.value(5) == 0) {
+                    type = "Virement";
+                } else if (query.value(5) == 1) {
+                    type = "Credit";
+                } else if (query.value(5) == 2) {
+                    type = "Debit";
+                }
+                QString title = query.value(6).toString();
+                QString description = query.value(7).toString();
 
                 // Afficher les valeurs récupérées sur la console avec un menu
-                std::cout << "-------------------------" << std::endl;
-                std::cout << "ID Historique: " << id_history << std::endl;
-                std::cout << "Montant: " << montant << std::endl;
+                std::cout << "Titre: " << title.toStdString() << std::endl;
+                std::cout << "Description: " << description.toStdString() << std::endl;
+                std::cout << "Montant: " << montant << " euros" << std::endl;
                 std::cout << "Date: " << date.toString("yyyy-MM-dd hh:mm:ss").toStdString() << std::endl;
-                std::cout << "Compte emetteur: " << id_compte_emetteur << std::endl;
-                std::cout << "Compte destinataire: " << id_compte_destinataire << std::endl;
                 std::cout << "Type: " << type.toStdString() << std::endl;
+                if(type == "Virement") {
+                    std::cout << "Compte emetteur: " << id_compte_emetteur << std::endl;
+                    std::cout << "Compte destinataire: " << id_compte_destinataire << std::endl;
+                }
                 std::cout << "-------------------------" << std::endl;
             }
         } else {
@@ -377,6 +395,7 @@ public:
         }
 
 
+        std::cout << "Pour retourner a l'accueil, appuyez sur une touche." << std::endl;
         getch();
     }
 
