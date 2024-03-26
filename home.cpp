@@ -48,6 +48,11 @@ void Home::on_fullscreen_clicked()
 
 void Home::setUserInformation(const User& user)
 {
+    // Style
+    ui->ActionBtnName->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->ActionBtnName_2->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->ActionBtnName_3->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->ActionBtnName_4->setAttribute(Qt::WA_TransparentForMouseEvents);
     // Convertir le solde en une chaîne de caractères avec le symbole €
     QString balanceString = QString::number(user.getBalance()) + " €";
 
