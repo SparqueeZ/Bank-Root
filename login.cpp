@@ -56,7 +56,7 @@ void Login::on_pushButton_clicked()
     } else {
         User user;
 
-        if (user.logIn(username, password)) {
+        if (user.signin(username, password)) {
             Home *home = new Home();
             home->setUserInformation(user); // Envoyer les informations de l'utilisateur à la page d'accueil
             home->show();
