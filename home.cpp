@@ -3,10 +3,13 @@
 #include "ui_home.h"
 #include <QMessageBox>
 #include <QGuiApplication>
+<<<<<<< Updated upstream
 #include <QDebug>
 #include "debit.h"
+=======
+>>>>>>> Stashed changes
 
-Home::Home(QWidget *parent)
+Home::Home(QWidget parent)
     : QWidget(parent)
     , ui(new Ui::Home)
 {
@@ -30,10 +33,16 @@ void Home::on_toolButton_3_clicked()
     close();
 }
 
+<<<<<<< Updated upstream
 void Home::mousePressEvent(QMouseEvent *event) {
     if (ui->widget_7->underMouse()) { // Vérifie si le curseur est sur le widget_7
         cur_pos = event->globalPosition().toPoint();
     }
+=======
+void Home::mousePressEvent(QMouseEventevent) {
+    // Fenetre moovable
+    cur_pos = event->globalPosition().toPoint();
+>>>>>>> Stashed changes
 }
 
 void Home::mouseMoveEvent(QMouseEvent *event) {
@@ -52,6 +61,7 @@ void Home::on_fullscreen_clicked()
 
 void Home::setUserInformation(const User& user)
 {
+<<<<<<< Updated upstream
     // Style
     ui->ActionBtnName->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->ActionBtnName_2->setAttribute(Qt::WA_TransparentForMouseEvents);
@@ -67,10 +77,16 @@ void Home::setUserInformation(const User& user)
     progressPercentage = std::min(std::max(progressPercentage, 0), 100);
     ui->progressBar_4->setValue(progressPercentage);
 
+=======
+    // Convertir le solde en une chaîne de caractères avec le symbole €
+    QString balanceString = QString::number(user.getBalance()) + " €";
+
+>>>>>>> Stashed changes
     // Utiliser les informations de l'utilisateur pour mettre à jour l'interface graphique de la page d'accueil
     ui->labelFirstName->setText(user.getFirstName());
     //ui->labelLastName->setText(user.getLastName());
     ui->labelFirstAccountBalance->setText(balanceString);
+<<<<<<< Updated upstream
 
     // Ajoutez d'autres mises à jour d'interface utilisateur si nécessaire
     ui->labelPELAccountBalance->setText(PELString);
@@ -82,5 +98,8 @@ void Home::on_toolButton_2_clicked()
     debit *debit = new class debit();
     debit->show();
     //this->hide();
+=======
+    // Ajoutez d'autres mises à jour d'interface utilisateur si nécessaire
+>>>>>>> Stashed changes
 }
 
