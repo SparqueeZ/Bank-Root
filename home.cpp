@@ -76,7 +76,7 @@ void Home::setUserInformation(const User& user)
     ui->labelPELAccountBalance->setText(PELString);
     ui->labelLCAccountBalance->setText(LivretCString);
 }
-
+//test
 void Home::on_toolButton_2_clicked()
 {
     debit *debit = new class debit();
