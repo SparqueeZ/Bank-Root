@@ -3,6 +3,8 @@
 #include "ui_home.h"
 #include <QMessageBox>
 #include <QGuiApplication>
+#include <QDebug>
+#include "debit.h"
 
 Home::Home(QWidget *parent)
     : QWidget(parent)
@@ -55,10 +57,22 @@ void Home::setUserInformation(const User& user)
     ui->ActionBtnName_4->setAttribute(Qt::WA_TransparentForMouseEvents);
     // Convertir le solde en une chaîne de caractères avec le symbole €
     QString balanceString = QString::number(user.getBalance()) + " €";
+    QString PELbalanceString = QString::number(user.getPELBalance()) + " €";
 
     // Utiliser les informations de l'utilisateur pour mettre à jour l'interface graphique de la page d'accueil
     ui->labelFirstName->setText(user.getFirstName());
     //ui->labelLastName->setText(user.getLastName());
     ui->labelFirstAccountBalance->setText(balanceString);
+
+    ui->labelPELAccountBalance->setText(PELbalanceString);
+
     // Ajoutez d'autres mises à jour d'interface utilisateur si nécessaire
 }
+
+void Home::on_toolButton_2_clicked()
+{
+    debit *debit = new class debit();
+    debit->show();
+    //this->hide();
+}
+
