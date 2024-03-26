@@ -49,24 +49,41 @@ void Operations::virement(int accountPropId, int accountDestId, double amount) {
 
 }
 
+
 void Operations::addBalance(double amount, int destinataireId) {
     QSqlQuery queryAdd;
     // Get the current balance of the account
-    queryAdd.prepare("SELECT balance FROM accounts WHERE id = :destinataireId");
+    queryAdd.prepare("SELECT balance, type FROM accounts WHERE id = :destinataireId");
     queryAdd.bindValue(":destinataireId", destinataireId);
     if (!queryAdd.exec() || !queryAdd.next()) {
         std::cerr << "Error retrieving account balance." << std::endl;
         return;
     }
+    int type = queryAdd.value("type").toInt();
     double currentBalance = queryAdd.value("balance").toDouble();
 
+    if(type==2){
     // Check if adding the amount will exceed the maximum balance limit
-    if (currentBalance + amount > 10000) {
-        std::cerr << "L'ajout n'a pas ete effectue, le Livret C ne peut pas depasser 10 000€" << std::endl;
-        Sleep(3000);
-        return;
-    }
+        if (currentBalance + amount > 10000) {
+            std::cerr << "L'ajout n'a pas ete effectue, le Livret C ne peut pas depasser 10 000€" << std::endl;
+            Sleep(3000);
+            return;
 
+        }
+        else{
+            queryAdd.prepare("UPDATE accounts SET balance = balance + :amount WHERE id = :destinataireId");
+            queryAdd.bindValue(":destinataireId", destinataireId);
+            queryAdd.bindValue(":amount", amount);
+
+            if (queryAdd.exec()) {
+                std::cout << "Ajout effectue" << std::endl;
+                Sleep(3000);
+            } else {
+                std::cerr << "L'ajout n'a pas ete effectue." << std::endl;
+                Sleep(3000);
+            }
+        }
+    }else{
     // Add the amount to the balance
     queryAdd.prepare("UPDATE accounts SET balance = balance + :amount WHERE id = :destinataireId");
     queryAdd.bindValue(":destinataireId", destinataireId);
@@ -78,6 +95,7 @@ void Operations::addBalance(double amount, int destinataireId) {
     } else {
         std::cerr << "L'ajout n'a pas ete effectue." << std::endl;
         Sleep(3000);
+    }
     }
 }
 

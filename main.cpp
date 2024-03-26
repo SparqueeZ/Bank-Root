@@ -324,7 +324,7 @@ public:
             }
 
             AffSeparator();
-            std::cout << "Sélectionnez le compte sur lequel vous allez ajouter de l'argent : ";
+            std::cout << "Sélectionnez le compte sur lequel vous allez retirer de l'argent : ";
             int choice = stream.readLine().trimmed().toInt();
             if (!accountMap.contains(choice)) {
                 qDebug() << "Choix invalide";
