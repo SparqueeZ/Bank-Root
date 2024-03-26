@@ -5,6 +5,7 @@
 #include <QGuiApplication>
 #include <QDebug>
 #include "debit.h"
+#include "virement.h"
 
 Home::Home(QWidget *parent)
     : QWidget(parent)
@@ -79,8 +80,8 @@ void Home::setUserInformation(const User& user)
 
 void Home::on_toolButton_2_clicked()
 {
-    debit *debit = new class debit();
-    debit->show();
+    virement *virement = new class virement();
+    virement->show();
     //this->hide();
 }
 
