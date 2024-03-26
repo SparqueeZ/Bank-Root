@@ -59,6 +59,7 @@ void Home::setUserInformation(const User& user)
     ui->ActionBtnName_4->setAttribute(Qt::WA_TransparentForMouseEvents);
     // Convertir le solde en une chaîne de caractères avec le symbole €
     QString balanceString = QString::number(user.getBalance()) + " €";
+<<<<<<< Updated upstream
     QString PELString = QString::number(user.getPELBalance()) + " €";
     QString LivretCString = QString::number(user.getLCBalance()) + " €";
 
@@ -66,12 +67,22 @@ void Home::setUserInformation(const User& user)
     int progressPercentage = static_cast<int>((lcBalance / 10000.0) * 100.0);
     progressPercentage = std::min(std::max(progressPercentage, 0), 100);
     ui->progressBar_4->setValue(progressPercentage);
+=======
+    QString PELbalanceString = QString::number(user.getPELBalance()) + " €";
+>>>>>>> Stashed changes
 
     // Utiliser les informations de l'utilisateur pour mettre à jour l'interface graphique de la page d'accueil
     ui->labelFirstName->setText(user.getFirstName());
     //ui->labelLastName->setText(user.getLastName());
     ui->labelFirstAccountBalance->setText(balanceString);
 
+<<<<<<< Updated upstream
+=======
+    qDebug() << "PEL Balance:" << user.getPELBalance();
+
+    ui->labelPELAccountBalance->setText(PELbalanceString);
+
+>>>>>>> Stashed changes
     // Ajoutez d'autres mises à jour d'interface utilisateur si nécessaire
     ui->labelPELAccountBalance->setText(PELString);
     ui->labelLCAccountBalance->setText(LivretCString);
