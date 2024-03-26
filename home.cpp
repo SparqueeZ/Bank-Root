@@ -72,14 +72,11 @@ void Home::setUserInformation(const User& user)
     //ui->labelLastName->setText(user.getLastName());
     ui->labelFirstAccountBalance->setText(balanceString);
 
-    ui->labelPELAccountBalance->setText(PELbalanceString);
-
     // Ajoutez d'autres mises à jour d'interface utilisateur si nécessaire
     ui->labelPELAccountBalance->setText(PELString);
     ui->labelLCAccountBalance->setText(LivretCString);
 }
 
-=======
 void Home::on_toolButton_2_clicked()
 {
     debit *debit = new class debit();
