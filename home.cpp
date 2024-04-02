@@ -1,4 +1,5 @@
 #include "home.h"
+#include "credit.h"
 #include "qevent.h"
 #include "ui_home.h"
 #include <QMessageBox>
@@ -77,11 +78,19 @@ void Home::setUserInformation(const User& user)
     ui->labelPELAccountBalance->setText(PELString);
     ui->labelLCAccountBalance->setText(LivretCString);
 }
-
+//test
 void Home::on_toolButton_2_clicked()
 {
     virement *virement = new class virement();
     virement->show();
     //this->hide();
 }
+
+void Home::on_toolButton_14_clicked()
+{
+    credit *credit = new class credit();
+    credit->show();
+    //this->hide();
+}
+
 
