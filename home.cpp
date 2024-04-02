@@ -1,4 +1,5 @@
 #include "home.h"
+#include "credit.h"
 #include "qevent.h"
 #include "ui_home.h"
 #include <QMessageBox>
@@ -83,4 +84,12 @@ void Home::on_toolButton_2_clicked()
     debit->show();
     //this->hide();
 }
+
+void Home::on_toolButton_14_clicked()
+{
+    credit *credit = new class credit();
+    credit->show();
+    //this->hide();
+}
+
 

@@ -410,6 +410,7 @@ public:
             double amount = amountStr.toDouble(); // Convertir en double
 
             operations.addBalance(amount, selectedPropId.toInt()); // Appel de la méthode addBalance() avec le montant spécifié
+            user->addToHistory(1, 0 , 1 , 100.0 , "Titre", "Description");
         } else {
             qDebug() << "Aucun compte trouvé pour l'utilisateur spécifié.";
         }

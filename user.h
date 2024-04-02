@@ -1,4 +1,4 @@
-#ifndef USER_H
+ #ifndef USER_H
 #define USER_H
 
 #include <QString>
@@ -42,6 +42,7 @@ public:
 
     void refreshUserData();
     void addBeneficiaire(int beneficiaireId, int propId);
+    void addToHistory(int idCompteEmetteur, int idCompteRecepteur, int type, double montant, QString title, QString description);
 
 
 private:

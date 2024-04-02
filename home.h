@@ -28,6 +28,8 @@ private slots:
 
     void on_toolButton_2_clicked();
 
+    void on_toolButton_14_clicked();
+
 private:
     Ui::Home *ui;
     void mousePressEvent(QMouseEvent *event);
