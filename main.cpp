@@ -287,7 +287,6 @@ public:
         QSqlQuery getAccounts(db);
         getAccounts.prepare("SELECT "
                             "MAX(CASE WHEN a.type = 0 THEN a.id END) AS principalId, "
-                            "MAX(CASE WHEN a.type = 1 THEN a.id END) AS PELId, "
                             "MAX(CASE WHEN a.type = 2 THEN a.id END) AS LCId "
                             "FROM accounts AS a "
                             "WHERE userId = :userId "
@@ -333,7 +332,7 @@ public:
             selectedPropId = accountMap.value(choice);
 
             // Demander à l'utilisateur le montant à déposer
-            std::cout << "Entrez le montant à déposer : ";
+            std::cout << "Entrez le montant à retirer : ";
             QString amountStr = stream.readLine().trimmed();
             double amount = amountStr.toDouble(); // Convertir en double
 

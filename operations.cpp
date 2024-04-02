@@ -100,8 +100,23 @@ void Operations::addBalance(double amount, int destinataireId) {
 }
 
 void Operations::removeBalance(double amount, int destinataireId) {
+    QSqlQuery queryType;
+    queryType.prepare("SELECT type FROM accounts WHERE id = :destinataireId");
+    queryType.bindValue(":destinataireId", destinataireId);
+    if (!queryType.exec() || !queryType.next()) {
+        std::cerr << "Error retrieving account type." << std::endl;
+        return;
+    }
+    int type = queryType.value("type").toInt();
+
+    if (type == 1) { // Si c'est un PEL
+        std::cerr << "Retrait bloqué : Impossible de retirer de l'argent d'un Plan d'Epargne Logement (PEL)." << std::endl;
+        Sleep(2000);
+        return;
+    }
+
+    // Si ce n'est pas un PEL, procéder au retrait
     QSqlQuery queryRemove;
-    // Get the current balance of the account
     queryRemove.prepare("SELECT balance FROM accounts WHERE id = :destinataireId");
     queryRemove.bindValue(":destinataireId", destinataireId);
     if (!queryRemove.exec() || !queryRemove.next()) {
@@ -110,13 +125,13 @@ void Operations::removeBalance(double amount, int destinataireId) {
     }
     double currentBalance = queryRemove.value("balance").toDouble();
 
-    // Check if removing the amount will make the balance negative
+    // Vérifier si le retrait rendra le solde négatif
     if (currentBalance - amount < 0) {
         std::cerr << "Removing " << amount << "€ would result in a negative balance." << std::endl;
         return;
     }
 
-    // Remove the amount from the balance
+    // Effectuer le retrait
     queryRemove.prepare("UPDATE accounts SET balance = balance - :amount WHERE id = :destinataireId");
     queryRemove.bindValue(":destinataireId", destinataireId);
     queryRemove.bindValue(":amount", amount);
