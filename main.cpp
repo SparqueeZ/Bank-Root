@@ -22,6 +22,7 @@ public:
     virtual void AffAddBeneficiaire()=0;
     virtual void AffRetrait()=0;
     virtual void AffHistory()=0;
+    virtual void AffAjout()=0;
 };
 
 
@@ -95,7 +96,7 @@ public:
         } else if (choice == "3") {
             AffRetrait();
         } else if (choice == "4") {
-            // AffAjout();
+            AffAjout();
         } else if (choice == "5") {
             AffHistory();
         } else if (choice == "8" && user->getRole() == 1) {
@@ -272,6 +273,7 @@ public:
     void AffRetrait() override {
         QTextStream stream(stdin);
         clearScreen();
+
         // Récupération de la connexion existante à la base de données
         QSqlDatabase db = QSqlDatabase::database();
         // Vérification de la connexion
@@ -280,25 +282,23 @@ public:
             return;
         }
 
-
-        // Partie proprietaire -------------------
+        // Partie propriétaire -------------------
         QString selectedPropId;
         QSqlQuery getAccounts(db);
         getAccounts.prepare("SELECT "
                             "MAX(CASE WHEN a.type = 0 THEN a.id END) AS principalId, "
-                            "MAX(CASE WHEN a.type = 1 THEN a.id END) AS PELId, "
                             "MAX(CASE WHEN a.type = 2 THEN a.id END) AS LCId "
                             "FROM accounts AS a "
                             "WHERE userId = :userId "
                             "AND a.type IN (0, 1, 2)");
         getAccounts.bindValue(":userId", user->getUserId());
         if (!getAccounts.exec()) {
-            //qDebug() << "Erreur lors de l'exécution de la requête : " << getAccounts.lastError().text();
-            return;
+            qDebug() << "Erreur lors de l'exécution de la requête : " << getAccounts.lastError().text();
+            return ;
         }
 
         // Affichage des résultats
-        std::cout << "Liste des comptes proprietaires ----------------------------" << std:: endl;
+        std::cout << "Liste des comptes propriétaires ----------------------------" << std:: endl;
         if (getAccounts.next()) {
             QMap<int, QString> accountMap;
             int count = 1;
@@ -323,7 +323,7 @@ public:
             }
 
             AffSeparator();
-            std::cout << "Selectionnez le compte sur lequel vous allez retirer le l'argent : ";
+            std::cout << "Sélectionnez le compte sur lequel vous allez retirer de l'argent : ";
             int choice = stream.readLine().trimmed().toInt();
             if (!accountMap.contains(choice)) {
                 qDebug() << "Choix invalide";
@@ -331,14 +331,91 @@ public:
             }
             selectedPropId = accountMap.value(choice);
 
-            operations.removeBalance(10, selectedPropId.toInt());
-            user->addToHistory(1, 0 , 1 , 100.0 , "Titre", "Description");
+            // Demander à l'utilisateur le montant à déposer
+            std::cout << "Entrez le montant à retirer : ";
+            QString amountStr = stream.readLine().trimmed();
+            double amount = amountStr.toDouble(); // Convertir en double
+
+            operations.removeBalance(amount, selectedPropId.toInt()); // Appel de la méthode addBalance() avec le montant spécifié
         } else {
-            qDebug() << "Aucun compte trouve pour l'utilisateur specifie.";
+            qDebug() << "Aucun compte trouvé pour l'utilisateur spécifié.";
         }
     }
 
-    //void AffAjout() override {};
+    void AffAjout() override {
+        QTextStream stream(stdin);
+        clearScreen();
+
+        // Récupération de la connexion existante à la base de données
+        QSqlDatabase db = QSqlDatabase::database();
+        // Vérification de la connexion
+        if (!db.isValid()) {
+            qDebug() << "Erreur: Aucune connexion valide à la base de données n'a été trouvée";
+            return;
+        }
+
+        // Partie propriétaire -------------------
+        QString selectedPropId;
+        QSqlQuery getAccounts(db);
+        getAccounts.prepare("SELECT "
+                            "MAX(CASE WHEN a.type = 0 THEN a.id END) AS principalId, "
+                            "MAX(CASE WHEN a.type = 1 THEN a.id END) AS PELId, "
+                            "MAX(CASE WHEN a.type = 2 THEN a.id END) AS LCId "
+                            "FROM accounts AS a "
+                            "WHERE userId = :userId "
+                            "AND a.type IN (0, 1, 2)");
+        getAccounts.bindValue(":userId", user->getUserId());
+        if (!getAccounts.exec()) {
+            qDebug() << "Erreur lors de l'exécution de la requête : " << getAccounts.lastError().text();
+            return ;
+        }
+
+        // Affichage des résultats
+        std::cout << "Liste des comptes propriétaires ----------------------------" << std:: endl;
+        if (getAccounts.next()) {
+            QMap<int, QString> accountMap;
+            int count = 1;
+            QString principalId = getAccounts.value("principalId").toString();
+            QString PELId = getAccounts.value("PELId").toString();
+            QString LCId = getAccounts.value("LCId").toString();
+
+            if (principalId.toInt() != 0) {
+                std::cout << "[" << count << "] Principal : " << principalId.toStdString() << std::endl;
+                accountMap.insert(count, principalId);
+                count++;
+            }
+            if (PELId.toInt() != 0) {
+                std::cout << "[" << count << "] PEL : " << PELId.toStdString() << std::endl;
+                accountMap.insert(count, PELId);
+                count++;
+            }
+            if (LCId.toInt() != 0) {
+                std::cout << "[" << count << "] Livret C : " << LCId.toStdString() << std::endl;
+                accountMap.insert(count, LCId);
+                count++;
+            }
+
+            AffSeparator();
+            std::cout << "Sélectionnez le compte sur lequel vous allez ajouter de l'argent : ";
+            int choice = stream.readLine().trimmed().toInt();
+            if (!accountMap.contains(choice)) {
+                qDebug() << "Choix invalide";
+                return;
+            }
+            selectedPropId = accountMap.value(choice);
+
+            // Demander à l'utilisateur le montant à déposer
+            std::cout << "Entrez le montant à ajouter : ";
+            QString amountStr = stream.readLine().trimmed();
+            double amount = amountStr.toDouble(); // Convertir en double
+
+            operations.addBalance(amount, selectedPropId.toInt()); // Appel de la méthode addBalance() avec le montant spécifié
+            user->addToHistory(1, 0 , 1 , 100.0 , "Titre", "Description");
+        } else {
+            qDebug() << "Aucun compte trouvé pour l'utilisateur spécifié.";
+        }
+    }
+
 
     void AffHistory() override {
         QTextStream stream(stdin);
@@ -436,6 +513,8 @@ public:
     void AffRetrait() override {}
 
     void AffHistory() override {}
+
+    void AffAjout() override {}
 };
 
 

@@ -162,6 +162,8 @@ void User::addBeneficiaire(int beneficiaireId, int propId) {
         return;
     }
 
+
+
     // Insertion du beneficiaire dans la table added_beneficiaires.
     QSqlQuery query;
     query.prepare("INSERT INTO added_beneficiaires (prop_id, beneficiaire_id) VALUES (:propId, :beneficiaireId)");
