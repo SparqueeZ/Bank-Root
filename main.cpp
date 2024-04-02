@@ -278,7 +278,7 @@ public:
         QSqlDatabase db = QSqlDatabase::database();
         // Vérification de la connexion
         if (!db.isValid()) {
-            qDebug() << "Erreur: Aucune connexion valide à la base de données n'a été trouvée";
+            qDebug() << "Erreur: Aucune connexion valide a la base de donnees n'a ete trouvee";
             return;
         }
 
@@ -293,27 +293,21 @@ public:
                             "AND a.type IN (0, 1, 2)");
         getAccounts.bindValue(":userId", user->getUserId());
         if (!getAccounts.exec()) {
-            qDebug() << "Erreur lors de l'exécution de la requête : " << getAccounts.lastError().text();
+            qDebug() << "Erreur lors de l'exécution de la requete : " << getAccounts.lastError().text();
             return ;
         }
 
         // Affichage des résultats
-        std::cout << "Liste des comptes propriétaires ----------------------------" << std:: endl;
+        std::cout << "Liste des comptes proprietaires ----------------------------" << std:: endl;
         if (getAccounts.next()) {
             QMap<int, QString> accountMap;
             int count = 1;
             QString principalId = getAccounts.value("principalId").toString();
-            QString PELId = getAccounts.value("PELId").toString();
             QString LCId = getAccounts.value("LCId").toString();
 
             if (principalId.toInt() != 0) {
                 std::cout << "[" << count << "] Principal : " << principalId.toStdString() << std::endl;
                 accountMap.insert(count, principalId);
-                count++;
-            }
-            if (PELId.toInt() != 0) {
-                std::cout << "[" << count << "] PEL : " << PELId.toStdString() << std::endl;
-                accountMap.insert(count, PELId);
                 count++;
             }
             if (LCId.toInt() != 0) {
@@ -323,7 +317,7 @@ public:
             }
 
             AffSeparator();
-            std::cout << "Sélectionnez le compte sur lequel vous allez retirer de l'argent : ";
+            std::cout << "Selectionnez le compte sur lequel vous allez retirer de l'argent : ";
             int choice = stream.readLine().trimmed().toInt();
             if (!accountMap.contains(choice)) {
                 qDebug() << "Choix invalide";
@@ -332,13 +326,14 @@ public:
             selectedPropId = accountMap.value(choice);
 
             // Demander à l'utilisateur le montant à déposer
-            std::cout << "Entrez le montant à retirer : ";
+            std::cout << "Entrez le montant a retirer : ";
             QString amountStr = stream.readLine().trimmed();
-            double amount = amountStr.toDouble(); // Convertir en double
+            double amount = amountStr.toDouble();
 
-            operations.removeBalance(amount, selectedPropId.toInt()); // Appel de la méthode addBalance() avec le montant spécifié
+            operations.removeBalance(amount, selectedPropId.toInt());
+            user->addToHistory(selectedPropId.toInt(), 0 , 2 , amount , "Debit", "Description (a completer)");
         } else {
-            qDebug() << "Aucun compte trouvé pour l'utilisateur spécifié.";
+            qDebug() << "Aucun compte trouve pour l'utilisateur specifie.";
         }
     }
 
@@ -410,7 +405,6 @@ public:
             double amount = amountStr.toDouble(); // Convertir en double
 
             operations.addBalance(amount, selectedPropId.toInt()); // Appel de la méthode addBalance() avec le montant spécifié
-            user->addToHistory(1, 0 , 1 , 100.0 , "Titre", "Description");
         } else {
             qDebug() << "Aucun compte trouvé pour l'utilisateur spécifié.";
         }

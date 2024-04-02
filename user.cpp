@@ -71,6 +71,7 @@ void User::addToHistory(int idCompteEmetteur, int idCompteRecepteur, int type, d
     QDateTime currentDateTime = QDateTime::currentDateTime();
     QString date = currentDateTime.toString(Qt::ISODate);
 
+
     QSqlQuery addToHistory;
     addToHistory.prepare("INSERT INTO history"
                          "(montant, date, id_compte_emetteur, id_compte_destinataire, type, title, description)"
@@ -78,14 +79,18 @@ void User::addToHistory(int idCompteEmetteur, int idCompteRecepteur, int type, d
     addToHistory.bindValue(":montant", montant);
     addToHistory.bindValue(":date", date);
     addToHistory.bindValue(":idCompteEmetteur", idCompteEmetteur);
-    addToHistory.bindValue(":idCompteRecepteur", idCompteRecepteur);
+    if(idCompteRecepteur == 0) {
+        addToHistory.bindValue(":idCompteRecepteur", NULL);
+    } else {
+        addToHistory.bindValue(":idCompteRecepteur", idCompteRecepteur);
+    }
     addToHistory.bindValue(":type", type);
     addToHistory.bindValue(":title", title);
     addToHistory.bindValue(":description", description);
     // INSERT INTO `history`(`id_history`, `montant`, `date`, `id_compte_emetteur`, `id_compte_destinataire`, `type`, `title`, `description`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]')
     if (addToHistory.exec()) {
         // Afficher un message, ou return true.
-        std::cout << "Ajout à l'historique effectue.";
+        std::cout << "Ajout a l'historique effectue.";
         Sleep(3000);
     } else {
         // Gestion de l"erreur.
