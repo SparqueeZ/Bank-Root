@@ -332,6 +332,7 @@ public:
             selectedPropId = accountMap.value(choice);
 
             operations.removeBalance(10, selectedPropId.toInt());
+            user->addToHistory(1, 0 , 1 , 100.0 , "Titre", "Description");
         } else {
             qDebug() << "Aucun compte trouve pour l'utilisateur specifie.";
         }

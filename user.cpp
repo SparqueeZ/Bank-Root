@@ -65,34 +65,32 @@ bool User::signin(QString login, QString password) {
     }
 }
 
-// A supprimer
-bool User::logIn(QString login, QString password) {
-    // Connexion à la base de données MySQL
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-    db.setHostName("90.26.217.25");
-    db.setUserName("test");
-    db.setPassword("I-B*!O0vGqyFkMed");
-    db.setDatabaseName("bank_root");
-    if (!db.open()) {
-        qDebug() << "Erreur lors de la connexion à  la base de données :" << db.lastError().text();
-        return false;
-    };
-    // Requete pour recuperer les informations de l'utilisateur
-    QSqlQuery query;
-    query.prepare("SELECT * FROM accounts JOIN users ON users.accountId = accounts.id WHERE users.login = :login and users.password = :password");
-    query.bindValue(":login", login);
-    query.bindValue(":password", password);
-    if (query.exec() && query.next()) {
-        // Utilisateur trouve
-        m_firstName = query.value("firstname").toString();
-        m_lastName = query.value("lastname").toString();
-        m_balance = query.value("balance").toDouble();
-        m_login = query.value("login").toString();
-        m_isLoggedIn = 1;
-        return true;
+void User::addToHistory(int idCompteEmetteur, int idCompteRecepteur, int type, double montant, QString title, QString description){
+
+    // Définir la date actuelle en tant que variable utilisable ici
+    QDateTime currentDateTime = QDateTime::currentDateTime();
+    QString date = currentDateTime.toString(Qt::ISODate);
+
+    QSqlQuery addToHistory;
+    addToHistory.prepare("INSERT INTO history"
+                         "(montant, date, id_compte_emetteur, id_compte_destinataire, type, title, description)"
+                         "VALUES (:montant, :date, :idCompteEmetteur, :idCompteRecepteur, :type, :title, :description)");
+    addToHistory.bindValue(":montant", montant);
+    addToHistory.bindValue(":date", date);
+    addToHistory.bindValue(":idCompteEmetteur", idCompteEmetteur);
+    addToHistory.bindValue(":idCompteRecepteur", idCompteRecepteur);
+    addToHistory.bindValue(":type", type);
+    addToHistory.bindValue(":title", title);
+    addToHistory.bindValue(":description", description);
+    // INSERT INTO `history`(`id_history`, `montant`, `date`, `id_compte_emetteur`, `id_compte_destinataire`, `type`, `title`, `description`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]')
+    if (addToHistory.exec()) {
+        // Afficher un message, ou return true.
+        std::cout << "Ajout à l'historique effectue.";
+        Sleep(3000);
     } else {
-        qDebug() << "Identifiants incorrects :" << query.lastError().text();
-        return false;
+        // Gestion de l"erreur.
+        std::cerr << "Erreur lors de l'ajout a l'historique : " << addToHistory.lastError().text().toStdString() << std::endl;
+        Sleep(3000);
     }
 }
 
@@ -181,6 +179,8 @@ void User::addBeneficiaire(int beneficiaireId, int propId) {
         Sleep(5000);
     }
 }
+
+
 
 void User::createAccount() {
     QTextStream stream(stdin);
