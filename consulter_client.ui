@@ -47,10 +47,10 @@
    <widget class="QWidget" name="widget_10" native="true">
     <property name="geometry">
      <rect>
-      <x>630</x>
-      <y>560</y>
-      <width>411</width>
-      <height>211</height>
+      <x>590</x>
+      <y>150</y>
+      <width>561</width>
+      <height>631</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -59,6 +59,174 @@
 border-radius: 10px; 
 }</string>
     </property>
+    <widget class="QLabel" name="labelFirstAccountBalance_2">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>40</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Nom :</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelFirstAccountBalance_3">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>90</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Prénom :</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelFirstAccountBalance_4">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>140</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Date de Naissance :</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelFirstAccountBalance_5">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>190</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Login : </string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelFirstAccountBalance_6">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>240</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Password : </string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelFirstAccountBalance_7">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>290</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>AccountId : </string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelFirstAccountBalance_8">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>340</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Profil : </string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="widget_12" native="true">
     <property name="geometry">
@@ -385,9 +553,9 @@ QProgressBar::chunk {
    <widget class="QLabel" name="label_19">
     <property name="geometry">
      <rect>
-      <x>700</x>
-      <y>500</y>
-      <width>271</width>
+      <x>660</x>
+      <y>90</y>
+      <width>361</width>
       <height>41</height>
      </rect>
     </property>
@@ -404,7 +572,7 @@ QProgressBar::chunk {
 }</string>
     </property>
     <property name="text">
-     <string>Bank-ROOT</string>
+     <string>Informations Client</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_22">
@@ -493,7 +661,7 @@ background-position: center;
 }</string>
     </property>
     <property name="text">
-     <string>FirstName</string>
+     <string>Nom_Client</string>
     </property>
    </widget>
    <widget class="QFrame" name="frame_2">
@@ -545,8 +713,8 @@ background-position: center;
    <widget class="QFrame" name="frame_7">
     <property name="geometry">
      <rect>
-      <x>630</x>
-      <y>500</y>
+      <x>590</x>
+      <y>90</y>
       <width>41</width>
       <height>41</height>
      </rect>
@@ -554,54 +722,6 @@ background-position: center;
     <property name="styleSheet">
      <string notr="true">QFrame{
 background:url(:/assets/warning.png);
-background-repeat: none;
-background-position: center;
-}</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_24">
-    <property name="geometry">
-     <rect>
-      <x>670</x>
-      <y>100</y>
-      <width>271</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat SemiBold</family>
-      <pointsize>21</pointsize>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLabel{
-    color: white;
-}</string>
-    </property>
-    <property name="text">
-     <string>Actions</string>
-    </property>
-   </widget>
-   <widget class="QFrame" name="frame_8">
-    <property name="geometry">
-     <rect>
-      <x>620</x>
-      <y>100</y>
-      <width>41</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QFrame{
-background:url(:/assets/cursor.png);
 background-repeat: none;
 background-position: center;
 }</string>
@@ -668,209 +788,6 @@ background:red;
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="ActionBtn" native="true">
-    <property name="geometry">
-     <rect>
-      <x>620</x>
-      <y>150</y>
-      <width>230</width>
-      <height>110</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background:transparent;</string>
-    </property>
-    <widget class="QToolButton" name="toolButton_2">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>230</width>
-       <height>110</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QToolButton {
-    background-color: #181F1C;
-	border-radius: 10px; 
-}
-
-QToolButton:hover{
-background:#595554;
-}</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="ActionBtnName">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>10</y>
-       <width>181</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Montserrat SemiBold</family>
-       <pointsize>13</pointsize>
-      </font>
-     </property>
-     <property name="cursor">
-      <cursorShape>ArrowCursor</cursorShape>
-     </property>
-     <property name="mouseTracking">
-      <bool>false</bool>
-     </property>
-     <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QLabel {
-    color: white;
-	background: transparent;
-}</string>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Plain</enum>
-     </property>
-     <property name="text">
-      <string>Virement</string>
-     </property>
-     <property name="scaledContents">
-      <bool>false</bool>
-     </property>
-     <property name="textInteractionFlags">
-      <set>Qt::TextSelectableByMouse</set>
-     </property>
-    </widget>
-    <widget class="QToolButton" name="toolButton_7">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>70</y>
-       <width>21</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QToolButton{
-border-radius:45px;
-background:transparent;
-}
-</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="ressource.qrc">
-       <normaloff>:/assets/transfer.png</normaloff>:/assets/transfer.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>128</width>
-       <height>128</height>
-      </size>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="ActionBtn_2" native="true">
-    <property name="geometry">
-     <rect>
-      <x>910</x>
-      <y>150</y>
-      <width>230</width>
-      <height>110</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background:transparent;</string>
-    </property>
-    <widget class="QToolButton" name="toolButton_6">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>230</width>
-       <height>110</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QToolButton {
-    background-color: #181F1C;
-	border-radius: 10px; 
-}
-
-QToolButton:hover{
-background:#595554;
-}</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="ActionBtnName_2">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>10</y>
-       <width>181</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Montserrat SemiBold</family>
-       <pointsize>13</pointsize>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QLabel {
-    color: white;
-background: transparent;
-}</string>
-     </property>
-     <property name="text">
-      <string>Ajouter bénéficiare</string>
-     </property>
-    </widget>
-    <widget class="QToolButton" name="toolButton_11">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>70</y>
-       <width>21</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QToolButton{
-border-radius:45px;
-background:transparent;
-}
-</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="ressource.qrc">
-       <normaloff>:/assets/add.png</normaloff>:/assets/add.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>128</width>
-       <height>128</height>
-      </size>
-     </property>
-    </widget>
-   </widget>
    <widget class="QWidget" name="ActionBtn_3" native="true">
     <property name="geometry">
      <rect>
@@ -883,84 +800,6 @@ background:transparent;
     <property name="styleSheet">
      <string notr="true">background:transparent;</string>
     </property>
-    <widget class="QToolButton" name="toolButton_12">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>230</width>
-       <height>110</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QToolButton {
-    background-color: #181F1C;
-	border-radius: 10px; 
-}
-
-QToolButton:hover{
-background:#595554;
-}</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="ActionBtnName_3">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>10</y>
-       <width>181</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Montserrat SemiBold</family>
-       <pointsize>13</pointsize>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QLabel {
-    color: white;
-background: transparent;
-}</string>
-     </property>
-     <property name="text">
-      <string>Bouton</string>
-     </property>
-    </widget>
-    <widget class="QToolButton" name="toolButton_13">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>70</y>
-       <width>21</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QToolButton{
-border-radius:45px;
-background:transparent;
-}
-</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="ressource.qrc">
-       <normaloff>:/assets/add.png</normaloff>:/assets/add.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>128</width>
-       <height>128</height>
-      </size>
-     </property>
-    </widget>
    </widget>
    <widget class="QWidget" name="ActionBtn_4" native="true">
     <property name="geometry">
@@ -974,84 +813,6 @@ background:transparent;
     <property name="styleSheet">
      <string notr="true">background:transparent;</string>
     </property>
-    <widget class="QToolButton" name="toolButton_14">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>230</width>
-       <height>110</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QToolButton {
-    background-color: #181F1C;
-	border-radius: 10px; 
-}
-
-QToolButton:hover{
-background:#595554;
-}</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="ActionBtnName_4">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>10</y>
-       <width>181</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Montserrat SemiBold</family>
-       <pointsize>13</pointsize>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QLabel {
-    color: white;
-background: transparent;
-}</string>
-     </property>
-     <property name="text">
-      <string>Bouton</string>
-     </property>
-    </widget>
-    <widget class="QToolButton" name="toolButton_15">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>70</y>
-       <width>21</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QToolButton{
-border-radius:45px;
-background:transparent;
-}
-</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="ressource.qrc">
-       <normaloff>:/assets/add.png</normaloff>:/assets/add.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>128</width>
-       <height>128</height>
-      </size>
-     </property>
-    </widget>
    </widget>
    <widget class="QWidget" name="widget_2" native="true">
     <property name="geometry">
@@ -1344,30 +1105,6 @@ border-radius: 10px;
       <string>Virement PEL</string>
      </property>
     </widget>
-   </widget>
-   <widget class="QLabel" name="labelFirstName_2">
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>230</y>
-      <width>231</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat SemiBold</family>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLabel {
-    color: white;
-}</string>
-    </property>
-    <property name="text">
-     <string>FirstName</string>
-    </property>
    </widget>
   </widget>
   <widget class="QWidget" name="widget_7" native="true">
