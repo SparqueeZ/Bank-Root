@@ -77,12 +77,13 @@ void Home::setUserInformation(const User& user)
     // Ajoutez d'autres mises à jour d'interface utilisateur si nécessaire
     ui->labelPELAccountBalance->setText(PELString);
     ui->labelLCAccountBalance->setText(LivretCString);
+    currentUser = new User(user);
 }
 //test
 void Home::on_toolButton_2_clicked()
 {
-    virement *virement = new class virement();
-    virement->show();
+    virement *virementWindow = new virement(currentUser); // Passer l'utilisateur actuel
+    virementWindow->show();
     //this->hide();
 }
 

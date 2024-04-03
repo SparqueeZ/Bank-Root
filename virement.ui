@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>530</width>
-    <height>350</height>
+    <width>552</width>
+    <height>402</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,7 +22,7 @@
      <x>0</x>
      <y>0</y>
      <width>551</width>
-     <height>350</height>
+     <height>401</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -56,45 +56,6 @@ padding-left: 10px
 }</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>140</x>
-      <y>270</y>
-      <width>93</width>
-      <height>29</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat</family>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">
-QPushButton{
-color: rgb(255, 255, 255);
-border-radius:10px;
-background-color:rgb(24,31, 28);
-}
-
-QPushButton:hover{
-color: rgb(255, 255, 255);
-border-radius:10px;
-background-color:rgb(34, 31, 28);
-}
-QPushButton:pressed{
-background-color:rgb(24, 31, 28);
-border-radius:10px;
-color: rgb(255, 255, 255);
-}
-
-</string>
-    </property>
-    <property name="text">
-     <string>Retour</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
@@ -122,7 +83,7 @@ color: rgb(255, 255, 255);
      <rect>
       <x>140</x>
       <y>180</y>
-      <width>81</width>
+      <width>141</width>
       <height>20</height>
      </rect>
     </property>
@@ -136,46 +97,7 @@ color: rgb(255, 255, 255);
 </string>
     </property>
     <property name="text">
-     <string>À qui ?</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>290</x>
-      <y>270</y>
-      <width>93</width>
-      <height>29</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat</family>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">
-QPushButton{
-color: rgb(255, 255, 255);
-border-radius:10px;
-background-color:rgb(24,31, 28);
-}
-
-QPushButton:hover{
-color: rgb(255, 255, 255);
-border-radius:10px;
-background-color:rgb(34, 31, 28);
-}
-QPushButton:pressed{
-background-color:rgb(24, 31, 28);
-border-radius:10px;
-color: rgb(255, 255, 255);
-}
-
-</string>
-    </property>
-    <property name="text">
-     <string>Envoyer</string>
+     <string>Depuis quel compte ?</string>
     </property>
    </widget>
    <widget class="QWidget" name="widget_7" native="true">
@@ -214,7 +136,7 @@ color:rgb(109, 114, 117);
     <widget class="QToolButton" name="reduced">
      <property name="geometry">
       <rect>
-       <x>444</x>
+       <x>460</x>
        <y>0</y>
        <width>31</width>
        <height>31</height>
@@ -247,7 +169,7 @@ background:red;
     <widget class="QToolButton" name="toolButton_3">
      <property name="geometry">
       <rect>
-       <x>504</x>
+       <x>520</x>
        <y>0</y>
        <width>21</width>
        <height>31</height>
@@ -280,7 +202,7 @@ background:red;
     <widget class="QToolButton" name="fullscreen">
      <property name="geometry">
       <rect>
-       <x>471</x>
+       <x>487</x>
        <y>0</y>
        <width>31</width>
        <height>31</height>
@@ -328,7 +250,7 @@ border-radius:45px;
      <string>Virement</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="combo">
+   <widget class="QComboBox" name="comboBoxProp">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -347,6 +269,127 @@ padding-left: 10px
 }</string>
     </property>
    </widget>
+   <widget class="QComboBox" name="combo">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>290</y>
+      <width>241</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox{
+background:#181F1C;
+border:none;
+border-left:2px solid #ffffff;
+color:#717072;
+padding-left: 10px
+}</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>260</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Montserrat Medium</family>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255,255,255);
+</string>
+    </property>
+    <property name="text">
+     <string>À qui ?</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="Envoyer">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>340</y>
+     <width>93</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Montserrat</family>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+QPushButton{
+color: rgb(255, 255, 255);
+border-radius:10px;
+background-color:rgb(24,31, 28);
+}
+
+QPushButton:hover{
+color: rgb(255, 255, 255);
+border-radius:10px;
+background-color:rgb(34, 31, 28);
+}
+QPushButton:pressed{
+background-color:rgb(24, 31, 28);
+border-radius:10px;
+color: rgb(255, 255, 255);
+}
+
+</string>
+   </property>
+   <property name="text">
+    <string>Envoyer</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>340</y>
+     <width>93</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Montserrat</family>
+     <fontweight>DemiBold</fontweight>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+QPushButton{
+color: rgb(255, 255, 255);
+border-radius:10px;
+background-color:rgb(24,31, 28);
+}
+
+QPushButton:hover{
+color: rgb(255, 255, 255);
+border-radius:10px;
+background-color:rgb(34, 31, 28);
+}
+QPushButton:pressed{
+background-color:rgb(24, 31, 28);
+border-radius:10px;
+color: rgb(255, 255, 255);
+}
+
+</string>
+   </property>
+   <property name="text">
+    <string>Retour</string>
+   </property>
   </widget>
  </widget>
  <resources>
