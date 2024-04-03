@@ -1,0 +1,1059 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>informations_client_stagiaire</class>
+ <widget class="QWidget" name="informations_client_stagiaire">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1454</width>
+    <height>853</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QWidget" name="widget" native="true">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>-200</x>
+     <y>30</y>
+     <width>1701</width>
+     <height>871</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>1</pointsize>
+    </font>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="mouseTracking">
+    <bool>true</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget {
+    background-color: #0C120C;
+}</string>
+   </property>
+   <widget class="QWidget" name="widget_12" native="true">
+    <property name="geometry">
+     <rect>
+      <x>1240</x>
+      <y>150</y>
+      <width>381</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget {
+    background-color: #181F1C;
+border-radius: 10px; 
+}</string>
+    </property>
+    <widget class="QLabel" name="label_36">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>60</y>
+       <width>121</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat Light</family>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    background-color: #2D2E2E;
+    color: #CCCCCC;
+    border-radius: 5px; 
+}</string>
+     </property>
+     <property name="text">
+      <string>  Compte principal</string>
+     </property>
+    </widget>
+    <widget class="QFrame" name="frame_9">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>10</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QFrame{
+background:url(:/assets/nut.png);
+background-repeat: none;
+background-position: center;
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="widget_14" native="true">
+    <property name="geometry">
+     <rect>
+      <x>1240</x>
+      <y>300</y>
+      <width>381</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget {
+    background-color: #181F1C;
+border-radius: 10px; 
+}</string>
+    </property>
+    <widget class="QLabel" name="label_33">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>60</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat Light</family>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    background-color: #2D2E2E;
+    color: #CCCCCC;
+    border-radius: 5px; 
+}</string>
+     </property>
+     <property name="text">
+      <string>   PEL</string>
+     </property>
+    </widget>
+    <widget class="QFrame" name="frame_10">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>10</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QFrame{
+background:url(:/assets/nut.png);
+background-repeat: none;
+background-position: center;
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="widget_15" native="true">
+    <property name="geometry">
+     <rect>
+      <x>1240</x>
+      <y>450</y>
+      <width>381</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget {
+    background-color: #181F1C;
+border-radius: 10px; 
+}</string>
+    </property>
+    <widget class="QLabel" name="label_35">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>60</y>
+       <width>71</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat Light</family>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    background-color: #2D2E2E;
+    color: #CCCCCC;
+    border-radius: 5px; 
+}</string>
+     </property>
+     <property name="text">
+      <string>   Livret C</string>
+     </property>
+    </widget>
+    <widget class="QFrame" name="frame_11">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>10</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QFrame{
+background:url(:/assets/nut.png);
+background-repeat: none;
+background-position: center;
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="label_14">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>100</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Montserrat SemiBold</family>
+      <pointsize>21</pointsize>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+    color: white;
+}</string>
+    </property>
+    <property name="text">
+     <string>Historique</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_22">
+    <property name="geometry">
+     <rect>
+      <x>1300</x>
+      <y>110</y>
+      <width>271</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Montserrat SemiBold</family>
+      <pointsize>21</pointsize>
+      <bold>false</bold>
+      <kerning>false</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+    color: white;
+}</string>
+    </property>
+    <property name="text">
+     <string>Comptes</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="widget_16" native="true">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>10</y>
+      <width>61</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget {
+    background-color: #181F1C;
+border-radius: 10px; 
+}</string>
+    </property>
+    <widget class="QFrame" name="frame">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QFrame{
+background:url(:/assets/user.png);
+background-repeat: none;
+background-position: center;
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="labelFirstName">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>20</y>
+      <width>231</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Montserrat SemiBold</family>
+      <pointsize>15</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+    color: white;
+}</string>
+    </property>
+    <property name="text">
+     <string>Nom_Client</string>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_2">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>95</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QFrame{
+background:url(:/assets/clock.png);
+background-repeat: none;
+background-position: center;
+}</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_3">
+    <property name="geometry">
+     <rect>
+      <x>1240</x>
+      <y>110</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QFrame{
+background:url(:/assets/wallet.png);
+background-repeat: none;
+background-position: center;
+}</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+   </widget>
+   <widget class="QWidget" name="widget_24" native="true">
+    <property name="geometry">
+     <rect>
+      <x>1560</x>
+      <y>30</y>
+      <width>61</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget {
+    background-color: #181F1C;
+border-radius: 10px; 
+}</string>
+    </property>
+    <widget class="QToolButton" name="toolButton_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="statusTip">
+      <string/>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QToolButton{
+border-radius:45px;
+}
+
+QToolButton:hover{
+border-radius:45px;
+background:red;
+}</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="ressource.qrc">
+       <normaloff>:/assets/logout.png</normaloff>:/assets/logout.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+     <property name="autoRaise">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="widget_2" native="true">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>150</y>
+      <width>301</width>
+      <height>631</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget {
+    background-color: #181F1C;
+border-radius: 10px;
+}</string>
+    </property>
+    <widget class="QLabel" name="label_91">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>60</y>
+       <width>51</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>13</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: #90EE90; /* Vert clair */
+    border-radius: 5px;
+    font-weight: bold; /* Met le texte en gras */
+}</string>
+     </property>
+     <property name="text">
+      <string>+50€</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_92">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>191</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>13</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>23 Mai 2024</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_93">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>146</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat Light</family>
+       <pointsize>7</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: #504E4D; /* Gris moyen */
+    border-radius: 5px;
+    font-weight: bold; /* Met le texte en gras */
+}
+</string>
+     </property>
+     <property name="text">
+      <string>5485-2654-2563</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_94">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>76</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat Light</family>
+       <pointsize>7</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: #504E4D; /* Gris moyen */
+    border-radius: 5px;
+    font-weight: bold; /* Met le texte en gras */
+}
+</string>
+     </property>
+     <property name="text">
+      <string>5485-2654-2563</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_95">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>160</y>
+       <width>171</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat Light</family>
+       <pointsize>7</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: #CCCCCC;
+    border-radius: 5px; 
+}</string>
+     </property>
+     <property name="text">
+      <string>Virement de test pour l'historique</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="widget_51" native="true">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>130</y>
+       <width>61</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QWidget {
+    background-color: #595554;
+border-radius: 10px; 
+}</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_96">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>130</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat Light</family>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+    border-radius: 5px; 
+}</string>
+     </property>
+     <property name="text">
+      <string>Virement PEL</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_97">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>60</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat Light</family>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+    border-radius: 5px; 
+}</string>
+     </property>
+     <property name="text">
+      <string>Virement PEL</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_98">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>130</y>
+       <width>51</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>13</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: #C20114; /* Vert clair */
+    border-radius: 5px;
+    font-weight: bold; /* Met le texte en gras */
+}</string>
+     </property>
+     <property name="text">
+      <string>-50€</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_99">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>90</y>
+       <width>171</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat Light</family>
+       <pointsize>7</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: #CCCCCC;
+    border-radius: 5px; 
+}</string>
+     </property>
+     <property name="text">
+      <string>Virement de test pour l'historique</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="widget_52" native="true">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>60</y>
+       <width>61</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QWidget {
+    background-color: #595554;
+border-radius: 10px; 
+}</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="widget_42" native="true">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>150</y>
+      <width>561</width>
+      <height>631</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget {
+    background-color: #181F1C;
+border-radius: 10px; 
+}</string>
+    </property>
+    <widget class="QLabel" name="labelFirstAccountBalance_33">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>40</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Nom :</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelFirstAccountBalance_34">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>90</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Prénom :</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelFirstAccountBalance_35">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>140</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Date de Naissance :</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelFirstAccountBalance_38">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>190</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>AccountId : </string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelFirstAccountBalance_39">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>240</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Profil : </string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="frame_36">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>110</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QFrame{
+background:url(:/assets/warning.png);
+background-repeat: none;
+background-position: center;
+}</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_90">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>110</y>
+      <width>301</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Montserrat SemiBold</family>
+      <pointsize>21</pointsize>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+    color: white;
+}</string>
+    </property>
+    <property name="text">
+     <string>Informations Client</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="widget_7" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1701</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget {
+    background-color: #181F1C;
+}</string>
+   </property>
+   <widget class="QLabel" name="label_15">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>-1</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Montserrat Light</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+	color:white;
+}</string>
+    </property>
+    <property name="text">
+     <string>BankRoot</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="reduced">
+    <property name="geometry">
+     <rect>
+      <x>1360</x>
+      <y>10</y>
+      <width>15</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QToolButton{
+border-radius:45px;
+}
+
+QToolButton:hover{
+border-radius:45px;
+background:red;
+}</string>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+    <property name="icon">
+     <iconset resource="ressource.qrc">
+      <normaloff>:/assets/reduce.png</normaloff>:/assets/reduce.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>12</width>
+      <height>12</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="fullscreen">
+    <property name="geometry">
+     <rect>
+      <x>1387</x>
+      <y>10</y>
+      <width>15</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QToolButton{
+border-radius:45px;
+}</string>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+    <property name="icon">
+     <iconset resource="ressource.qrc">
+      <normaloff>:/assets/fullscreen.png</normaloff>:/assets/fullscreen.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>10</width>
+      <height>10</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="toolButton_3">
+    <property name="geometry">
+     <rect>
+      <x>1410</x>
+      <y>10</y>
+      <width>15</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QToolButton{
+border-radius:45px;
+}
+
+QToolButton:hover{
+border-radius:45px;
+background:red;
+}</string>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+    <property name="icon">
+     <iconset resource="ressource.qrc">
+      <normaloff>:/assets/leave.png</normaloff>:/assets/leave.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>10</width>
+      <height>10</height>
+     </size>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="ressource.qrc"/>
+ </resources>
+ <connections/>
+</ui>
