@@ -36,6 +36,7 @@ private:
     void mouseMoveEvent(QMouseEvent *event);
     QPoint cur_pos;
     QPoint new_pos;
+    User *currentUser;
 };
 
 #endif // HOME_H
