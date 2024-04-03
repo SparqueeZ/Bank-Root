@@ -11,6 +11,12 @@ virement::virement(User *user, QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
+
+    // Background transparent
+    setStyleSheet("background:transparent;");
+    setAttribute(Qt::WA_TranslucentBackground);
+    setWindowFlags(Qt::FramelessWindowHint);
+
     currentUser = user;
 
     // Assurez-vous que vous avez déjà une connexion à la base de données
