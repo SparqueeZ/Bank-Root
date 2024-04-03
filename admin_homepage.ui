@@ -252,7 +252,7 @@ background: transparent;
 }</string>
      </property>
      <property name="text">
-      <string>Créer un Compte</string>
+      <string>(Créer un Compte)</string>
      </property>
     </widget>
     <widget class="QToolButton" name="toolButton_25">
@@ -640,6 +640,66 @@ background: transparent;
     </property>
     <property name="text">
      <string>Consulter l'historique Employé</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="toolButton_37">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>330</y>
+      <width>91</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QToolButton{
+border-radius:45px;
+background:transparent;
+}
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="ressource.qrc">
+      <normaloff>:/assets/add.png</normaloff>:/assets/add.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>128</width>
+      <height>128</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="toolButton_38">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>470</y>
+      <width>91</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QToolButton{
+border-radius:45px;
+background:transparent;
+}
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="ressource.qrc">
+      <normaloff>:/assets/add.png</normaloff>:/assets/add.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>128</width>
+      <height>128</height>
+     </size>
     </property>
    </widget>
   </widget>
