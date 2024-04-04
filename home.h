@@ -32,12 +32,15 @@ private slots:
 
     void on_logoff_clicked();
 
+    void on_toolButton_14_clicked();
+
 private:
     Ui::Home *ui;
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     QPoint cur_pos;
     QPoint new_pos;
+    User *currentUser;
 };
 
 #endif // HOME_H

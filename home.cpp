@@ -1,14 +1,15 @@
 #include "home.h"
+#include "credit.h"
 #include "qevent.h"
 #include "ui_home.h"
 #include <QMessageBox>
 #include <QGuiApplication>
 #include <QDebug>
 #include "debit.h"
-#include "credit.h"
 #include "login.h"
 #include "qsqlquery.h"
 #include "qsqlerror.h"
+#include "virement.h"
 
 Home::Home(QWidget *parent)
     : QWidget(parent)
@@ -156,12 +157,20 @@ void Home::setUserInformation(const User& user)
     // Ajoutez d'autres mises à jour d'interface utilisateur si nécessaire
     ui->labelPELAccountBalance->setText(PELString);
     ui->labelLCAccountBalance->setText(LivretCString);
+    currentUser = new User(user);
+}
+//test
+void Home::on_toolButton_2_clicked()
+{
+    virement *virementWindow = new virement(currentUser); // Passer l'utilisateur actuel
+    virementWindow->show();
+    //this->hide();
 }
 
-void Home::on_debit_clicked()
+void Home::on_toolButton_14_clicked()
 {
-    debit *debit = new class debit();
-    debit->show();
+    credit *credit = new class credit();
+    credit->show();
     //this->hide();
 }
 
