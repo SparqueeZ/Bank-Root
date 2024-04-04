@@ -13,8 +13,6 @@ CONFIG += c++17 cmdline
 SOURCES += \
     admin_homepage.cpp \
     choix_principal.cpp \
-    consulter_client.cpp \
-    consulter_client_stagiaire.cpp \
     credit.cpp \
     creer_compte.cpp \
     creer_profil.cpp \
@@ -24,6 +22,8 @@ SOURCES += \
     historique_employe.cpp \
     historique_stagiaire.cpp \
     home.cpp \
+    informations_client.cpp \
+    informations_client_stag.cpp \
     main.cpp \
     login.cpp \
     operations.cpp \
@@ -34,8 +34,6 @@ SOURCES += \
 HEADERS += \
     admin_homepage.h \
     choix_principal.h \
-    consulter_client.h \
-    consulter_client_stagiaire.h \
     credit.h \
     creer_compte.h \
     creer_profil.h \
@@ -45,6 +43,8 @@ HEADERS += \
     historique_employe.h \
     historique_stagiaire.h \
     home.h \
+    informations_client.h \
+    informations_client_stag.h \
     login.h \
     operations.h \
     stagiaire_homepage.h \
@@ -54,8 +54,6 @@ HEADERS += \
 FORMS += \
     admin_homepage.ui \
     choix_principal.ui \
-    consulter_client.ui \
-    consulter_client_stagiaire.ui \
     credit.ui \
     creer_compte.ui \
     creer_profil.ui \
@@ -65,6 +63,8 @@ FORMS += \
     historique_employe.ui \
     historique_stagiaire.ui \
     home.ui \
+    informations_client.ui \
+    informations_client_stag.ui \
     login.ui \
     stagiaire_homepage.ui \
     virement.ui
