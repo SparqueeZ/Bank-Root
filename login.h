@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMouseEvent>
 #include <QPoint>
+#include "user.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -18,6 +19,7 @@ class Login : public QMainWindow
 public:
     Login(QWidget *parent = nullptr);
     ~Login();
+    void refresh();
 
 private slots:
     void on_toolButton_3_clicked();
@@ -27,6 +29,8 @@ private slots:
     void on_reduced_clicked();
 
     void on_fullscreen_clicked();
+
+
 
 private:
     Ui::Login *ui;

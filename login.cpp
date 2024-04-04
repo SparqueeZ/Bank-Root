@@ -50,12 +50,10 @@ void Login::on_pushButton_clicked()
 {
     QString username = ui->lineEdit_3->text();
     QString password = ui->lineEdit_2->text();
-
+    User user;
     if (username.isEmpty() || password.isEmpty()) {
         QMessageBox::warning(this, "Erreur", "Veuillez remplir tous les champs.");
     } else {
-        User user;
-
         if (user.signin(username, password)) {
             Home *home = new Home();
             home->setUserInformation(user); // Envoyer les informations de l'utilisateur à la page d'accueil
@@ -67,6 +65,7 @@ void Login::on_pushButton_clicked()
         }
     }
 }
+
 
 void Login::on_reduced_clicked()
 {
