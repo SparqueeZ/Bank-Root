@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <synchapi.h>
 #include <conio.h>
+#include "Home.h"
 
 class UI {
 public:

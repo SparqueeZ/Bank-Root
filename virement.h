@@ -12,11 +12,11 @@ class virement : public QDialog
     Q_OBJECT
 
 public:
-    explicit virement(QWidget parent = nullptr);
+    explicit virement(QWidget *parent = nullptr);
     ~virement();
 
 private:
-    Ui::virementui;
+    Ui::virement *ui;
 };
 
 #endif // VIREMENT_H

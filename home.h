@@ -16,7 +16,7 @@ public slots:
     void setUserInformation(const User& user);
 
 public:
-    explicit Home(QWidget parent = nullptr);
+    explicit Home(QWidget *parent = nullptr);
     ~Home();
 
 private slots:
@@ -24,17 +24,18 @@ private slots:
 
     void on_fullscreen_clicked();
 
-    void on_toolButton_3_clicked();
+    void on_debit_clicked();
 
-<<<<<<< Updated upstream
-    void on_toolButton_2_clicked();
+    void on_credit_clicked();
 
-=======
->>>>>>> Stashed changes
+    void on_close_clicked();
+
+    void on_logoff_clicked();
+
 private:
-    Ui::Homeui;
-    void mousePressEvent(QMouseEvent event);
-    void mouseMoveEvent(QMouseEventevent);
+    Ui::Home *ui;
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
     QPoint cur_pos;
     QPoint new_pos;
 };
