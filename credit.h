@@ -1,6 +1,8 @@
 #ifndef CREDIT_H
 #define CREDIT_H
 
+#include "user.h"
+#include "home.h"
 #include <QDialog>
 
 namespace Ui {
@@ -12,7 +14,7 @@ class credit : public QDialog
     Q_OBJECT
 
 public:
-    explicit credit(QWidget *parent = nullptr);
+    explicit credit(User *user, Home *parentHome, QWidget *parent = nullptr);
     ~credit();
 
 private slots:
@@ -32,6 +34,8 @@ private:
     void mouseMoveEvent(QMouseEvent *event);
     QPoint cur_pos;
     QPoint new_pos;
+    User *currentUser;
+    Home *parentHome;
 };
 
 #endif // CREDIT_H
