@@ -24,8 +24,6 @@ private slots:
 
     void on_fullscreen_clicked();
 
-    void on_debit_clicked();
-
     void on_credit_clicked();
 
     void on_close_clicked();
@@ -33,6 +31,8 @@ private slots:
     void on_logoff_clicked();
 
     void on_toolButton_14_clicked();
+
+    void on_toolButton_2_clicked();
 
 private:
     Ui::Home *ui;

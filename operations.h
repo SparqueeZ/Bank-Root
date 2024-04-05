@@ -14,6 +14,8 @@ public:
     static void choices(QString choice);
     static void setvalue();
     static void defaultChoices(QString choice);
+
+    static void addToHistory(int idCompteEmetteur, int idCompteRecepteur, int type, double montant, QString title, QString description);
 };
 
 #endif // OPERATIONS_H

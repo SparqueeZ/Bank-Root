@@ -74,11 +74,10 @@ void Home::setUserInformation(const User& user)
     if (db.isValid()) {
         // Exécuter la requête SQL pour récupérer les données de l'historique
         QSqlQuery query(db);
-        query.prepare("SELECT * FROM history WHERE id_compte_emetteur = :id ORDER BY date DESC LIMIT 8");
+        query.prepare("SELECT * FROM history WHERE id_compte_emetteur = :id OR id_compte_destinataire = :id ORDER BY date DESC LIMIT 8");
         query.bindValue(":id", user.getUserId());
 
         if (!query.exec()) {
-
             return;
         }
         int count = 1;
