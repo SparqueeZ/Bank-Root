@@ -1,4 +1,5 @@
 #include "operations.h"
+#include "qsqlerror.h"
 #include "user.h"
 #include <QSqlQuery>
 #include <iostream>
@@ -77,6 +78,7 @@ void Operations::addBalance(double amount, int destinataireId) {
 
             if (queryAdd.exec()) {
                 std::cout << "Ajout effectue" << std::endl;
+                addToHistory(0, destinataireId, 1, amount, "Credit", "Description (a completer)");
                 Sleep(3000);
             } else {
                 std::cerr << "L'ajout n'a pas ete effectue." << std::endl;
@@ -91,7 +93,8 @@ void Operations::addBalance(double amount, int destinataireId) {
 
     if (queryAdd.exec()) {
         std::cout << "Ajout effectue" << std::endl;
-        Sleep(3000);
+        addToHistory(0, destinataireId, 1, amount, "Credit", "Description (a completer)");
+        //Sleep(3000);
     } else {
         std::cerr << "L'ajout n'a pas ete effectue." << std::endl;
         Sleep(3000);
@@ -138,7 +141,8 @@ void Operations::removeBalance(double amount, int destinataireId) {
 
     if (queryRemove.exec()) {
         std::cout << "Retrait effectue" << std::endl;
-        Sleep(3000);
+        addToHistory(destinataireId, 0, 2, amount, "Debit", "Description (a completer)");
+        //Sleep(3000);
     } else {
         std::cerr << "Le retrait n'a pas ete effectue." << std::endl;
         Sleep(3000);
@@ -146,7 +150,39 @@ void Operations::removeBalance(double amount, int destinataireId) {
 }
 
 //Operations::addToHistory(int )
+void Operations::addToHistory(int idCompteEmetteur, int idCompteRecepteur, int type, double montant, QString title, QString description){
 
+    // Définir la date actuelle en tant que variable utilisable ici
+    QDateTime currentDateTime = QDateTime::currentDateTime();
+    QString date = currentDateTime.toString(Qt::ISODate);
+
+
+    QSqlQuery addToHistory;
+    addToHistory.prepare("INSERT INTO history"
+                         "(montant, date, id_compte_emetteur, id_compte_destinataire, type, title, description)"
+                         "VALUES (:montant, :date, :idCompteEmetteur, :idCompteRecepteur, :type, :title, :description)");
+    addToHistory.bindValue(":montant", montant);
+    addToHistory.bindValue(":date", date);
+    addToHistory.bindValue(":idCompteEmetteur", idCompteEmetteur);
+    if(idCompteRecepteur == 0) {
+        addToHistory.bindValue(":idCompteRecepteur", NULL);
+    } else {
+        addToHistory.bindValue(":idCompteRecepteur", idCompteRecepteur);
+    }
+    addToHistory.bindValue(":type", type);
+    addToHistory.bindValue(":title", title);
+    addToHistory.bindValue(":description", description);
+    // INSERT INTO `history`(`id_history`, `montant`, `date`, `id_compte_emetteur`, `id_compte_destinataire`, `type`, `title`, `description`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]')
+    if (addToHistory.exec()) {
+        // Afficher un message, ou return true.
+        std::cout << "Ajout a l'historique effectue.";
+        //Sleep(3000);
+    } else {
+        // Gestion de l"erreur.
+        std::cerr << "Erreur lors de l'ajout a l'historique : " << addToHistory.lastError().text().toStdString() << std::endl;
+        Sleep(3000);
+    }
+}
 
 
 void Operations::setvalue(){
