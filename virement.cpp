@@ -1,16 +1,23 @@
 #include "virement.h"
+#include "home.h"
 #include "qevent.h"
 #include "ui_virement.h"
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include "operations.h"
 
-virement::virement(User *user, QWidget *parent)
+virement::virement(User *user, Home *parentHome, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::virement)
+    , parentHome(parentHome)
 {
     ui->setupUi(this);
     this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
+    parentHome = dynamic_cast<Home*>(parent);
+    if (!parentHome) {
+        qDebug() << "Erreur : Le parent n'est pas une instance de la classe Home.";
+        // Gérer l'erreur ici
+    }
 
     // Background transparent
     setStyleSheet("background:transparent;");
@@ -116,8 +123,11 @@ void virement::on_Envoyer_clicked()
     QString idProprietaire = ui->comboBoxProp->currentData().toString();
     QString idDestinataire = ui->combo->currentData().toString();
 
-    //qDebug() << idProprietaire << idDestinataire << montant ;
     operations.virement(idProprietaire.toInt(), idDestinataire.toInt(), montant.toDouble());
+
+    // Rafraîchissement des informations de l'utilisateur sur la page d'accueil
+    parentHome->refreshUserInfo();
+
     close();
 }
 

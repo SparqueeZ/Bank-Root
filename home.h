@@ -14,6 +14,7 @@ class Home : public QWidget
 
 public slots:
     void setUserInformation(const User& user);
+    void refreshUserInfo();
 
 public:
     explicit Home(QWidget *parent = nullptr);

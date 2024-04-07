@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QGuiApplication>
 #include <QDebug>
+#include <synchapi.h>
 #include "debit.h"
 #include "login.h"
 #include "qsqlquery.h"
@@ -161,21 +162,21 @@ void Home::setUserInformation(const User& user)
 //test
 void Home::on_toolButton_2_clicked()
 {
-    virement *virementWindow = new virement(currentUser); // Passer l'utilisateur actuel
+    virement *virementWindow = new virement(currentUser, this); // Passer la référence à la fenêtre principale
     virementWindow->show();
     //this->hide();
 }
 
 void Home::on_toolButton_14_clicked()
 {
-    credit *credit = new class credit();
-    credit->show();
+    //virement *credit = new credit(currentUser, this); // Passer la référence à la fenêtre principale
+    //credit->show();
     //this->hide();
 }
 
 void Home::on_credit_clicked()
 {
-    credit *credit = new class credit();
+    credit *credit = new class credit(currentUser, this); // Passer la référence à la fenêtre principale
     credit->show();
     //this->hide();
 }
@@ -185,4 +186,91 @@ void Home::on_logoff_clicked()
     Login *login = new class Login();
     login->show();
     close();
+}
+
+void Home::refreshUserInfo() {
+    // Récupérer l'utilisateur actuellement connecté
+    //User newUser; // Implémentez cette fonction pour récupérer l'utilisateur actuel
+
+    // Rafraîchir les données de l'utilisateur depuis la base de données
+    currentUser->refreshUserData(); // Implémentez cette fonction dans la classe User
+
+    // Mettre à jour l'interface utilisateur avec les nouvelles données de l'utilisateur
+    ui->labelFirstName->setText(currentUser->getFirstName());
+    ui->labelFirstAccountBalance->setText(QString::number(currentUser->getBalance()) + " €");
+    // Mettez à jour d'autres éléments de l'interface utilisateur si nécessaire
+
+    QSqlDatabase db = QSqlDatabase::database();
+
+    //--------------------------------------------------------------------------------
+
+    if (db.isValid()) {
+        // Exécuter la requête SQL pour récupérer les données de l'historique
+        QSqlQuery query(db);
+        query.prepare("SELECT * FROM history WHERE id_compte_emetteur = :id OR id_compte_destinataire = :id ORDER BY date DESC LIMIT 8");
+        query.bindValue(":id", currentUser->getUserId());
+
+        if (!query.exec()) {
+            return;
+        }
+        int count = 1;
+        // Itérer sur les résultats de la requête
+        while (query.next()) {
+            QString historyValue = QString("historyvalue%1").arg(count);
+            QLabel *label1 = findChild<QLabel *>(historyValue);
+            QString euro = "€";
+
+            // Récupérer les valeurs des colonnes
+            int id_history = query.value(0).toInt();
+            double montant = query.value(1).toDouble();
+            QDateTime date = query.value(2).toDateTime();
+            int id_compte_emetteur = query.value(3).toInt();
+            int id_compte_destinataire = query.value(4).toInt();
+            QString type = query.value(5).toString();
+            QString title = query.value(6).toString();
+            QString description = query.value(7).toString();
+
+            QString historyTitle = QString("historytitle%1").arg(count);
+            QLabel *label2 = findChild<QLabel *>(historyTitle);
+
+            if (query.value(5) == 0) {
+                type = "Virement";
+                label2->setText(type);
+                label1->setStyleSheet("color: red");
+                QString signe = "-";
+                QString value = QString("%1%2%3").arg(signe).arg(QString::number(montant)).arg(euro);
+                label1->setText(value);
+            } else if (query.value(5) == 1) {
+                type = "Credit";
+                label2->setText(type);
+                label1->setStyleSheet("color: green");
+                QString signe = "+";
+                QString value = QString("%1%2%3").arg(signe).arg(QString::number(montant)).arg(euro);
+                label1->setText(value);
+            } else if (query.value(5) == 2) {
+                type = "Debit";
+                label2->setText(type);
+                label1->setStyleSheet("color: red");
+                QString signe = "-";
+                QString value = QString("%1%2%3").arg(signe).arg(QString::number(montant)).arg(euro);
+                label1->setText(value);
+            }
+
+            QString accID = QString("accID%1").arg(count);
+            QLabel *label3 = findChild<QLabel *>(accID);
+            label3->setText(QString::number(id_compte_emetteur));
+
+            QString historyDescription = QString("historyDescription%1").arg(count);
+            QLabel *label4 = findChild<QLabel *>(historyDescription);
+            label4->setText(description);
+
+            count = count + 1;
+
+
+            // Afficher les valeurs récupérées sur la console avec un menu
+
+        }
+    } else {
+
+    }
 }
