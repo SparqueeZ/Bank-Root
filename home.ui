@@ -680,7 +680,7 @@ background:red;
     <property name="styleSheet">
      <string notr="true">background:transparent;</string>
     </property>
-    <widget class="QToolButton" name="toolButton_2">
+    <widget class="QToolButton" name="virement">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -928,7 +928,7 @@ background: transparent;
 }</string>
      </property>
      <property name="text">
-      <string>Bouton</string>
+      <string>Débit</string>
      </property>
     </widget>
     <widget class="QToolButton" name="debitButton">
@@ -1019,7 +1019,7 @@ background: transparent;
 }</string>
      </property>
      <property name="text">
-      <string>Bouton</string>
+      <string>Crédit</string>
      </property>
     </widget>
     <widget class="QToolButton" name="creditButton">

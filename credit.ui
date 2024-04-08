@@ -76,7 +76,7 @@ padding-left: 10px
    <widget class="QPushButton" name="send">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>290</x>
       <y>150</y>
       <width>93</width>
       <height>29</height>
@@ -115,7 +115,7 @@ color: rgb(255, 255, 255);
    <widget class="QPushButton" name="return2">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>130</x>
       <y>150</y>
       <width>93</width>
       <height>29</height>

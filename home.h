@@ -31,9 +31,9 @@ private slots:
 
     void on_logoff_clicked();
 
-    void on_toolButton_14_clicked();
+    void on_virement_clicked();
 
-    void on_toolButton_2_clicked();
+    void on_debit_clicked();
 
 private:
     Ui::Home *ui;
