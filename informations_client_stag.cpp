@@ -6,6 +6,7 @@ informations_client_stag::informations_client_stag(QWidget *parent)
     , ui(new Ui::informations_client_stag)
 {
     ui->setupUi(this);
+    this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
 }
 
 informations_client_stag::~informations_client_stag()

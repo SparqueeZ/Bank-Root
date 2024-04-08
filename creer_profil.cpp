@@ -6,6 +6,8 @@ creer_profil::creer_profil(QWidget *parent)
     , ui(new Ui::creer_profil)
 {
     ui->setupUi(this);
+    this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
+
 }
 
 creer_profil::~creer_profil()

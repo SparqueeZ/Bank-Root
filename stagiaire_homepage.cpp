@@ -6,6 +6,7 @@ stagiaire_homepage::stagiaire_homepage(QWidget *parent)
     , ui(new Ui::stagiaire_homepage)
 {
     ui->setupUi(this);
+    this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
 }
 
 stagiaire_homepage::~stagiaire_homepage()

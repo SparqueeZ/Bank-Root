@@ -6,6 +6,7 @@ historique_stagiaire::historique_stagiaire(QWidget *parent)
     , ui(new Ui::historique_stagiaire)
 {
     ui->setupUi(this);
+    this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
 }
 
 historique_stagiaire::~historique_stagiaire()
