@@ -15,6 +15,11 @@ public:
     explicit creer_profil(QWidget *parent = nullptr);
     ~creer_profil();
 
+private slots:
+    void on_reduced_2_clicked();
+
+    void on_toolButton_4_clicked();
+
 private:
     Ui::creer_profil *ui;
 };

@@ -15,6 +15,11 @@ public:
     explicit creer_utilisateur(QWidget *parent = nullptr);
     ~creer_utilisateur();
 
+private slots:
+    void on_reduced_2_clicked();
+
+    void on_toolButton_4_clicked();
+
 private:
     Ui::creer_utilisateur *ui;
 };

@@ -15,6 +15,11 @@ public:
     explicit creer_compte(QWidget *parent = nullptr);
     ~creer_compte();
 
+private slots:
+    void on_toolButton_4_clicked();
+
+    void on_reduced_2_clicked();
+
 private:
     Ui::creer_compte *ui;
 };

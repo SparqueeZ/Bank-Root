@@ -13,3 +13,15 @@ employe_homepage::~employe_homepage()
 {
     delete ui;
 }
+
+void employe_homepage::on_reduced_5_clicked()
+{
+    showMinimized();
+}
+
+
+void employe_homepage::on_toolButton_44_clicked()
+{
+    close();
+}
+
