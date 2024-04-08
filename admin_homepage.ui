@@ -109,7 +109,7 @@ background-position: center;
      <rect>
       <x>570</x>
       <y>150</y>
-      <width>230</width>
+      <width>281</width>
       <height>110</height>
      </rect>
     </property>
@@ -121,7 +121,7 @@ background-position: center;
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>230</width>
+       <width>281</width>
        <height>110</height>
       </rect>
      </property>
@@ -142,7 +142,7 @@ background:#595554;
     <widget class="QLabel" name="ActionBtnName_9">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>10</x>
        <y>10</y>
        <width>181</width>
        <height>31</height>
@@ -200,7 +200,7 @@ background:transparent;
      <rect>
       <x>860</x>
       <y>290</y>
-      <width>230</width>
+      <width>291</width>
       <height>110</height>
      </rect>
     </property>
@@ -212,7 +212,7 @@ background:transparent;
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>230</width>
+       <width>281</width>
        <height>110</height>
       </rect>
      </property>
@@ -235,7 +235,7 @@ background:#595554;
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>241</width>
+       <width>261</width>
        <height>31</height>
       </rect>
      </property>
@@ -291,7 +291,7 @@ background:transparent;
      <rect>
       <x>860</x>
       <y>150</y>
-      <width>230</width>
+      <width>281</width>
       <height>110</height>
      </rect>
     </property>
@@ -303,7 +303,7 @@ background:transparent;
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>230</width>
+       <width>281</width>
        <height>110</height>
       </rect>
      </property>
@@ -324,9 +324,9 @@ background:#595554;
     <widget class="QLabel" name="ActionBtnName_14">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>10</x>
        <y>10</y>
-       <width>181</width>
+       <width>211</width>
        <height>31</height>
       </rect>
      </property>
@@ -403,9 +403,9 @@ background:#595554;
    <widget class="QLabel" name="ActionBtnName_17">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>90</x>
       <y>160</y>
-      <width>291</width>
+      <width>331</width>
       <height>31</height>
      </rect>
     </property>
@@ -504,9 +504,9 @@ background:#595554;
    <widget class="QLabel" name="ActionBtnName_18">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>80</x>
       <y>300</y>
-      <width>291</width>
+      <width>351</width>
       <height>31</height>
      </rect>
     </property>
@@ -523,15 +523,15 @@ background: transparent;
 }</string>
     </property>
     <property name="text">
-     <string>Consulter l'historique Stagiraire</string>
+     <string>Consulter l'historique Stagiaire</string>
     </property>
    </widget>
    <widget class="QLabel" name="ActionBtnName_19">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>80</x>
       <y>440</y>
-      <width>291</width>
+      <width>351</width>
       <height>31</height>
      </rect>
     </property>
@@ -631,7 +631,7 @@ background:transparent;
      <rect>
       <x>10</x>
       <y>-1</y>
-      <width>71</width>
+      <width>91</width>
       <height>31</height>
      </rect>
     </property>

@@ -6,37 +6,59 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>532</width>
-    <height>300</height>
+    <width>543</width>
+    <height>402</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QFrame" name="frame">
+  <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1381</width>
-     <height>661</height>
+     <width>551</width>
+     <height>411</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(12, 18, 12);</string>
+    <string notr="true">QWidget{
+background:#0C120C;
+color:#717072;
+}</string>
    </property>
-   <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
-   </property>
-   <widget class="QLabel" name="label_6">
+   <widget class="QLineEdit" name="lineEdit">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>70</y>
-      <width>361</width>
+      <x>140</x>
+      <y>120</y>
+      <width>241</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QFrame{
+background:#181F1C;
+border:none;
+border-radius: 5px;
+color:#717072;
+}
+QLineEdit{
+background:#181F1C;
+border:none;
+border-left:2px solid #ffffff;
+color:#717072;
+padding-left: 10px
+}</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>90</y>
+      <width>241</width>
       <height>20</height>
      </rect>
     </property>
@@ -46,25 +68,224 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: transparent;
-color: rgb(255, 255, 255);
+     <string notr="true">color: rgb(255,255,255);
 </string>
     </property>
     <property name="text">
-     <string>Entrez les informations suivantes pour créer un utilisateur</string>
+     <string>Nom</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_6">
+   <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>160</y>
-      <width>101</width>
+      <x>140</x>
+      <y>170</y>
+      <width>171</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Montserrat Medium</family>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255,255,255);
+</string>
+    </property>
+    <property name="text">
+     <string>Prénom</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="widget_7" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1401</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(24,31, 28);
+color:rgb(109, 114, 117);
+</string>
+    </property>
+    <widget class="QLabel" name="label_11">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>111</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat Light</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>BankRoot</string>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="reduced">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>0</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QToolButton{
+border-radius:45px;
+}
+
+QToolButton:hover{
+border-radius:45px;
+background:red;
+}</string>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+     <property name="icon">
+      <iconset resource="ressource.qrc">
+       <normaloff>:/assets/reduce.png</normaloff>:/assets/reduce.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>12</width>
+       <height>12</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="toolButton_3">
+     <property name="geometry">
+      <rect>
+       <x>520</x>
+       <y>0</y>
+       <width>21</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QToolButton{
+border-radius:45px;
+}
+
+QToolButton:hover{
+border-radius:45px;
+background:red;
+}</string>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+     <property name="icon">
+      <iconset resource="ressource.qrc">
+       <normaloff>:/assets/leave.png</normaloff>:/assets/leave.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>10</width>
+       <height>10</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="fullscreen">
+     <property name="geometry">
+      <rect>
+       <x>487</x>
+       <y>0</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QToolButton{
+border-radius:45px;
+}</string>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+     <property name="icon">
+      <iconset resource="ressource.qrc">
+       <normaloff>:/assets/fullscreen.png</normaloff>:/assets/fullscreen.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>10</width>
+       <height>10</height>
+      </size>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>221</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Montserrat</family>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>Création utilisateur</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>250</y>
+      <width>151</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Montserrat Medium</family>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255,255,255);
+</string>
+    </property>
+    <property name="text">
+     <string>Date de naissance</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>200</y>
+      <width>241</width>
       <height>26</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">QLineEdit{
+     <string notr="true">QFrame{
+background:#181F1C;
+border:none;
+border-radius: 5px;
+color:#717072;
+}
+QLineEdit{
 background:#181F1C;
 border:none;
 border-left:2px solid #ffffff;
@@ -73,62 +294,50 @@ padding-left: 10px
 }</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_7">
+   <widget class="QLineEdit" name="lineEdit_3">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>220</y>
-      <width>93</width>
-      <height>29</height>
+      <x>140</x>
+      <y>280</y>
+      <width>241</width>
+      <height>26</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <family>Montserrat</family>
-     </font>
-    </property>
     <property name="styleSheet">
-     <string notr="true">
-QPushButton{
-color: rgb(255, 255, 255);
-border-radius:10px;
-background-color:rgb(24, 31, 28);
+     <string notr="true">QFrame{
+background:#181F1C;
+border:none;
+border-radius: 5px;
+color:#717072;
 }
-
-QPushButton:hover{
-color: rgb(255, 255, 255);
-border-radius:10px;
-background-color:rgb(34, 31, 28);
-}
-QPushButton:pressed{
-background-color:rgb(24, 31, 28);
-border-radius:10px;
-color: rgb(255, 255, 255);
-}
-
-</string>
-    </property>
-    <property name="text">
-     <string>Retour</string>
+QLineEdit{
+background:#181F1C;
+border:none;
+border-left:2px solid #ffffff;
+color:#717072;
+padding-left: 10px
+}</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_8">
-    <property name="geometry">
-     <rect>
-      <x>290</x>
-      <y>220</y>
-      <width>93</width>
-      <height>29</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat</family>
-      <pointsize>9</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">
+  </widget>
+  <widget class="QPushButton" name="return_2">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>340</y>
+     <width>93</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Montserrat Medium</family>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
 QPushButton{
 color: rgb(255, 255, 255);
 border-radius:10px;
@@ -147,250 +356,51 @@ color: rgb(255, 255, 255);
 }
 
 </string>
-    </property>
-    <property name="text">
-     <string>Envoyer</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_7">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>151</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat</family>
-      <pointsize>11</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string>Création Utilisateur</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="widget_12" native="true">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>1401</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color:rgb(24,31, 28);
-color:rgb(109, 114, 117);
-</string>
-    </property>
-    <widget class="QLabel" name="label_16">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>0</y>
-       <width>111</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Montserrat Light</family>
-       <pointsize>9</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>BankRoot</string>
-     </property>
-    </widget>
-    <widget class="QToolButton" name="toolButton_4">
-     <property name="geometry">
-      <rect>
-       <x>510</x>
-       <y>0</y>
-       <width>20</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QToolButton{
-border-radius:45px;
+   </property>
+   <property name="text">
+    <string>Retour</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="send">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>340</y>
+     <width>93</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Montserrat Medium</family>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+QPushButton{
+color: rgb(255, 255, 255);
+border-radius:10px;
+background-color:rgb(24,31, 28);
 }
 
-QToolButton:hover{
-border-radius:45px;
-background:red;
-}</string>
-     </property>
-     <property name="text">
-      <string>...</string>
-     </property>
-     <property name="icon">
-      <iconset resource="ressource.qrc">
-       <normaloff>:/assets/exit-btn.png</normaloff>:/assets/exit-btn.png</iconset>
-     </property>
-    </widget>
-    <widget class="QToolButton" name="reduced_2">
-     <property name="geometry">
-      <rect>
-       <x>470</x>
-       <y>0</y>
-       <width>20</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QToolButton{
-border-radius:45px;
+QPushButton:hover{
+color: rgb(255, 255, 255);
+border-radius:10px;
+background-color:rgb(34, 31, 28);
+}
+QPushButton:pressed{
+background-color:rgb(24, 31, 28);
+border-radius:10px;
+color: rgb(255, 255, 255);
 }
 
-QToolButton:hover{
-border-radius:45px;
-background:red;
-}</string>
-     </property>
-     <property name="text">
-      <string>...</string>
-     </property>
-     <property name="icon">
-      <iconset resource="ressource.qrc">
-       <normaloff>:/assets/downarrow-btn.png</normaloff>:/assets/downarrow-btn.png</iconset>
-     </property>
-    </widget>
-    <widget class="QToolButton" name="fullscreen_2">
-     <property name="geometry">
-      <rect>
-       <x>490</x>
-       <y>0</y>
-       <width>20</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QToolButton{
-border-radius:45px;
-}</string>
-     </property>
-     <property name="text">
-      <string>...</string>
-     </property>
-     <property name="icon">
-      <iconset resource="ressource.qrc">
-       <normaloff>:/assets/window-btn-disabled.png</normaloff>:/assets/window-btn-disabled.png</iconset>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_7">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>160</y>
-      <width>101</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLineEdit{
-background:#181F1C;
-border:none;
-border-left:2px solid #ffffff;
-color:#717072;
-padding-left: 10px
-}</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_8">
-    <property name="geometry">
-     <rect>
-      <x>390</x>
-      <y>160</y>
-      <width>101</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLineEdit{
-background:#181F1C;
-border:none;
-border-left:2px solid #ffffff;
-color:#717072;
-padding-left: 10px
-}</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_8">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>130</y>
-      <width>101</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat Medium</family>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: transparent;
-color: rgb(255, 255, 255);
 </string>
-    </property>
-    <property name="text">
-     <string>Nom</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_9">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>130</y>
-      <width>101</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat Medium</family>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: transparent;
-color: rgb(255, 255, 255);
-</string>
-    </property>
-    <property name="text">
-     <string>Prénom</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_10">
-    <property name="geometry">
-     <rect>
-      <x>390</x>
-      <y>130</y>
-      <width>101</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat Medium</family>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: transparent;
-color: rgb(255, 255, 255);
-</string>
-    </property>
-    <property name="text">
-     <string>Date Naissance</string>
-    </property>
-   </widget>
+   </property>
+   <property name="text">
+    <string>Envoyer</string>
+   </property>
   </widget>
  </widget>
  <resources>

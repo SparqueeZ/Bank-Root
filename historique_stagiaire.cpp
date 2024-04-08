@@ -25,3 +25,21 @@ void historique_stagiaire::on_toolButton_31_clicked()
     close();
 }
 
+
+void historique_stagiaire::on_toolButton_33_clicked()
+{
+
+}
+
+
+void historique_stagiaire::on_toolButton_34_clicked()
+{
+
+}
+
+
+void historique_stagiaire::on_fullscreen_3_clicked()
+{
+
+}
+

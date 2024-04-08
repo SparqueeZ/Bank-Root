@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>552</width>
+    <width>543</width>
     <height>402</height>
    </rect>
   </property>
@@ -22,7 +22,7 @@
      <x>0</x>
      <y>0</y>
      <width>551</width>
-     <height>401</height>
+     <height>411</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -82,8 +82,8 @@ padding-left: 10px
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>180</y>
-      <width>141</width>
+      <y>170</y>
+      <width>171</width>
       <height>20</height>
      </rect>
     </property>
@@ -254,7 +254,7 @@ border-radius:45px;
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>210</y>
+      <y>200</y>
       <width>241</width>
       <height>26</height>
      </rect>
@@ -273,7 +273,7 @@ padding-left: 10px
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>290</y>
+      <y>280</y>
       <width>241</width>
       <height>26</height>
      </rect>
@@ -292,7 +292,7 @@ padding-left: 10px
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>260</y>
+      <y>250</y>
       <width>81</width>
       <height>20</height>
      </rect>
@@ -322,8 +322,9 @@ padding-left: 10px
    </property>
    <property name="font">
     <font>
-     <family>Montserrat</family>
-     <bold>true</bold>
+     <family>Montserrat Medium</family>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="styleSheet">
@@ -362,8 +363,9 @@ color: rgb(255, 255, 255);
    </property>
    <property name="font">
     <font>
-     <family>Montserrat</family>
-     <fontweight>DemiBold</fontweight>
+     <family>Montserrat Medium</family>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="styleSheet">

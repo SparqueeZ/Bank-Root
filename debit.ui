@@ -84,7 +84,8 @@ padding-left: 10px
     </property>
     <property name="font">
      <font>
-      <family>Montserrat</family>
+      <family>Montserrat Medium</family>
+      <italic>false</italic>
      </font>
     </property>
     <property name="styleSheet">
@@ -123,8 +124,9 @@ color: rgb(255, 255, 255);
     </property>
     <property name="font">
      <font>
-      <family>Montserrat</family>
+      <family>Montserrat Medium</family>
       <pointsize>9</pointsize>
+      <italic>false</italic>
      </font>
     </property>
     <property name="styleSheet">
