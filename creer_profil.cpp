@@ -14,3 +14,15 @@ creer_profil::~creer_profil()
 {
     delete ui;
 }
+
+void creer_profil::on_reduced_2_clicked()
+{
+    showMinimized();
+}
+
+
+void creer_profil::on_toolButton_4_clicked()
+{
+    close();
+}
+

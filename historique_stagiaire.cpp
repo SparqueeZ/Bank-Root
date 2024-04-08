@@ -13,3 +13,15 @@ historique_stagiaire::~historique_stagiaire()
 {
     delete ui;
 }
+
+void historique_stagiaire::on_reduced_3_clicked()
+{
+    showMinimized();
+}
+
+
+void historique_stagiaire::on_toolButton_31_clicked()
+{
+    close();
+}
+

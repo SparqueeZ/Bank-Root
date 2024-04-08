@@ -15,6 +15,11 @@ public:
     explicit employe_homepage(QWidget *parent = nullptr);
     ~employe_homepage();
 
+private slots:
+    void on_reduced_5_clicked();
+
+    void on_toolButton_44_clicked();
+
 private:
     Ui::employe_homepage *ui;
 };
