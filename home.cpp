@@ -160,17 +160,17 @@ void Home::setUserInformation(const User& user)
     currentUser = new User(user);
 }
 //test
-void Home::on_toolButton_2_clicked()
+void Home::on_virement_clicked()
 {
     virement *virementWindow = new virement(currentUser, this); // Passer la référence à la fenêtre principale
     virementWindow->show();
     //this->hide();
 }
 
-void Home::on_toolButton_14_clicked()
+void Home::on_debit_clicked()
 {
-    //virement *credit = new credit(currentUser, this); // Passer la référence à la fenêtre principale
-    //credit->show();
+    debit *debit = new class debit(currentUser, this); // Passer la référence à la fenêtre principale
+    debit->show();
     //this->hide();
 }
 

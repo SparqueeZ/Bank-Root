@@ -54,7 +54,7 @@ color: rgb(255, 255, 255);
      <string>Combien voulez-vous débiter?</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_5">
+   <widget class="QLineEdit" name="value">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -73,7 +73,7 @@ padding-left: 10px
 }</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_5">
+   <widget class="QPushButton" name="return2">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -112,7 +112,7 @@ color: rgb(255, 255, 255);
      <string>Retour</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_6">
+   <widget class="QPushButton" name="send">
     <property name="geometry">
      <rect>
       <x>290</x>
@@ -174,7 +174,7 @@ color: rgb(255, 255, 255);
      <string>Débit</string>
     </property>
    </widget>
-   <widget class="QWidget" name="widget_11" native="true">
+   <widget class="QWidget" name="topbar" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
