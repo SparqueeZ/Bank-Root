@@ -18,7 +18,7 @@ public:
     virtual void AffLogin()=0;
     virtual void AffMainPage()=0;
     virtual void AffAdminPage()=0;
-    virtual void CreationCompte()=0;
+    virtual void AffCreationCompte()=0;
     virtual void AffVirement()=0;
     virtual void AffAddBeneficiaire()=0;
     virtual void AffRetrait()=0;
@@ -112,11 +112,11 @@ public:
         clearScreen();
         QTextStream stream(stdin);
         std::cout << "Bienvenue " << user->getFirstName().toStdString() << ", que voulez-vous faire ?" << std::endl;
-        AffMsg("[1] Creer un compte client");
+        AffMsg("[1] Acceder au panel admin");
         AffMsg("[2] Acceder votre espace client");
         QString choice =stream.readLine().trimmed();
         if(choice == "1") {
-            user->createAccount();
+            AffCreationCompte();
         } else if (choice == "2") {
             AffMainPage();
         } else if (choice == "9") {
@@ -411,7 +411,6 @@ public:
         }
     }
 
-
     void AffHistory() override {
         QTextStream stream(stdin);
         clearScreen();
@@ -472,10 +471,119 @@ public:
         getch();
     }
 
-    void CreationCompte() override {
+    void AffCreationCompte() override {
+        QTextStream stream(stdin);
+        clearScreen();
 
+        // Affichage du menu
+        std::cout << "Outil de creation de comptes -------------------------------" << std:: endl;
+        std::cout << "[1] Creer un compte utilisateur" << std:: endl;
+        std::cout << "[2] Creer un compte en banque" << std:: endl;
+        std::cout << "[3] Creer un profil" << std:: endl;
+        std::cout << "[4] Associer ???" << std:: endl;
+        AffSeparator();
+
+        QString choice =stream.readLine().trimmed();
+
+        if(choice.toInt() == 1) {
+            clearScreen();
+
+            std::cout << "Entrez le nom de l'user : ";
+            QString username =stream.readLine().trimmed();
+
+            clearScreen();
+            std::cout << "Choisissez le role de l'user : " << std:: endl;
+            std::cout << "[1] Utilisateur " << std:: endl;
+            std::cout << "[2] Administrateur " << std:: endl;
+            std::cout << "Votre choix : ";
+            QString roleString = stream.readLine().trimmed();
+
+            clearScreen();
+            int newUserId = user->createUser(username, roleString.toInt());
+            if(newUserId && user->getRole() == 1 ) {
+                std::cout << "Compte " << newUserId << " cree avec succes." << std:: endl;
+            } else {
+                std::cout << "Une erreur est survenue lors de la creation du compte user." << std:: endl;
+            }
+            Sleep(1500);
+
+            clearScreen();
+            int role = roleString.toInt() - 1;
+
+            std::cout << "----------------------" << std:: endl;
+            std::cout << "        RESUME        "<< std:: endl;
+            std::cout << "----------------------" << std:: endl;
+            std::cout << "Nom : " << username.toStdString() << std:: endl;
+            std::cout << "Role : " << role << std:: endl;
+            std::cout << "Id : " << newUserId << std:: endl;
+            std::cout << "----------------------" << std:: endl;
+
+            std::cout << "Continuer sur la creation d'un compte bancaire ? o/n" << std:: endl;
+            QString continueChoice = stream.readLine().trimmed();
+            if (continueChoice == "o" || continueChoice == "oui"){
+                AffCreateAccount(newUserId);
+            } else {
+                return;
+            }
+            Sleep(2000);
+        } else if (choice.toInt() == 2) {
+            //user->createAccount();
+        } else if (choice.toInt() == 3) {
+            //user->createProfil();
+        }
     }
 
+    void AffCreateAccount(int userId) {
+        QTextStream stream(stdin);
+        clearScreen();
+        std::cout << "Quel type de compte voulez-vous creer ?" << std:: endl;
+        std::cout << "[1] Compte courant " << std:: endl;
+        std::cout << "[2] Compte PEL " << std:: endl;
+        std::cout << "[3] Compte Livret C " << std:: endl;
+        std::cout << "Votre choix : ";
+        QString accountTypeString = stream.readLine().trimmed();
+
+        clearScreen();
+        QString baseBalance = "-1";
+        while (baseBalance.toInt() < 0) {
+            std::cout << "Solde de base (0 si aucun) : " << std:: endl;
+            baseBalance = stream.readLine().trimmed();
+        }
+
+        int accountType = accountTypeString.toInt() - 1;
+        if(user->createAccount(userId, accountType, baseBalance.toDouble())) {
+            std::cout << "Compte bancaire cree et lie avec succes." << std:: endl;
+        } else {
+            std::cout << "Une erreur est survenue lors de la creation du compte bancaire." << std:: endl;
+        }
+        Sleep(1500);
+        clearScreen();
+
+        User newUser;
+        newUser.getInformations(userId);
+
+        std::cout << "----------------------" << std:: endl;
+        std::cout << "        RESUME        "<< std:: endl;
+        std::cout << "----------------------" << std:: endl;
+        std::cout << "Type : " << accountTypeString.toStdString() << std:: endl;
+        std::cout << "Solde : " << baseBalance.toStdString() << std:: endl;
+        std::cout << "----------------------" << std:: endl;
+        std::cout << "Nom : " << newUser.getUsername().toStdString() << std:: endl;
+        std::cout << "Role : " << newUser.getRole() << std:: endl;
+        std::cout << "Id : " << newUser.getUserId() << std:: endl;
+        std::cout << "----------------------" << std:: endl;
+
+
+        std::cout << "Continuer sur la creation d'un profil ? o/n" << std:: endl;
+        QString continueChoice = stream.readLine().trimmed();
+        if (continueChoice == "o" || continueChoice == "oui"){
+            //AffCreateAccount(newUserId);
+            std::cout << "Creer un profil..." << std:: endl;
+            Sleep(3000);
+        } else {
+            return;
+        }
+    }
 };
 
 
@@ -499,7 +607,7 @@ public:
 
     void AffAdminPage() override {}
 
-    void CreationCompte() override {}
+    void AffCreationCompte() override {}
 
     void AffVirement() override{}
 
