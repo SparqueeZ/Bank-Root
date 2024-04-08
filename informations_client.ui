@@ -128,59 +128,11 @@ border-radius: 10px;
       <string>Date de Naissance :</string>
      </property>
     </widget>
-    <widget class="QLabel" name="labelFirstAccountBalance_92">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>190</y>
-       <width>221</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Montserrat SemiBold</family>
-       <pointsize>16</pointsize>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QLabel {
-    color: white;
-}</string>
-     </property>
-     <property name="text">
-      <string>Login : </string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="labelFirstAccountBalance_93">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>240</y>
-       <width>221</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Montserrat SemiBold</family>
-       <pointsize>16</pointsize>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QLabel {
-    color: white;
-}</string>
-     </property>
-     <property name="text">
-      <string>Password : </string>
-     </property>
-    </widget>
     <widget class="QLabel" name="labelFirstAccountBalance_94">
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>290</y>
+       <y>200</y>
        <width>221</width>
        <height>31</height>
       </rect>
@@ -204,7 +156,7 @@ border-radius: 10px;
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>340</y>
+       <y>250</y>
        <width>221</width>
        <height>31</height>
       </rect>
@@ -784,19 +736,6 @@ background:red;
       <bool>false</bool>
      </property>
     </widget>
-   </widget>
-   <widget class="QWidget" name="ActionBtn_25" native="true">
-    <property name="geometry">
-     <rect>
-      <x>620</x>
-      <y>290</y>
-      <width>230</width>
-      <height>110</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background:transparent;</string>
-    </property>
    </widget>
    <widget class="QWidget" name="ActionBtn_26" native="true">
     <property name="geometry">

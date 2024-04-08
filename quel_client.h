@@ -20,6 +20,8 @@ private slots:
 
     void on_reduced_2_clicked();
 
+    void on_pushButton_8_clicked();
+
 private:
     Ui::quel_client *ui;
 };
