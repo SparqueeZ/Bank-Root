@@ -6,6 +6,8 @@ creer_utilisateur::creer_utilisateur(QWidget *parent)
     , ui(new Ui::creer_utilisateur)
 {
     ui->setupUi(this);
+    this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
+
 }
 
 creer_utilisateur::~creer_utilisateur()

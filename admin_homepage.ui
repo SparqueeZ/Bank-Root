@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1189</width>
+    <width>1190</width>
     <height>688</height>
    </rect>
   </property>
@@ -165,97 +165,6 @@ background: transparent;
      </property>
     </widget>
     <widget class="QToolButton" name="toolButton_23">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>70</y>
-       <width>21</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QToolButton{
-border-radius:45px;
-background:transparent;
-}
-</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="ressource.qrc">
-       <normaloff>:/assets/add.png</normaloff>:/assets/add.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>128</width>
-       <height>128</height>
-      </size>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="ActionBtn_10" native="true">
-    <property name="geometry">
-     <rect>
-      <x>570</x>
-      <y>290</y>
-      <width>230</width>
-      <height>110</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background:transparent;</string>
-    </property>
-    <widget class="QToolButton" name="toolButton_24">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>230</width>
-       <height>110</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QToolButton {
-    background-color: #181F1C;
-	border-radius: 10px; 
-}
-
-QToolButton:hover{
-background:#595554;
-}</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="ActionBtnName_10">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>10</y>
-       <width>181</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Montserrat SemiBold</family>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QLabel {
-    color: white;
-background: transparent;
-}</string>
-     </property>
-     <property name="text">
-      <string>(Créer un Compte)</string>
-     </property>
-    </widget>
-    <widget class="QToolButton" name="toolButton_25">
      <property name="geometry">
       <rect>
        <x>20</x>

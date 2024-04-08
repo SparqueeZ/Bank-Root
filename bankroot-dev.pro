@@ -27,6 +27,9 @@ SOURCES += \
     main.cpp \
     login.cpp \
     operations.cpp \
+    quel_client.cpp \
+    quel_employe.cpp \
+    quel_stagiaire.cpp \
     stagiaire_homepage.cpp \
     user.cpp \
     virement.cpp
@@ -47,6 +50,9 @@ HEADERS += \
     informations_client_stag.h \
     login.h \
     operations.h \
+    quel_client.h \
+    quel_employe.h \
+    quel_stagiaire.h \
     stagiaire_homepage.h \
     user.h \
     virement.h
@@ -66,6 +72,9 @@ FORMS += \
     informations_client.ui \
     informations_client_stag.ui \
     login.ui \
+    quel_client.ui \
+    quel_employe.ui \
+    quel_stagiaire.ui \
     stagiaire_homepage.ui \
     virement.ui
 

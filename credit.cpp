@@ -18,6 +18,7 @@ credit::credit(User *user, Home *parentHome, QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
+
     parentHome = dynamic_cast<Home*>(parent);
     if (!parentHome) {
         qDebug() << "Erreur : Le parent n'est pas une instance de la classe Home.";

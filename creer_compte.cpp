@@ -6,6 +6,9 @@ creer_compte::creer_compte(QWidget *parent)
     , ui(new Ui::creer_compte)
 {
     ui->setupUi(this);
+    this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
+
+
 }
 
 creer_compte::~creer_compte()

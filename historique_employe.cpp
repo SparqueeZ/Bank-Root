@@ -6,6 +6,8 @@ historique_employe::historique_employe(QWidget *parent)
     , ui(new Ui::historique_employe)
 {
     ui->setupUi(this);
+    this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
+
 }
 
 historique_employe::~historique_employe()

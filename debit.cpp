@@ -6,6 +6,8 @@ debit::debit(QWidget *parent)
     , ui(new Ui::debit)
 {
     ui->setupUi(this);
+    this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
+
 }
 
 debit::~debit()
