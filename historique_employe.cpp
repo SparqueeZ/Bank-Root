@@ -14,3 +14,15 @@ historique_employe::~historique_employe()
 {
     delete ui;
 }
+
+void historique_employe::on_reduced_3_clicked()
+{
+    showMinimized();
+}
+
+
+void historique_employe::on_toolButton_31_clicked()
+{
+    close();
+}
+
