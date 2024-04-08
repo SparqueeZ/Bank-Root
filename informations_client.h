@@ -15,6 +15,11 @@ public:
     explicit informations_client(QWidget *parent = nullptr);
     ~informations_client();
 
+private slots:
+    void on_reduced_5_clicked();
+
+    void on_toolButton_19_clicked();
+
 private:
     Ui::informations_client *ui;
 };

@@ -15,6 +15,11 @@ public:
     explicit quel_client(QWidget *parent = nullptr);
     ~quel_client();
 
+private slots:
+    void on_toolButton_4_clicked();
+
+    void on_reduced_2_clicked();
+
 private:
     Ui::quel_client *ui;
 };

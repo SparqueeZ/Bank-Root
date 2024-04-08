@@ -15,6 +15,11 @@ public:
     explicit quel_stagiaire(QWidget *parent = nullptr);
     ~quel_stagiaire();
 
+private slots:
+    void on_reduced_clicked();
+
+    void on_toolButton_3_clicked();
+
 private:
     Ui::quel_stagiaire *ui;
 };

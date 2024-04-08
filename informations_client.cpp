@@ -13,3 +13,15 @@ informations_client::~informations_client()
 {
     delete ui;
 }
+
+void informations_client::on_reduced_5_clicked()
+{
+    showMinimized();
+}
+
+
+void informations_client::on_toolButton_19_clicked()
+{
+    close();
+}
+
