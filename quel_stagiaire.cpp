@@ -13,3 +13,32 @@ quel_stagiaire::~quel_stagiaire()
 {
     delete ui;
 }
+
+void quel_stagiaire::on_reduced_kist_clicked()
+{
+    showMinimized();
+}
+
+
+void quel_stagiaire::on_close_kist_clicked()
+{
+    close();
+}
+
+
+void quel_stagiaire::on_fullscreen_kist_clicked()
+{
+
+}
+
+
+void quel_stagiaire::on_return_kist_clicked()
+{
+
+}
+
+
+void quel_stagiaire::on_send_kist_clicked()
+{
+
+}

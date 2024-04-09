@@ -51,7 +51,7 @@
      <string>BankRoot</string>
     </property>
    </widget>
-   <widget class="QToolButton" name="reduced_5">
+   <widget class="QToolButton" name="reduced_em">
     <property name="geometry">
      <rect>
       <x>1120</x>
@@ -84,7 +84,7 @@ background:red;
      </size>
     </property>
    </widget>
-   <widget class="QToolButton" name="fullscreen_5">
+   <widget class="QToolButton" name="fullscreen_em">
     <property name="geometry">
      <rect>
       <x>1140</x>
@@ -112,7 +112,7 @@ border-radius:45px;
      </size>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_44">
+   <widget class="QToolButton" name="close_em">
     <property name="geometry">
      <rect>
       <x>1160</x>
@@ -249,7 +249,7 @@ background-position: center;
     <property name="styleSheet">
      <string notr="true">background:transparent;</string>
     </property>
-    <widget class="QToolButton" name="toolButton_45">
+    <widget class="QToolButton" name="cruser_em">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -340,7 +340,7 @@ background:transparent;
     <property name="styleSheet">
      <string notr="true">background:transparent;</string>
     </property>
-    <widget class="QToolButton" name="toolButton_49">
+    <widget class="QToolButton" name="crprofil_em">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -431,7 +431,7 @@ background:transparent;
     <property name="styleSheet">
      <string notr="true">background:transparent;</string>
     </property>
-    <widget class="QToolButton" name="toolButton_52">
+    <widget class="QToolButton" name="associer_em">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -522,7 +522,7 @@ background:transparent;
     <property name="styleSheet">
      <string notr="true">background:transparent;</string>
     </property>
-    <widget class="QToolButton" name="toolButton_51">
+    <widget class="QToolButton" name="logcl_em">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -615,7 +615,7 @@ background:transparent;
     <property name="styleSheet">
      <string notr="true">background:transparent;</string>
     </property>
-    <widget class="QToolButton" name="toolButton_47">
+    <widget class="QToolButton" name="crcompte_em">
      <property name="geometry">
       <rect>
        <x>0</x>

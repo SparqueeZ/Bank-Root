@@ -697,7 +697,7 @@ background-position: center;
 border-radius: 10px; 
 }</string>
     </property>
-    <widget class="QToolButton" name="toolButton_18">
+    <widget class="QToolButton" name="deco_infoc">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -1068,7 +1068,7 @@ border-radius: 10px;
      <string>BankRoot</string>
     </property>
    </widget>
-   <widget class="QToolButton" name="reduced_5">
+   <widget class="QToolButton" name="reduced_infoc">
     <property name="geometry">
      <rect>
       <x>1393</x>
@@ -1101,7 +1101,7 @@ background:red;
      </size>
     </property>
    </widget>
-   <widget class="QToolButton" name="fullscreen_5">
+   <widget class="QToolButton" name="fullscreen_infoc">
     <property name="geometry">
      <rect>
       <x>1420</x>
@@ -1129,7 +1129,7 @@ border-radius:45px;
      </size>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_19">
+   <widget class="QToolButton" name="close_infoc">
     <property name="geometry">
      <rect>
       <x>1443</x>

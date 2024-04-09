@@ -51,7 +51,7 @@
      <string>BankRoot</string>
     </property>
    </widget>
-   <widget class="QToolButton" name="reduced_3">
+   <widget class="QToolButton" name="reduced_st">
     <property name="geometry">
      <rect>
       <x>430</x>
@@ -84,7 +84,7 @@ background:red;
      </size>
     </property>
    </widget>
-   <widget class="QToolButton" name="fullscreen_3">
+   <widget class="QToolButton" name="fullscreen_st">
     <property name="geometry">
      <rect>
       <x>450</x>
@@ -112,7 +112,7 @@ border-radius:45px;
      </size>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_31">
+   <widget class="QToolButton" name="close_st">
     <property name="geometry">
      <rect>
       <x>470</x>
@@ -198,7 +198,7 @@ background:red;
      <string>Historique Stagiaire</string>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_33">
+   <widget class="QToolButton" name="lastconnect_st">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -269,7 +269,7 @@ background:#595554;
      <string>Dernières consultations</string>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_34">
+   <widget class="QToolButton" name="lastcons_st">
     <property name="geometry">
      <rect>
       <x>50</x>

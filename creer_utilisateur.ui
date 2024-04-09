@@ -130,7 +130,7 @@ color:rgb(109, 114, 117);
       <string>BankRoot</string>
      </property>
     </widget>
-    <widget class="QToolButton" name="reduced">
+    <widget class="QToolButton" name="reduced_cruser">
      <property name="geometry">
       <rect>
        <x>460</x>
@@ -163,7 +163,7 @@ background:red;
       </size>
      </property>
     </widget>
-    <widget class="QToolButton" name="toolButton_3">
+    <widget class="QToolButton" name="close_cruser">
      <property name="geometry">
       <rect>
        <x>520</x>
@@ -196,7 +196,7 @@ background:red;
       </size>
      </property>
     </widget>
-    <widget class="QToolButton" name="fullscreen">
+    <widget class="QToolButton" name="fullscreen_cruser">
      <property name="geometry">
       <rect>
        <x>487</x>
@@ -320,7 +320,7 @@ padding-left: 10px
     </property>
    </widget>
   </widget>
-  <widget class="QPushButton" name="return_2">
+  <widget class="QPushButton" name="return_cruser">
    <property name="geometry">
     <rect>
      <x>140</x>
@@ -361,7 +361,7 @@ color: rgb(255, 255, 255);
     <string>Retour</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="send">
+  <widget class="QPushButton" name="send_cruser">
    <property name="geometry">
     <rect>
      <x>290</x>
@@ -399,7 +399,7 @@ color: rgb(255, 255, 255);
 </string>
    </property>
    <property name="text">
-    <string>Envoyer</string>
+    <string>Confirmer</string>
    </property>
   </widget>
  </widget>

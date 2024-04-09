@@ -16,15 +16,15 @@ public:
     ~historique_stagiaire();
 
 private slots:
-    void on_toolButton_33_clicked();
+    void on_lastconnect_st_clicked();
 
-    void on_toolButton_34_clicked();
+    void on_lastcons_st_clicked();
 
-    void on_toolButton_31_clicked();
+    void on_reduced_st_clicked();
 
-    void on_fullscreen_3_clicked();
+    void on_fullscreen_st_clicked();
 
-    void on_reduced_3_clicked();
+    void on_close_st_clicked();
 
 private:
     Ui::historique_stagiaire *ui;

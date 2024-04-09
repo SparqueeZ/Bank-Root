@@ -209,7 +209,7 @@ color:rgb(109, 114, 117);
       <string>BankRoot</string>
      </property>
     </widget>
-    <widget class="QToolButton" name="toolButton_3">
+    <widget class="QToolButton" name="close">
      <property name="geometry">
       <rect>
        <x>510</x>

@@ -31,7 +31,7 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QPushButton" name="pushButton_7">
+   <widget class="QPushButton" name="return_crprofil">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -71,7 +71,7 @@ color: rgb(255, 255, 255);
      <string>Retour</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_8">
+   <widget class="QPushButton" name="send_crprofil">
     <property name="geometry">
      <rect>
       <x>290</x>
@@ -109,7 +109,7 @@ color: rgb(255, 255, 255);
 </string>
     </property>
     <property name="text">
-     <string>Envoyer</string>
+     <string>Confirmer</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_7">
@@ -254,7 +254,7 @@ color:rgb(109, 114, 117);
       <string>BankRoot</string>
      </property>
     </widget>
-    <widget class="QToolButton" name="reduced">
+    <widget class="QToolButton" name="reduced_crprofil">
      <property name="geometry">
       <rect>
        <x>433</x>
@@ -287,7 +287,7 @@ background:red;
       </size>
      </property>
     </widget>
-    <widget class="QToolButton" name="toolButton_3">
+    <widget class="QToolButton" name="close_crprofil">
      <property name="geometry">
       <rect>
        <x>493</x>
@@ -320,7 +320,7 @@ background:red;
       </size>
      </property>
     </widget>
-    <widget class="QToolButton" name="fullscreen">
+    <widget class="QToolButton" name="fullscreen_crprofil">
      <property name="geometry">
       <rect>
        <x>460</x>

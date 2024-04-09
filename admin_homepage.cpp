@@ -37,21 +37,21 @@ void admin_homepage::setUserInformation(const User& user)
     currentUser = new User(user);
 }
 
-void admin_homepage::on_toolButton_22_clicked()
+void admin_homepage::on_cruser_ad_clicked()
 {
     creer_utilisateur *CreerUtilisateur = new creer_utilisateur();
     CreerUtilisateur->show();
 }
 
 
-void admin_homepage::on_toolButton_30_clicked()
+void admin_homepage::on_associer_ad_clicked()
 {
     creer_compte *CreerCompte = new creer_compte();
     CreerCompte->show();
 }
 
 
-void admin_homepage::on_toolButton_26_clicked()
+void admin_homepage::on_crprofil_ad_clicked()
 {
     creer_profil *CreerProfil = new creer_profil();
     CreerProfil->show();
@@ -59,35 +59,39 @@ void admin_homepage::on_toolButton_26_clicked()
 
 
 
-void admin_homepage::on_toolButton_33_clicked()
+void admin_homepage::on_logcl_ad_clicked()
 {
     quel_client *InfoClient = new quel_client();
     InfoClient->show();
 }
 
 
-void admin_homepage::on_toolButton_34_clicked()
+void admin_homepage::on_logst_ad_clicked()
 {
     quel_stagiaire *HistoStagiaire = new quel_stagiaire();
     HistoStagiaire->show();
 }
 
 
-void admin_homepage::on_toolButton_36_clicked()
+void admin_homepage::on_logem_ad_clicked()
 {
     quel_employe *HistoEmploye = new quel_employe();
     HistoEmploye->show();
 }
 
 
-void admin_homepage::on_toolButton_31_clicked()
+void admin_homepage::on_close_ad_clicked()
 {
     close();
 }
 
 
-void admin_homepage::on_reduced_3_clicked()
+void admin_homepage::on_reduced_ad_clicked()
 {
     showMinimized();
 }
 
+void admin_homepage::on_fullscreen_ad_clicked()
+{
+
+}
