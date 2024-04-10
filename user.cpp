@@ -45,7 +45,7 @@ int User::getprofil(QString login, QString password) {
 }
 
 */
-
+//lol
 
 bool User::signin(QString login, QString password) {
     QDir::setCurrent(QCoreApplication::applicationDirPath());
