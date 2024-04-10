@@ -56,7 +56,7 @@ consulter ?
 </string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_5">
+   <widget class="QLineEdit" name="value">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -75,7 +75,7 @@ padding-left: 10px
 }</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_5">
+   <widget class="QPushButton" name="return_kist">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -115,7 +115,7 @@ color: rgb(255, 255, 255);
      <string>Retour</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_6">
+   <widget class="QPushButton" name="send_kist">
     <property name="geometry">
      <rect>
       <x>290</x>

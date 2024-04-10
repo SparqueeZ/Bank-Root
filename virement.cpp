@@ -119,7 +119,7 @@ void virement::mouseMoveEvent(QMouseEvent *event) {
 void virement::on_Envoyer_clicked()
 {
     Operations operations;
-    QString montant = ui->lineEdit->text();
+    QString montant = ui->value->text();
     QString idProprietaire = ui->comboBoxProp->currentData().toString();
     QString idDestinataire = ui->combo->currentData().toString();
 

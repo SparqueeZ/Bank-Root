@@ -134,7 +134,7 @@ color: rgb(255, 255, 255);
      <string>Création Compte</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_7">
+   <widget class="QLineEdit" name="value">
     <property name="geometry">
      <rect>
       <x>140</x>

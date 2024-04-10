@@ -56,7 +56,7 @@ consulter ?
 </string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_5">
+   <widget class="QLineEdit" name="value">
     <property name="geometry">
      <rect>
       <x>140</x>

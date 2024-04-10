@@ -116,7 +116,7 @@ background-position: center;
     <property name="styleSheet">
      <string notr="true">background:transparent;</string>
     </property>
-    <widget class="QToolButton" name="cruser_ad">
+    <widget class="QToolButton" name="cruser_adm">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -207,7 +207,7 @@ background:transparent;
     <property name="styleSheet">
      <string notr="true">background:transparent;</string>
     </property>
-    <widget class="QToolButton" name="crprofil_ad">
+    <widget class="QToolButton" name="crprofil_adm">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -298,7 +298,7 @@ background:transparent;
     <property name="styleSheet">
      <string notr="true">background:transparent;</string>
     </property>
-    <widget class="QToolButton" name="associer_ad">
+    <widget class="QToolButton" name="associer_adm">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -389,7 +389,7 @@ background:transparent;
     <property name="styleSheet">
      <string notr="true">background:transparent;</string>
     </property>
-    <widget class="QToolButton" name="logcl_ad">
+    <widget class="QToolButton" name="logcl_adm">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -480,7 +480,7 @@ background:transparent;
     <property name="styleSheet">
      <string notr="true">background:transparent;</string>
     </property>
-    <widget class="QToolButton" name="logst_ad">
+    <widget class="QToolButton" name="logst_adm">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -571,7 +571,7 @@ background:transparent;
     <property name="styleSheet">
      <string notr="true">background:transparent;</string>
     </property>
-    <widget class="QToolButton" name="logem_ad">
+    <widget class="QToolButton" name="logem_adm">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -689,7 +689,7 @@ background:transparent;
      <string>BankRoot</string>
     </property>
    </widget>
-   <widget class="QToolButton" name="reduced_ad">
+   <widget class="QToolButton" name="reduced_adm">
     <property name="geometry">
      <rect>
       <x>1120</x>
@@ -722,7 +722,7 @@ background:red;
      </size>
     </property>
    </widget>
-   <widget class="QToolButton" name="fullscreen_ad">
+   <widget class="QToolButton" name="fullscreen_adm">
     <property name="geometry">
      <rect>
       <x>1140</x>
@@ -750,7 +750,7 @@ border-radius:45px;
      </size>
     </property>
    </widget>
-   <widget class="QToolButton" name="close_ad">
+   <widget class="QToolButton" name="close_adm">
     <property name="geometry">
      <rect>
       <x>1160</x>

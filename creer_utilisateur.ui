@@ -28,7 +28,7 @@ background:#0C120C;
 color:#717072;
 }</string>
    </property>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="name_user">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -269,7 +269,7 @@ border-radius:45px;
      <string>Date de naissance</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
+   <widget class="QLineEdit" name="firstname_user">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -294,7 +294,7 @@ padding-left: 10px
 }</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_3">
+   <widget class="QLineEdit" name="datenaissance_user">
     <property name="geometry">
      <rect>
       <x>140</x>

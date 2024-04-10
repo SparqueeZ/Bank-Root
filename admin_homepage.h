@@ -38,6 +38,24 @@ private slots:
 
 
 
+    void on_logcl_adm_clicked();
+
+    void on_associer_adm_clicked();
+
+    void on_crprofil_adm_clicked();
+
+    void on_logst_adm_clicked();
+
+    void on_logem_adm_clicked();
+
+    void on_cruser_adm_clicked();
+
+    void on_close_adm_clicked();
+
+    void on_fullscreen_adm_clicked();
+
+    void on_reduced_adm_clicked();
+
 private:
     Ui::admin_homepage *ui;
     User *currentUser;

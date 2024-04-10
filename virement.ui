@@ -31,7 +31,7 @@ background:#0C120C;
 color:#717072;
 }</string>
    </property>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="value">
     <property name="geometry">
      <rect>
       <x>140</x>
