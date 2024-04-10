@@ -650,7 +650,7 @@ background:transparent;
      <string>BankRoot</string>
     </property>
    </widget>
-   <widget class="QToolButton" name="reduced_3">
+   <widget class="QToolButton" name="reduced">
     <property name="geometry">
      <rect>
       <x>1120</x>

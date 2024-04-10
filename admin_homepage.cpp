@@ -79,15 +79,29 @@ void admin_homepage::on_toolButton_36_clicked()
     HistoEmploye->show();
 }
 
-
 void admin_homepage::on_toolButton_31_clicked()
+{
+
+}
+
+
+void admin_homepage::on_close_clicked()
 {
     close();
 }
 
 
+void admin_homepage::on_reduced_clicked()
+{
+    showMinimized();
+}
+
 void admin_homepage::on_reduced_3_clicked()
 {
     showMinimized();
+}
+
+void admin_homepage::on_fullscreen_2_clicked(){
+
 }
 
