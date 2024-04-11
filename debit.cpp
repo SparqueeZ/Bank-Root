@@ -23,6 +23,7 @@ debit::debit(User *user, Home *parentHome, QWidget *parent)
         qDebug() << "Erreur : Le parent n'est pas une instance de la classe Home.";
         // Gérer l'erreur ici
     }
+    currentUser = user;
 }
 
 debit::~debit()
@@ -68,7 +69,7 @@ void debit::on_send_clicked()
     Home home;
     QString value = ui->value->text();
     Operations operations;
-    operations.removeBalance(value.toInt(), 1);
+    operations.removeBalance(value.toInt(), currentUser->getUserId());
 
     // Rafraîchissement des informations de l'utilisateur sur la page d'accueil
     parentHome->refreshUserInfo();
