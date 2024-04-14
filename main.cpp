@@ -474,8 +474,6 @@ public:
         QTextStream stream(stdin);
         clearScreen();
 
-        f_admin admin;
-
         // Affichage du menu
         std::cout << "Outil de creation de comptes -------------------------------" << std:: endl;
         std::cout << "[1] Creer un compte utilisateur" << std:: endl;
@@ -518,6 +516,7 @@ public:
     }
 
     int AffCreateUser() {
+        f_admin admin;
         QTextStream stream(stdin);
         clearScreen();
 
@@ -533,7 +532,7 @@ public:
         int role = roleString.toInt() - 1;
 
         clearScreen();
-        int newUserId = user->createUser(username, role);
+        int newUserId = admin.createUser(username, role);
         if(newUserId && user->getRole() == 1 ) {
             std::cout << "Compte " << newUserId << " cree avec succes." << std:: endl;
         } else {
@@ -561,6 +560,7 @@ public:
     };
 
     void AffCreateAccount(int userId) {
+        f_admin admin;
         QTextStream stream(stdin);
         clearScreen();
 
@@ -583,7 +583,7 @@ public:
         }
 
         int accountType = accountTypeString.toInt() - 1;
-        if(user->createAccount(userId, accountType, baseBalance.toDouble())) {
+        if(admin.createAccount(userId, accountType, baseBalance.toDouble())) {
             std::cout << "Compte bancaire cree et lie avec succes." << std:: endl;
         } else {
             std::cout << "Une erreur est survenue lors de la creation du compte bancaire." << std:: endl;
@@ -604,31 +604,23 @@ public:
         std::cout << "Role : " << newUser.getRole() << std:: endl;
         std::cout << "Id : " << newUser.getUserId() << std:: endl;
         std::cout << "----------------------" << std:: endl;
-
-
-        /*std::cout << "Continuer sur la creation d'un profil ? o/n" << std:: endl;
-        QString continueChoice = stream.readLine().trimmed();
-        if (continueChoice == "o" || continueChoice == "oui"){
-            //AffCreateAccount(newUserId);
-            std::cout << "Creer un profil..." << std:: endl;
-            Sleep(3000);
-        } else {
-            return;
-        }*/
     }
 
     int AffCreateProfil(int userId) {
+        f_admin admin;
         QTextStream stream(stdin);
         clearScreen();
 
         if (!userId){
             std::cout << "Id user non detecte, veuillez entrer celui-ci : ";
             QString choice =stream.readLine().trimmed();
+            clearScreen();
         }
 
         // Check si le compte a deja un profil proprietaire, si oui, alors creation profil conjoint, sinon creation profil proprietaire
         int profileExists = user->checkIfProfileExists(userId);
         if (profileExists != -1 && profileExists != -2) {
+            User newUser;
             if (profileExists == 0) {
                 // Creation de profil prop
                 std::cout << "Entrez le prenom du profil : ";
@@ -646,7 +638,7 @@ public:
 
                 QString roleString = 0;
                 int role = 0;
-                if(user->getRole() == 1) {
+                if(newUser.getRole() == 1) {
                     // Si l'user est admin
                     std::cout << "Choisissez le role du profil : " << std:: endl;
                     std::cout << "[1] Stagiaire " << std:: endl;
@@ -681,7 +673,7 @@ public:
                 }
 
                 clearScreen();
-                if (user->createProfil(userId, firstname, lastname, login, password, role)){
+                if (admin.createProfil(userId, firstname, lastname, login, password, role)){
                     std::cout << "----------------------" << std:: endl;
                     std::cout << "        RESUME        "<< std:: endl;
                     std::cout << "----------------------" << std:: endl;
@@ -836,32 +828,6 @@ public:
             std::cout << "Un erreur est survenue.";
             Sleep(2000);
         }
-
-
-
-        // Récupération de l'existance d'un compte bancaire.
-        /*
-        if (db.isValid()) {
-            QSqlQuery query(db);
-            query.prepare("SELECT ppl.id AS ppl_id, pel.id AS pel_id, lvc.id AS lvc_id "
-                          "FROM users AS u "
-                          "LEFT JOIN accounts AS ppl ON ppl.userId = u.id AND ppl.type = 0 "
-                          "LEFT JOIN accounts AS pel ON pel.userId = u.id AND pel.type = 1 "
-                          "LEFT JOIN accounts AS lvc ON lvc.userId = u.id AND lvc.type = 2 "
-                          "WHERE u.id = :userId");
-            query.bindValue(":userId", user->getUserId());
-
-            if (!query.exec()) {
-                std::cout << "Erreur lors de l'execution de la requete : " << query.lastError().text().toStdString() << std::endl;
-                return;
-            }
-
-            if (query.value("ppl_id") != NULL || query.value("pel_id") != NULL || query.value("lvc_id") != NULL) {
-
-            }
-        }
-        */
-
     }
 };
 
