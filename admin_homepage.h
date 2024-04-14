@@ -18,26 +18,6 @@ public:
     void setUserInformation(const User& user);
 
 private slots:
-    void on_cruser_ad_clicked();
-
-    void on_associer_ad_clicked();
-
-    void on_crprofil_ad_clicked();
-
-    void on_logcl_ad_clicked();
-
-    void on_logem_ad_clicked();
-
-    void on_logst_ad_clicked();
-
-    void on_close_ad_clicked();
-
-    void on_fullscreen_ad_clicked();
-
-    void on_reduced_ad_clicked();
-
-
-
     void on_logcl_adm_clicked();
 
     void on_associer_adm_clicked();

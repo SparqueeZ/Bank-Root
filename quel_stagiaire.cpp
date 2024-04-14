@@ -20,7 +20,7 @@ void quel_stagiaire::on_reduced_kist_clicked()
 }
 
 
-void quel_stagiaire::on_close_kist_clicked
+void quel_stagiaire::on_close_kist_clicked()
 {
     close();
 }
@@ -41,3 +41,4 @@ void quel_stagiaire::on_send_kist_clicked()
 {
 
 }
+
