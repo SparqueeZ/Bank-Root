@@ -50,12 +50,15 @@ public:
     int createUser(QString username, int role);
 
     // Création de commptes Profils
-    bool createProfil(QString firstname, QString lastname, QString login, QString password, int type);
+    bool createProfil(int userId, QString firstname, QString lastname, QString login, QString password, int type);
 
     // Création de comptes Bancaires
     bool createAccount(int userId, int type, double balance);
 
     void getInformations(int userId);
+
+    int checkIfProfileExists(int userId);
+    bool checkIfUserIsAdmin(int userId);
 
 private:
     int m_role;

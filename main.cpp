@@ -12,6 +12,7 @@
 #include <synchapi.h>
 #include <conio.h>
 #include "Home.h"
+#include "f_admin.h"
 
 class UI {
 public:
@@ -194,22 +195,20 @@ public:
         // Partie beneficiaire -------------------
         std::system("cls");
         QSqlQuery getBeneficiaires(db);
-        getBeneficiaires.prepare("SELECT "
-                                 "u.firstname AS prop_firstname, "
-                                 "ab.beneficiaire_id, "
-                                 "a.type, "
-                                 "u_beneficiary.firstname AS beneficiary_firstname, "
-                                 "a_beneficiary.userId AS beneficiary_user_id "
-                                 "FROM added_beneficiaires AS ab "
-                                 "JOIN accounts AS a ON ab.beneficiaire_id = a.id "
-                                 "JOIN users AS u ON u.id = ab.prop_id "
-                                 "JOIN accounts AS a_beneficiary ON ab.beneficiaire_id = a_beneficiary.id "
-                                 "JOIN users AS u_beneficiary ON a_beneficiary.userId = u_beneficiary.id "
-                                 "WHERE u.id = :userId");
+        getBeneficiaires.prepare("SELECT DISTINCT u_prop.id AS prop_uid, p_prop.firstname AS prop_firstname, "
+                                 "a_dest.id AS dest_acc_id , p_dest.firstname AS dest_firstname, a_dest.type AS dest_acc_type "
+                                    "FROM saved_accounts AS sa "
+                                    "LEFT JOIN users AS u_prop ON u_prop.id = sa.user_id "
+                                    "LEFT JOIN accounts AS a_prop ON a_prop.userId = u_prop.id "
+                                    "LEFT JOIN profil AS p_prop ON p_prop.user_id = u_prop.id "
+                                    "LEFT JOIN accounts AS a_dest ON a_dest.id = sa.account_id "
+                                    "LEFT JOIN users AS u_dest ON u_dest.id = sa.account_id "
+                                    "LEFT JOIN profil AS p_dest ON p_dest.user_id = u_dest.id "
+                                    "WHERE u_prop.id = 39");
         getBeneficiaires.bindValue(":userId", user->getUserId());
 
         if (!getBeneficiaires.exec()) {
-            qDebug() << "Erreur lors de l'exécution de la requête SQL";
+            qDebug() << "Erreur lors de l'execution de la requête SQL";
             Sleep(3000);
             return;
         }
@@ -219,9 +218,9 @@ public:
         QMap<int, QString> accountMap;
         int count2 = 1;
         while (getBeneficiaires.next()) {
-            QString accountOwnerId = getBeneficiaires.value("beneficiary_firstname").toString();
-            QString accountId = getBeneficiaires.value("beneficiaire_id").toString();
-            QString accountType = getBeneficiaires.value("type").toString();
+            QString accountOwnerId = getBeneficiaires.value("dest_firstname").toString();
+            QString accountId = getBeneficiaires.value("dest_acc_id").toString();
+            QString accountType = getBeneficiaires.value("dest_acc_type").toString();
 
             if(accountType == "0") {
                 accountType = "Courant";
@@ -423,7 +422,7 @@ public:
         if (db.isValid()) {
             // Exécuter la requête SQL pour récupérer les données de l'historique
             QSqlQuery query(db);
-            query.prepare("SELECT * FROM history WHERE id_compte_emetteur = :id ORDER BY date DESC");
+            query.prepare("SELECT * FROM history WHERE id_compte_emetteur = 8 OR id_compte_destinataire = 8 ORDER BY date DESC");
             query.bindValue(":id", user->getUserId());
 
             if (!query.exec()) {
@@ -475,48 +474,33 @@ public:
         QTextStream stream(stdin);
         clearScreen();
 
+        f_admin admin;
+
         // Affichage du menu
         std::cout << "Outil de creation de comptes -------------------------------" << std:: endl;
         std::cout << "[1] Creer un compte utilisateur" << std:: endl;
-        std::cout << "[2] Creer un compte en banque" << std:: endl;
-        std::cout << "[3] Creer un profil" << std:: endl;
+        std::cout << "[2] Creer un profil" << std:: endl;
+        std::cout << "[3] Creer un compte en banque" << std:: endl;
         std::cout << "[4] Associer ???" << std:: endl;
         AffSeparator();
 
         QString choice =stream.readLine().trimmed();
+        int newUserId = 0;
 
         if(choice.toInt() == 1) {
-            clearScreen();
-
-            std::cout << "Entrez le nom de l'user : ";
-            QString username =stream.readLine().trimmed();
-
-            clearScreen();
-            std::cout << "Choisissez le role de l'user : " << std:: endl;
-            std::cout << "[1] Utilisateur " << std:: endl;
-            std::cout << "[2] Administrateur " << std:: endl;
-            std::cout << "Votre choix : ";
-            QString roleString = stream.readLine().trimmed();
-
-            clearScreen();
-            int newUserId = user->createUser(username, roleString.toInt());
-            if(newUserId && user->getRole() == 1 ) {
-                std::cout << "Compte " << newUserId << " cree avec succes." << std:: endl;
+            newUserId = AffCreateUser();
+            std::cout << "Continuer sur la creation d'un profil ? o/n" << std:: endl;
+            QString continueChoice = stream.readLine().trimmed();
+            if (continueChoice == "o" || continueChoice == "oui"){
+                AffCreateProfil(newUserId);
             } else {
-                std::cout << "Une erreur est survenue lors de la creation du compte user." << std:: endl;
+                return;
             }
-            Sleep(1500);
-
-            clearScreen();
-            int role = roleString.toInt() - 1;
-
-            std::cout << "----------------------" << std:: endl;
-            std::cout << "        RESUME        "<< std:: endl;
-            std::cout << "----------------------" << std:: endl;
-            std::cout << "Nom : " << username.toStdString() << std:: endl;
-            std::cout << "Role : " << role << std:: endl;
-            std::cout << "Id : " << newUserId << std:: endl;
-            std::cout << "----------------------" << std:: endl;
+            Sleep(2000);
+        } else if (choice.toInt() == 2) {
+            std::cout << "Veuillez entrer l'id de l'user : ";
+            QString userId = stream.readLine().trimmed();
+            int profileId = AffCreateProfil(userId.toInt());
 
             std::cout << "Continuer sur la creation d'un compte bancaire ? o/n" << std:: endl;
             QString continueChoice = stream.readLine().trimmed();
@@ -526,16 +510,64 @@ public:
                 return;
             }
             Sleep(2000);
-        } else if (choice.toInt() == 2) {
-            //user->createAccount();
         } else if (choice.toInt() == 3) {
-            //user->createProfil();
+            std::cout << "Veuillez entrer l'id de l'user : ";
+            QString userId = stream.readLine().trimmed();
+            AffCreateAccount(userId.toInt());
         }
     }
+
+    int AffCreateUser() {
+        QTextStream stream(stdin);
+        clearScreen();
+
+        std::cout << "Entrez le nom de l'user : ";
+        QString username =stream.readLine().trimmed();
+
+        clearScreen();
+        std::cout << "Choisissez le role de l'user : " << std:: endl;
+        std::cout << "[1] Utilisateur " << std:: endl;
+        std::cout << "[2] Administrateur " << std:: endl;
+        std::cout << "Votre choix : ";
+        QString roleString = stream.readLine().trimmed();
+        int role = roleString.toInt() - 1;
+
+        clearScreen();
+        int newUserId = user->createUser(username, role);
+        if(newUserId && user->getRole() == 1 ) {
+            std::cout << "Compte " << newUserId << " cree avec succes." << std:: endl;
+        } else {
+            std::cout << "Une erreur est survenue lors de la creation du compte user." << std:: endl;
+        }
+        Sleep(1500);
+
+        clearScreen();
+
+        if(roleString.toInt() == 1) {
+            roleString = "Utilisateur";
+        } else if (roleString.toInt() == 2) {
+            roleString = "Administrateur";
+        }
+
+        std::cout << "----------------------" << std:: endl;
+        std::cout << "        RESUME        "<< std:: endl;
+        std::cout << "----------------------" << std:: endl;
+        std::cout << "Nom : " << username.toStdString() << std:: endl;
+        std::cout << "Role : " << roleString.toStdString() << std:: endl;
+        std::cout << "Id : " << newUserId << std:: endl;
+        std::cout << "----------------------" << std:: endl;
+
+        return newUserId;
+    };
 
     void AffCreateAccount(int userId) {
         QTextStream stream(stdin);
         clearScreen();
+
+        if (!userId){
+            QString choice = stream.readLine().trimmed();
+        }
+
         std::cout << "Quel type de compte voulez-vous creer ?" << std:: endl;
         std::cout << "[1] Compte courant " << std:: endl;
         std::cout << "[2] Compte PEL " << std:: endl;
@@ -574,7 +606,7 @@ public:
         std::cout << "----------------------" << std:: endl;
 
 
-        std::cout << "Continuer sur la creation d'un profil ? o/n" << std:: endl;
+        /*std::cout << "Continuer sur la creation d'un profil ? o/n" << std:: endl;
         QString continueChoice = stream.readLine().trimmed();
         if (continueChoice == "o" || continueChoice == "oui"){
             //AffCreateAccount(newUserId);
@@ -582,9 +614,257 @@ public:
             Sleep(3000);
         } else {
             return;
+        }*/
+    }
+
+    int AffCreateProfil(int userId) {
+        QTextStream stream(stdin);
+        clearScreen();
+
+        if (!userId){
+            std::cout << "Id user non detecte, veuillez entrer celui-ci : ";
+            QString choice =stream.readLine().trimmed();
         }
+
+        // Check si le compte a deja un profil proprietaire, si oui, alors creation profil conjoint, sinon creation profil proprietaire
+        int profileExists = user->checkIfProfileExists(userId);
+        if (profileExists != -1 && profileExists != -2) {
+            if (profileExists == 0) {
+                // Creation de profil prop
+                std::cout << "Entrez le prenom du profil : ";
+                QString firstname =stream.readLine().trimmed();
+                clearScreen();
+                std::cout << "Entrez le nom de famille du profil : ";
+                QString lastname =stream.readLine().trimmed();
+                clearScreen();
+                std::cout << "Entrez le login du profil : ";
+                QString login =stream.readLine().trimmed();
+                clearScreen();
+
+                // Generer le password.
+                QString password = user->generateRandomPassword();
+
+                QString roleString = 0;
+                int role = 0;
+                if(user->getRole() == 1) {
+                    // Si l'user est admin
+                    std::cout << "Choisissez le role du profil : " << std:: endl;
+                    std::cout << "[1] Stagiaire " << std:: endl;
+                    std::cout << "[2] Employe " << std:: endl;
+                    std::cout << "[3] Directeur " << std:: endl;
+                    std::cout << "Votre choix : ";
+                    while (roleString.toInt() != 1 && roleString.toInt() != 2 && roleString.toInt() != 3) {
+                        roleString = stream.readLine().trimmed();
+                    }
+                    role = roleString.toInt() + 9; // +10 -1
+                } else {
+                    // Si l'user est user
+                    std::cout << "Choisissez le role du profil : " << std:: endl;
+                    std::cout << "[1] Proprietaire " << std:: endl;
+                    std::cout << "[2] Conjoint " << std:: endl;
+                    std::cout << "Votre choix : ";
+                    while (roleString.toInt() != 1 && roleString.toInt() != 2) {
+                        roleString = stream.readLine().trimmed();
+                    }
+                    role = roleString.toInt() - 1;
+                }
+                if (role == 0) {
+                    roleString = "Proprietaire";
+                } else if (role == 1) {
+                    roleString = "Conjoint";
+                } else if (role == 10) {
+                    roleString = "Stagiaire";
+                } else if (role == 11) {
+                    roleString = "Employe";
+                } else if (role == 12) {
+                    roleString = "Directeur";
+                }
+
+                clearScreen();
+                if (user->createProfil(userId, firstname, lastname, login, password, role)){
+                    std::cout << "----------------------" << std:: endl;
+                    std::cout << "        RESUME        "<< std:: endl;
+                    std::cout << "----------------------" << std:: endl;
+                    std::cout << "Firstname : " << firstname.toStdString() << std:: endl;
+                    std::cout << "Lastname : " << lastname.toStdString() << std:: endl;
+                    std::cout << "Login : " << login.toStdString() << std:: endl;
+                    std::cout << "Password : " << password.toStdString() << std:: endl;
+                    std::cout << "Role : " << roleString.toStdString() << std:: endl;
+                    std::cout << "----------------------" << std:: endl;
+                    Sleep(5000);
+                } else {
+                    std::cout << "Un erreur est survenue lors de la création du profil.";
+                    Sleep(2000);
+                }
+            } else if(profileExists == 1) {
+                // Profil prop trouve.
+                // Creation de profil con
+                std::cout << "Entrez le prenom du profil : ";
+                QString firstname =stream.readLine().trimmed();
+                clearScreen();
+                std::cout << "Entrez le nom de famille du profil : ";
+                QString lastname =stream.readLine().trimmed();
+                clearScreen();
+                std::cout << "Entrez le login du profil : ";
+                QString login =stream.readLine().trimmed();
+                clearScreen();
+
+                // Generer le password.
+                QString password = user->generateRandomPassword();
+
+                // Si l'user est de type = 1, alors Stagiaire..., sinon : type = 0
+                std::cout << "Choisissez le role du profil : " << std:: endl;
+                std::cout << "[1] Proprietaire " << std:: endl;
+                std::cout << "[2] Conjoint " << std:: endl;
+                std::cout << "Votre choix : ";
+
+                QString roleString = 0;
+                int role = 1;
+                if (role == 0) {
+                    roleString = "Proprietaire";
+                } else if (role == 1) {
+                    roleString = "Conjoint";
+                } else if (role == 10) {
+                    roleString = "Stagiaire";
+                } else if (role == 11) {
+                    roleString = "Employe";
+                } else if (role == 12) {
+                    roleString = "Directeur";
+                }
+
+                clearScreen();
+                if (user->createProfil(userId, firstname, lastname, login, password, role)){
+                    std::cout << "----------------------" << std:: endl;
+                    std::cout << "        RESUME        "<< std:: endl;
+                    std::cout << "----------------------" << std:: endl;
+                    std::cout << "Firstname : " << firstname.toStdString() << std:: endl;
+                    std::cout << "Lastname : " << lastname.toStdString() << std:: endl;
+                    std::cout << "Login : " << login.toStdString() << std:: endl;
+                    std::cout << "Password : " << password.toStdString() << std:: endl;
+                    std::cout << "Role : " << role << std:: endl;
+                    std::cout << "----------------------" << std:: endl;
+                    Sleep(5000);
+                } else {
+                    std::cout << "Un erreur est survenue lors de la création du profil.";
+                    Sleep(2000);
+                }
+            } else if (profileExists == 2) {
+                // Profil con trouve.
+                // Check si l'user a un profil prop
+                if(user->checkIfProfileExists(userId) == 1) {
+                    // Si oui : bloquer
+                    std::cout << "Des profils sont deja existants sur cet user." ;
+                    Sleep(3000);
+                    return -1;
+                } else {
+                    // Profil prop trouve.
+                    // Creation de profil con
+                    std::cout << "Entrez le prenom du profil du conjoint : ";
+                    QString firstname =stream.readLine().trimmed();
+                    clearScreen();
+                    std::cout << "Entrez le nom de famille du profil : ";
+                    QString lastname =stream.readLine().trimmed();
+                    clearScreen();
+                    std::cout << "Entrez le login du profil : ";
+                    QString login =stream.readLine().trimmed();
+                    clearScreen();
+
+                    // Generer le password.
+                    QString password = user->generateRandomPassword();
+
+                    QString roleString = 0;
+                    int role = 0;
+
+                    if(user->checkIfUserIsAdmin(userId)) {
+                        std::cout << "Choisissez le role du profil : " << std:: endl;
+                        std::cout << "[1] Stagiaire " << std:: endl;
+                        std::cout << "[2] Employe " << std:: endl;
+                        std::cout << "[3] Directeur " << std:: endl;
+                        std::cout << "Votre choix : ";
+
+                        while (roleString.toInt() != 1 && roleString.toInt() != 2 && roleString.toInt() != 3) {
+                            roleString = stream.readLine().trimmed();
+                        }
+                        role = roleString.toInt() - 1;
+                        if (role == 0) {
+                            roleString = "Stagiaire";
+                        } else if (role == 1) {
+                            roleString = "Employe";
+                        } else if (role == 2) {
+                            roleString = "Directeur";
+                        }
+                    } else {
+                        std::cout << "Choisissez le role du profil : " << std:: endl;
+                        std::cout << "[1] Proprietaire " << std:: endl;
+                        std::cout << "[2] Conjoint " << std:: endl;
+                        std::cout << "Votre choix : ";
+
+                        while (roleString.toInt() != 1 && roleString.toInt() != 2) {
+                            roleString = stream.readLine().trimmed();
+                        }
+                        role = roleString.toInt() - 1;
+                        if (role == 0) {
+                            roleString = "Proprietaire";
+                        } else if (role == 1) {
+                            roleString = "Conjoint";
+                        }
+                    }
+
+                    clearScreen();
+                    if (user->createProfil(userId, firstname, lastname, login, password, role)){
+                        std::cout << "----------------------" << std:: endl;
+                        std::cout << "        RESUME        "<< std:: endl;
+                        std::cout << "----------------------" << std:: endl;
+                        std::cout << "Firstname : " << firstname.toStdString() << std:: endl;
+                        std::cout << "Lastname : " << lastname.toStdString() << std:: endl;
+                        std::cout << "Login : " << login.toStdString() << std:: endl;
+                        std::cout << "Password : " << password.toStdString() << std:: endl;
+                        std::cout << "Role : " << roleString.toStdString() << std:: endl;
+                        std::cout << "----------------------" << std:: endl;
+                        Sleep(5000);
+                    } else {
+                        std::cout << "Un erreur est survenue lors de la creation du profil.";
+                        Sleep(2000);
+                    }
+                }
+                // Si non : Creation de profil prop
+            }
+        } else if(profileExists == -1) {
+            std::cout << "L'utilisateur a deja plusieurs profils";
+            Sleep(2000);
+        } else {
+            std::cout << "Un erreur est survenue.";
+            Sleep(2000);
+        }
+
+
+
+        // Récupération de l'existance d'un compte bancaire.
+        /*
+        if (db.isValid()) {
+            QSqlQuery query(db);
+            query.prepare("SELECT ppl.id AS ppl_id, pel.id AS pel_id, lvc.id AS lvc_id "
+                          "FROM users AS u "
+                          "LEFT JOIN accounts AS ppl ON ppl.userId = u.id AND ppl.type = 0 "
+                          "LEFT JOIN accounts AS pel ON pel.userId = u.id AND pel.type = 1 "
+                          "LEFT JOIN accounts AS lvc ON lvc.userId = u.id AND lvc.type = 2 "
+                          "WHERE u.id = :userId");
+            query.bindValue(":userId", user->getUserId());
+
+            if (!query.exec()) {
+                std::cout << "Erreur lors de l'execution de la requete : " << query.lastError().text().toStdString() << std::endl;
+                return;
+            }
+
+            if (query.value("ppl_id") != NULL || query.value("pel_id") != NULL || query.value("lvc_id") != NULL) {
+
+            }
+        }
+        */
+
     }
 };
+
 
 
 class GUI : public UI {

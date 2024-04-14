@@ -19,6 +19,7 @@ SOURCES += \
     creer_utilisateur.cpp \
     debit.cpp \
     employe_homepage.cpp \
+    f_admin.cpp \
     historique_employe.cpp \
     historique_stagiaire.cpp \
     home.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     creer_utilisateur.h \
     debit.h \
     employe_homepage.h \
+    f_admin.h \
     historique_employe.h \
     historique_stagiaire.h \
     home.h \

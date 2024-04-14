@@ -36,7 +36,23 @@ bool User::signin(QString login, QString password) {
 
     // Requete pour recuperer les informations de l'utilisateur
     QSqlQuery query;
-    query.prepare("SELECT u.id AS id, u.firstname AS firstname, u.lastname AS lastname, u.dateOfBirth AS dateofbirth, u.role AS role, u.login AS login, a1.balance AS balance, a1.id AS firstAccountId, a2.balance AS balancePEL, a2.id AS PELAccountId, a3.balance AS balanceLC, a3.id AS LCAccountId FROM users u LEFT JOIN accounts a1 ON u.id = a1.userId AND a1.type = 0 LEFT JOIN accounts a2 ON u.id = a2.userId AND a2.type = 1 LEFT JOIN accounts a3 ON u.id = a3.userId AND a3.type = 2 WHERE u.login = :login AND u.password = :password");
+    /*query.prepare("SELECT u.id AS id, u.firstname AS firstname, u.lastname AS lastname, u.dateOfBirth AS dateofbirth, u.role AS role, u.login AS login, a1.balance AS balance, a1.id AS firstAccountId, a2.balance AS balancePEL, a2.id AS PELAccountId, a3.balance AS balanceLC, a3.id AS LCAccountId "
+                  "FROM users u "
+                  "LEFT JOIN accounts a1 ON u.id = a1.userId AND a1.type = 0 "
+                  "LEFT JOIN accounts a2 ON u.id = a2.userId AND a2.type = 1 "
+                  "LEFT JOIN accounts a3 ON u.id = a3.userId AND a3.type = 2 "
+                  "WHERE u.login = :login AND u.password = :password");*/
+    query.prepare("SELECT u.id AS id, u.role AS role, "
+                  "p.firstname AS firstname, p.lastname AS lastname, p.type AS type, p.login AS login, "
+                  "a1.balance AS balance, a1.id AS firstAccountId, "
+                  "a2.balance AS balancePEL, a2.id AS PELAccountId, "
+                  "a3.balance AS balanceLC, a3.id AS LCAccountId "
+                  "FROM profil p "
+                  "LEFT JOIN users u ON p.user_id = u.id "
+                  "LEFT JOIN accounts a1 ON u.id = a1.userId AND a1.type = 0 "
+                  "LEFT JOIN accounts a2 ON u.id = a2.userId AND a2.type = 1 "
+                  "LEFT JOIN accounts a3 ON u.id = a3.userId AND a3.type = 2 "
+                  "WHERE p.login = :login AND p.password = :password");
     query.bindValue(":login", login);
     query.bindValue(":password", password);
     if (query.exec() && query.next()) {
@@ -118,7 +134,17 @@ void User::disconnect() {
 
 void User::refreshUserData() {
     QSqlQuery query;
-    query.prepare("SELECT u.id AS id, u.firstname AS firstname, u.lastname AS lastname, u.dateOfBirth AS dateofbirth, u.role AS role, u.login AS login, a1.balance AS balance, a1.id AS firstAccountId, a2.balance AS balancePEL, a3.balance AS balanceLC FROM users u LEFT JOIN accounts a1 ON u.id = a1.userId AND a1.type = 0 LEFT JOIN accounts a2 ON u.id = a2.userId AND a2.type = 1 LEFT JOIN accounts a3 ON u.id = a3.userId AND a3.type = 2 WHERE u.id = :userId");
+    query.prepare("SELECT u.id AS id, u.role AS role, "
+                  "p.firstname AS firstname, p.lastname AS lastname, p.login AS login, "
+                  "a1.balance AS balance, a1.id AS firstAccountId, "
+                  "a2.balance AS balancePEL, "
+                  "a3.balance AS balanceLC "
+                  "FROM profil p "
+                  "LEFT JOIN users u ON p.user_id = u.id "
+                  "LEFT JOIN accounts a1 ON u.id = a1.userId AND a1.type = 0 "
+                  "LEFT JOIN accounts a2 ON u.id = a2.userId AND a2.type = 1 "
+                  "LEFT JOIN accounts a3 ON u.id = a3.userId AND a3.type = 2 "
+                  "WHERE u.id = :userId");
     query.bindValue(":userId", m_userId);
 
     if (query.exec() && query.next()) {
@@ -187,6 +213,72 @@ void User::addBeneficiaire(int beneficiaireId, int propId) {
     }
 }
 
+int User::checkIfProfileExists(int userId) {
+    // Récupération de la connexion existante à la base de données
+    QSqlDatabase db = QSqlDatabase::database();
+    if (db.isValid()) {
+        QSqlQuery query(db);
+        query.prepare("SELECT pro.id AS pro_id, con.id AS con_id, sta.id AS sta_id, emp.id AS emp_id, dir.id AS dir_id "
+                      "FROM newusers AS u "
+                      "LEFT JOIN profil AS pro ON pro.user_id = u.id AND pro.type = 0 "
+                      "LEFT JOIN profil AS con ON con.user_id = u.id AND con.type = 1 "
+                      "LEFT JOIN profil AS sta ON sta.user_id = u.id AND sta.type = 10 "
+                      "LEFT JOIN profil AS emp ON emp.user_id = u.id AND emp.type = 11 "
+                      "LEFT JOIN profil AS dir ON dir.user_id = u.id AND dir.type = 12 "
+                      "WHERE u.id = :userId");
+        query.bindValue(":userId", userId);
+
+        if (!query.exec()) {
+            std::cout << "Erreur lors de l'execution de la requete : " << query.lastError().text().toStdString() << std::endl;
+            Sleep(3000);
+            return -2;
+        }
+
+        if (query.next()) {
+            if(query.value("con_id") != NULL && query.value("pro_id") != NULL) {
+                return -1; // Prop. et Con. remplis
+            } else if (query.value("con_id") == NULL && query.value("pro_id") == NULL) {
+                return 0; // Prop. et Con. vides
+            } else if(query.value("pro_id") != NULL) {
+                return 1; // Prop. rempli
+            } else if (query.value("con_id") != NULL) {
+                return 2; // Con. rempli
+            } else if (query.value("sta_id") != NULL) {
+                return 10; // Sta. rempli
+            } else if (query.value("emp_id") != NULL) {
+                return 11; // Emp. rempli
+            } else if (query.value("dir_id") != NULL) {
+                return 12; // Dir. rempli
+            }
+            return -2;
+
+        }
+    }
+    return -1;
+}
+
+bool User::checkIfUserIsAdmin(int userId) {
+    // Récupération de la connexion existante à la base de données
+    QSqlDatabase db = QSqlDatabase::database();
+    if (db.isValid()) {
+        QSqlQuery query(db);
+        // TODO : A update pour la table newusers
+        query.prepare("SELECT role FROM users WHERE id = :userId");
+        query.bindValue(":userId", userId);
+
+        if (!query.exec()) {
+            std::cout << "Erreur lors de l'execution de la requete : " << query.lastError().text().toStdString() << std::endl;
+            return false;
+        }
+
+        if (query.next() && query.value("role") == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    return false;
+}
 
 // A Supprimer
 /*
@@ -267,7 +359,7 @@ void User::createAccount() {
 int User::createUser(QString username, int role){
     // Créer l'utilisateur
     QSqlQuery insertUserQuery;
-    insertUserQuery.prepare("INSERT INTO newusers (username, role) VALUES (:username, :role)");
+    insertUserQuery.prepare("INSERT INTO users (username, role) VALUES (:username, :role)");
     insertUserQuery.bindValue(":username", username);
     insertUserQuery.bindValue(":role", role);
 
@@ -282,7 +374,7 @@ int User::createUser(QString username, int role){
 bool User::createAccount(int userId, int type, double balance){
     // Créer le compte bancaire
     QSqlQuery insertAccountQuery;
-    insertAccountQuery.prepare("INSERT INTO newaccounts (userId, type, balance) "
+    insertAccountQuery.prepare("INSERT INTO accounts (userId, type, balance) "
                             "VALUES (:userId, :type, :balance)");
     insertAccountQuery.bindValue(":userId", userId);
     insertAccountQuery.bindValue(":type", type);
@@ -295,11 +387,12 @@ bool User::createAccount(int userId, int type, double balance){
     }
 };
 
-bool User::createProfil(QString firstname, QString lastname, QString login, QString password, int type){
+bool User::createProfil(int userId, QString firstname, QString lastname, QString login, QString password, int type){
     // Créer le profil
     QSqlQuery insertProfilQuery;
-    insertProfilQuery.prepare("INSERT INTO profil (firstname, lastname, login, password, type) "
-                               "VALUES (:firstname, :lastname, :login, :password, :type)");
+    insertProfilQuery.prepare("INSERT INTO profil (user_id, firstname, lastname, login, password, type) "
+                               "VALUES (:userId, :firstname, :lastname, :login, :password, :type)");
+    insertProfilQuery.bindValue(":userId", userId);
     insertProfilQuery.bindValue(":firstname", firstname);
     insertProfilQuery.bindValue(":lastname", lastname);
     insertProfilQuery.bindValue(":login", login);
@@ -372,8 +465,6 @@ void User::getInformations(int userId) {
         return;
     }
 }
-
-
 
 QString User::generateAccountNumber() const {
     QRandomGenerator generator(QDateTime::currentMSecsSinceEpoch());
