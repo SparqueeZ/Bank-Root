@@ -18,27 +18,43 @@ public:
     void setUserInformation(const User& user);
 
 private slots:
-    void on_toolButton_22_clicked();
+    void on_cruser_ad_clicked();
 
-    void on_toolButton_30_clicked();
+    void on_associer_ad_clicked();
 
-    void on_toolButton_26_clicked();
+    void on_crprofil_ad_clicked();
 
-    void on_toolButton_33_clicked();
+    void on_logcl_ad_clicked();
 
-    void on_toolButton_34_clicked();
+    void on_logem_ad_clicked();
 
-    void on_toolButton_36_clicked();
+    void on_logst_ad_clicked();
 
-    void on_close_clicked();
+    void on_close_ad_clicked();
 
-    void on_fullscreen_2_clicked();
+    void on_fullscreen_ad_clicked();
 
-    void on_reduced_clicked();
+    void on_reduced_ad_clicked();
 
-    void on_toolButton_31_clicked();
 
-    void on_reduced_3_clicked();
+
+    void on_logcl_adm_clicked();
+
+    void on_associer_adm_clicked();
+
+    void on_crprofil_adm_clicked();
+
+    void on_logst_adm_clicked();
+
+    void on_logem_adm_clicked();
+
+    void on_cruser_adm_clicked();
+
+    void on_close_adm_clicked();
+
+    void on_fullscreen_adm_clicked();
+
+    void on_reduced_adm_clicked();
 
 private:
     Ui::admin_homepage *ui;

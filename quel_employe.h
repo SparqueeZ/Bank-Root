@@ -15,6 +15,17 @@ public:
     explicit quel_employe(QWidget *parent = nullptr);
     ~quel_employe();
 
+private slots:
+    void on_return_kiem_clicked();
+
+    void on_send_kiem_clicked();
+
+    void on_reduced_kiem_clicked();
+
+    void on_fullscreen_kiem_clicked();
+
+    void on_close_kiem_clicked();
+
 private:
     Ui::quel_employe *ui;
 };

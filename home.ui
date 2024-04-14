@@ -362,7 +362,7 @@ QProgressBar::chunk {
      <rect>
       <x>290</x>
       <y>100</y>
-      <width>151</width>
+      <width>201</width>
       <height>31</height>
      </rect>
     </property>
@@ -792,7 +792,7 @@ background:transparent;
     <property name="styleSheet">
      <string notr="true">background:transparent;</string>
     </property>
-    <widget class="QToolButton" name="toolButton_6">
+    <widget class="QToolButton" name="addbenef_cl">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -820,7 +820,7 @@ background:#595554;
       <rect>
        <x>20</x>
        <y>10</y>
-       <width>181</width>
+       <width>221</width>
        <height>31</height>
       </rect>
      </property>
@@ -837,7 +837,7 @@ background: transparent;
 }</string>
      </property>
      <property name="text">
-      <string>Ajouter bénéficiare</string>
+      <string>Ajouter bénéficaire</string>
      </property>
     </widget>
     <widget class="QToolButton" name="toolButton_11">

@@ -44,7 +44,7 @@ public:
     void refreshUserData();
     void addBeneficiaire(int beneficiaireId, int propId);
     void addToHistory(int idCompteEmetteur, int idCompteRecepteur, int type, double montant, QString title, QString description);
-
+    void getInformations(int userId);
 
 private:
     int m_role;

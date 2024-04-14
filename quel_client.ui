@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>528</width>
-    <height>235</height>
+    <height>542</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>0</x>
      <y>0</y>
      <width>530</width>
-     <height>239</height>
+     <height>571</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -31,13 +31,13 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QLabel" name="label_6">
+   <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
       <x>140</x>
       <y>70</y>
-      <width>251</width>
-      <height>20</height>
+      <width>241</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
@@ -51,14 +51,16 @@ color: rgb(255, 255, 255);
 </string>
     </property>
     <property name="text">
-     <string>Quel client voulez vous consulter ?</string>
+     <string>Quel client souhaitez-vous 
+consulter ?
+</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_6">
+   <widget class="QLineEdit" name="value">
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>100</y>
+      <y>120</y>
       <width>241</width>
       <height>26</height>
      </rect>
@@ -73,18 +75,18 @@ padding-left: 10px
 }</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_7">
+   <widget class="QPushButton" name="return_kiclient">
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>150</y>
+      <y>170</y>
       <width>93</width>
       <height>29</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Montserrat</family>
+      <family>Montserrat Medium</family>
      </font>
     </property>
     <property name="styleSheet">
@@ -112,18 +114,18 @@ color: rgb(255, 255, 255);
      <string>Retour</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_8">
+   <widget class="QPushButton" name="send_kiclient">
     <property name="geometry">
      <rect>
       <x>290</x>
-      <y>150</y>
+      <y>170</y>
       <width>93</width>
       <height>29</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Montserrat</family>
+      <family>Montserrat Medium</family>
       <pointsize>9</pointsize>
      </font>
     </property>
@@ -149,15 +151,15 @@ color: rgb(255, 255, 255);
 </string>
     </property>
     <property name="text">
-     <string>Envoyer</string>
+     <string>Confirmer</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_7">
+   <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>20</y>
-      <width>111</width>
+      <width>151</width>
       <height>31</height>
      </rect>
     </property>
@@ -171,10 +173,10 @@ color: rgb(255, 255, 255);
      <string notr="true">color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
-     <string>Quel Client ?</string>
+     <string>Quel client ?</string>
     </property>
    </widget>
-   <widget class="QWidget" name="widget_12" native="true">
+   <widget class="QWidget" name="widget_11" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -188,7 +190,7 @@ color: rgb(255, 255, 255);
 color:rgb(109, 114, 117);
 </string>
     </property>
-    <widget class="QLabel" name="label_16">
+    <widget class="QLabel" name="label_15">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -207,7 +209,7 @@ color:rgb(109, 114, 117);
       <string>BankRoot</string>
      </property>
     </widget>
-    <widget class="QToolButton" name="toolButton_4">
+    <widget class="QToolButton" name="close_kiclient">
      <property name="geometry">
       <rect>
        <x>510</x>
@@ -234,7 +236,7 @@ background:red;
        <normaloff>:/assets/exit-btn.png</normaloff>:/assets/exit-btn.png</iconset>
      </property>
     </widget>
-    <widget class="QToolButton" name="reduced_2">
+    <widget class="QToolButton" name="reduced_kiclient">
      <property name="geometry">
       <rect>
        <x>470</x>
@@ -261,7 +263,7 @@ background:red;
        <normaloff>:/assets/downarrow-btn.png</normaloff>:/assets/downarrow-btn.png</iconset>
      </property>
     </widget>
-    <widget class="QToolButton" name="fullscreen_2">
+    <widget class="QToolButton" name="fullscreen_kiclient">
      <property name="geometry">
       <rect>
        <x>490</x>
@@ -281,6 +283,29 @@ border-radius:45px;
      <property name="icon">
       <iconset resource="ressource.qrc">
        <normaloff>:/assets/window-btn-disabled.png</normaloff>:/assets/window-btn-disabled.png</iconset>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QScrollArea" name="scrollArea">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>240</y>
+      <width>391</width>
+      <height>241</height>
+     </rect>
+    </property>
+    <property name="widgetResizable">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="scrollAreaWidgetContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>389</width>
+       <height>239</height>
+      </rect>
      </property>
     </widget>
    </widget>

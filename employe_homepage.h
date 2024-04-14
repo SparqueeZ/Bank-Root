@@ -16,9 +16,21 @@ public:
     ~employe_homepage();
 
 private slots:
-    void on_reduced_5_clicked();
+    void on_reduced_em_clicked();
 
-    void on_toolButton_44_clicked();
+    void on_close_em_clicked();
+
+    void on_fullscreen_em_clicked();
+
+    void on_crprofil_em_clicked();
+
+    void on_cruser_em_clicked();
+
+    void on_associer_em_clicked();
+
+    void on_logcl_em_clicked();
+
+    void on_crcompte_em_clicked();
 
 private:
     Ui::employe_homepage *ui;

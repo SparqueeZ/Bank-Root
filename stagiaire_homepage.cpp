@@ -13,3 +13,25 @@ stagiaire_homepage::~stagiaire_homepage()
 {
     delete ui;
 }
+
+void stagiaire_homepage::on_reduced_st_clicked()
+{
+    showMinimized();
+}
+
+
+void stagiaire_homepage::on_close_st_clicked()
+{
+    close();
+}
+
+void stagiaire_homepage::on_fullscreen_st_clicked()
+{
+
+}
+
+
+void stagiaire_homepage::on_consulter_st_clicked()
+{
+
+}

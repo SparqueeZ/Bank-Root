@@ -365,3 +365,36 @@ void User::setCredentials(const QString& username, const QString& password) {
     m_login = username;
     m_password = password;
 }
+
+void User::getInformations(int userId) {
+
+    // Requete pour recuperer les informations de l'utilisateur
+    QSqlQuery query;
+    query.prepare("SELECT u.id AS id, u.firstname AS firstname, u.lastname AS lastname, u.dateOfBirth AS dateofbirth, u.role AS role, u.login AS login, a1.balance AS balance, a1.id AS firstAccountId, a2.balance AS balancePEL, a2.id AS PELAccountId, a3.balance AS balanceLC, a3.id AS LCAccountId FROM users u LEFT JOIN accounts a1 ON u.id = a1.userId AND a1.type = 0 LEFT JOIN accounts a2 ON u.id = a2.userId AND a2.type = 1 LEFT JOIN accounts a3 ON u.id = a3.userId AND a3.type = 2 WHERE u.id = userId");
+    query.bindValue(":userId", userId);
+    if (query.exec() && query.next()) {
+        // Utilisateur trouve
+        m_firstName = query.value("firstname").toString();
+        m_lastName = query.value("lastname").toString();
+        m_balance = query.value("balance").toDouble();
+        m_login = query.value("login").toString();
+        m_role = query.value("role").toInt();
+        m_isLoggedIn = 1;
+
+        m_PELBalance = query.value("balancePEL").toDouble();
+        m_LCBalance = query.value("balanceLC").toDouble();
+
+        m_firstAccountId = query.value("firstAccountId").toInt();
+        m_PELAccountId = query.value("PELAccountId").toInt();
+        m_LCAccountId = query.value("LCAccountId").toInt();
+
+        m_userId = query.value("id").toInt();
+        return;
+    } else {
+        std::system("cls");
+        std::cout << "User non trouve." << std::endl;
+        Sleep(1500);
+        return;
+    }
+
+}

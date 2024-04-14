@@ -14,14 +14,32 @@ historique_stagiaire::~historique_stagiaire()
     delete ui;
 }
 
-void historique_stagiaire::on_reduced_3_clicked()
+void historique_stagiaire::on_reduced_st_clicked()
 {
     showMinimized();
 }
 
 
-void historique_stagiaire::on_toolButton_31_clicked()
+void historique_stagiaire::on_close_st_clicked()
 {
     close();
+}
+
+
+void historique_stagiaire::on_fullscreen_st_clicked()
+{
+
+}
+
+
+void historique_stagiaire::on_lastconnect_st_clicked()
+{
+
+}
+
+
+void historique_stagiaire::on_lastcons_st_clicked()
+{
+
 }
 
