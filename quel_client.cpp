@@ -54,7 +54,7 @@ void quel_client::on_send_kiclient_clicked()
 void quel_client::on_pushButton_8_clicked()
 {
     // Récupérer le texte de la ligne de recherche
-    QString searchQuery = ui->lineEdit_6->text().trimmed();
+    QString searchQuery = ui->value->text().trimmed();
 
     // Vérifier si la recherche n'est pas vide
     if (!searchQuery.isEmpty()) {
