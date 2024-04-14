@@ -25,7 +25,6 @@ void stagiaire_homepage::on_close_st_clicked()
     close();
 }
 
-
 void stagiaire_homepage::on_fullscreen_st_clicked()
 {
 
@@ -36,5 +35,3 @@ void stagiaire_homepage::on_consulter_st_clicked()
 {
 
 }
-
-
