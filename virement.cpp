@@ -49,7 +49,7 @@ virement::virement(User *user, Home *parentHome, QWidget *parent)
                              "WHERE u.id = :userId");
 
     // Liaison de la valeur de l'ID utilisateur à la requête
-    getBeneficiaires.bindValue(":userId", 1);
+    getBeneficiaires.bindValue(":userId", currentUser->getUserId());
 
     // Exécution de la requête
     if (!getBeneficiaires.exec()) {

@@ -1140,7 +1140,7 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>Virement PEL</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="accID1">
@@ -1220,7 +1220,7 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>+50€</string>
+      <string/>
      </property>
     </widget>
     <widget class="QWidget" name="widget_26" native="true">

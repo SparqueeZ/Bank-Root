@@ -18,6 +18,34 @@ User::User() {}
 User::User(const QString& login, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, double balance, int isLoggedIn, int role, double PELBalance, double LCBalance, int firstAccountId, int PELAccountId, int LCAccountId, int userId)
     : m_role(role), m_login(login), m_lastName(lastName), m_firstName(firstName), m_dateOfBirth(dateOfBirth), m_balance(balance), m_PELBalance(PELBalance), m_LCBalance(LCBalance), m_isLoggedIn(isLoggedIn), m_firstAccountId(firstAccountId), m_PELAccountId(PELAccountId), m_LCAccountId(LCAccountId), m_userId(userId) {
 }
+/*
+int User::getprofil(QString login, QString password) {
+    QDir::setCurrent(QCoreApplication::applicationDirPath());
+    QString configFilePath = QDir(QCoreApplication::applicationDirPath()).filePath("config.ini");
+
+    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
+    QSettings settings(configFilePath, QSettings::IniFormat);
+    db.setHostName("90.26.217.25");
+    db.setUserName("test");
+    db.setPassword("I-B*!O0vGqyFkMed");
+    db.setDatabaseName("bank_root");
+    if (!db.open()) {
+        qDebug() << "Erreur lors de la connexion a  la base de donnees :" << db.lastError().text();
+        return false;
+    };
+
+    QSqlQuery query;
+    query.prepare("SELECT type FROM profil WHERE login = :login AND password = :password");
+    query.bindValue(":login", login);
+    query.bindValue(":password", password);
+    int profil1 = -1;
+    int profil2 = -1;
+    int profil3 = -1;
+    while (query.next)
+}
+
+*/
+//lol
 
 bool User::signin(QString login, QString password) {
     QDir::setCurrent(QCoreApplication::applicationDirPath());
@@ -36,6 +64,7 @@ bool User::signin(QString login, QString password) {
 
     // Requete pour recuperer les informations de l'utilisateur
     QSqlQuery query;
+
     query.prepare("SELECT u.id AS id, u.firstname AS firstname, u.lastname AS lastname, u.dateOfBirth AS dateofbirth, u.role AS role, u.login AS login, a1.balance AS balance, a1.id AS firstAccountId, a2.balance AS balancePEL, a2.id AS PELAccountId, a3.balance AS balanceLC, a3.id AS LCAccountId FROM users u LEFT JOIN accounts a1 ON u.id = a1.userId AND a1.type = 0 LEFT JOIN accounts a2 ON u.id = a2.userId AND a2.type = 1 LEFT JOIN accounts a3 ON u.id = a3.userId AND a3.type = 2 WHERE u.login = :login AND u.password = :password");
     query.bindValue(":login", login);
     query.bindValue(":password", password);

@@ -28,6 +28,10 @@ private slots:
 
 private:
     Ui::historique_stagiaire *ui;
+
+    void on_reduced_3_clicked();
+
+    void on_toolButton_31_clicked();
 };
 
 #endif // HISTORIQUE_STAGIAIRE_H

@@ -79,8 +79,13 @@ void admin_homepage::on_logem_adm_clicked()
     HistoEmploye->show();
 }
 
-
 void admin_homepage::on_close_adm_clicked()
+{
+
+}
+
+
+void admin_homepage::on_close_clicked()
 {
     close();
 }
