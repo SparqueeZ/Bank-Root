@@ -18,15 +18,25 @@ informations_client::~informations_client()
     delete ui;
 }
 
-void informations_client::on_reduced_5_clicked()
+void informations_client::on_reduced_infoc_clicked()
 {
     showMinimized();
 }
 
 
-void informations_client::on_toolButton_19_clicked()
+void informations_client::on_close_infoc_clicked()
 {
     close();
+}
+
+void informations_client::on_fullscreen_infoc_clicked()
+{
+
+}
+
+void informations_client::on_deco_infoc_clicked()
+{
+
 }
 
 void informations_client::setUserId(const QString &userId)

@@ -16,9 +16,15 @@ public:
     ~quel_client();
 
 private slots:
-    void on_toolButton_4_clicked();
+    void on_return_kiclient_clicked();
 
-    void on_reduced_2_clicked();
+    void on_send_kiclient_clicked();
+
+    void on_reduced_kiclient_clicked();
+
+    void on_fullscreen_kiclient_clicked();
+
+    void on_close_kiclient_clicked();
 
     void on_pushButton_8_clicked();
 

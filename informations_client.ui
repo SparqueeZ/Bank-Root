@@ -109,7 +109,7 @@ border-radius: 10px;
       <rect>
        <x>30</x>
        <y>140</y>
-       <width>221</width>
+       <width>281</width>
        <height>31</height>
       </rect>
      </property>
@@ -132,7 +132,7 @@ border-radius: 10px;
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>200</y>
+       <y>190</y>
        <width>221</width>
        <height>31</height>
       </rect>
@@ -156,7 +156,7 @@ border-radius: 10px;
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>250</y>
+       <y>240</y>
        <width>221</width>
        <height>31</height>
       </rect>
@@ -221,7 +221,7 @@ border-radius: 10px;
       <rect>
        <x>20</x>
        <y>60</y>
-       <width>121</width>
+       <width>141</width>
        <height>20</height>
       </rect>
      </property>
@@ -310,7 +310,7 @@ border-radius: 10px;
       <rect>
        <x>30</x>
        <y>60</y>
-       <width>41</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -399,7 +399,7 @@ border-radius: 10px;
       <rect>
        <x>30</x>
        <y>60</y>
-       <width>71</width>
+       <width>81</width>
        <height>20</height>
       </rect>
      </property>
@@ -478,9 +478,9 @@ QProgressBar::chunk {
     <property name="geometry">
      <rect>
       <x>290</x>
-      <y>100</y>
-      <width>151</width>
-      <height>31</height>
+      <y>95</y>
+      <width>191</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
@@ -502,10 +502,10 @@ QProgressBar::chunk {
    <widget class="QLabel" name="label_187">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>90</y>
-      <width>361</width>
-      <height>41</height>
+      <x>650</x>
+      <y>100</y>
+      <width>391</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -527,8 +527,8 @@ QProgressBar::chunk {
    <widget class="QLabel" name="label_188">
     <property name="geometry">
      <rect>
-      <x>1300</x>
-      <y>110</y>
+      <x>1290</x>
+      <y>95</y>
       <width>271</width>
       <height>41</height>
      </rect>
@@ -640,7 +640,7 @@ background-position: center;
     <property name="geometry">
      <rect>
       <x>1240</x>
-      <y>110</y>
+      <y>95</y>
       <width>41</width>
       <height>41</height>
      </rect>
@@ -662,8 +662,8 @@ background-position: center;
    <widget class="QFrame" name="frame_84">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>90</y>
+      <x>600</x>
+      <y>95</y>
       <width>41</width>
       <height>41</height>
      </rect>
@@ -697,7 +697,7 @@ background-position: center;
 border-radius: 10px; 
 }</string>
     </property>
-    <widget class="QToolButton" name="toolButton_18">
+    <widget class="QToolButton" name="deco_infoc">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -736,19 +736,6 @@ background:red;
       <bool>false</bool>
      </property>
     </widget>
-   </widget>
-   <widget class="QWidget" name="ActionBtn_26" native="true">
-    <property name="geometry">
-     <rect>
-      <x>910</x>
-      <y>290</y>
-      <width>230</width>
-      <height>110</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background:transparent;</string>
-    </property>
    </widget>
    <widget class="QWidget" name="widget_107" native="true">
     <property name="geometry">
@@ -1062,7 +1049,7 @@ border-radius: 10px;
      <rect>
       <x>10</x>
       <y>-1</y>
-      <width>71</width>
+      <width>101</width>
       <height>31</height>
      </rect>
     </property>
@@ -1081,10 +1068,10 @@ border-radius: 10px;
      <string>BankRoot</string>
     </property>
    </widget>
-   <widget class="QToolButton" name="reduced_5">
+   <widget class="QToolButton" name="reduced_infoc">
     <property name="geometry">
      <rect>
-      <x>1360</x>
+      <x>1393</x>
       <y>10</y>
       <width>15</width>
       <height>15</height>
@@ -1114,10 +1101,10 @@ background:red;
      </size>
     </property>
    </widget>
-   <widget class="QToolButton" name="fullscreen_5">
+   <widget class="QToolButton" name="fullscreen_infoc">
     <property name="geometry">
      <rect>
-      <x>1387</x>
+      <x>1420</x>
       <y>10</y>
       <width>15</width>
       <height>15</height>
@@ -1142,10 +1129,10 @@ border-radius:45px;
      </size>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_19">
+   <widget class="QToolButton" name="close_infoc">
     <property name="geometry">
      <rect>
-      <x>1410</x>
+      <x>1443</x>
       <y>10</y>
       <width>15</width>
       <height>15</height>

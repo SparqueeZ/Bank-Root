@@ -35,6 +35,8 @@ private slots:
 
     void on_debit_clicked();
 
+    void on_addbenef_cl_clicked();
+
 private:
     Ui::Home *ui;
     void mousePressEvent(QMouseEvent *event);
