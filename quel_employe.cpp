@@ -13,3 +13,15 @@ quel_employe::~quel_employe()
 {
     delete ui;
 }
+
+void quel_employe::on_toolButton_4_clicked()
+{
+    close();
+}
+
+
+void quel_employe::on_reduced_2_clicked()
+{
+    showMinimized();
+}
+

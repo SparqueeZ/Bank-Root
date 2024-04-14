@@ -13,3 +13,15 @@ quel_stagiaire::~quel_stagiaire()
 {
     delete ui;
 }
+
+void quel_stagiaire::on_reduced_clicked()
+{
+    showMinimized();
+}
+
+
+void quel_stagiaire::on_toolButton_3_clicked()
+{
+    close();
+}
+

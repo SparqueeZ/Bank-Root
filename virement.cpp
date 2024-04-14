@@ -131,3 +131,9 @@ void virement::on_Envoyer_clicked()
     close();
 }
 
+
+void virement::on_reduced_clicked()
+{
+    showMinimized();
+}
+

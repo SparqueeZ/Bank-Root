@@ -13,3 +13,15 @@ informations_client_stag::~informations_client_stag()
 {
     delete ui;
 }
+
+void informations_client_stag::on_reduced_clicked()
+{
+    showMinimized();
+}
+
+
+void informations_client_stag::on_toolButton_3_clicked()
+{
+    close();
+}
+
