@@ -34,22 +34,8 @@ void Operations::virement(int accountPropId, int accountDestId, double amount) {
         } else {
             return;
         }
-
-
     }
-
-
-
-    // Fait le calcul
-
-    // Envoi en bdd
-
-    // Retourne le nouveau solde ??
-
-
-
 }
-
 
 void Operations::addBalance(double amount, int destinataireId) {
     QSqlQuery queryAdd;
@@ -149,7 +135,6 @@ void Operations::removeBalance(double amount, int destinataireId) {
     }
 }
 
-//Operations::addToHistory(int )
 void Operations::addToHistory(int idCompteEmetteur, int idCompteRecepteur, int type, double montant, QString title, QString description){
 
     // Définir la date actuelle en tant que variable utilisable ici
@@ -183,7 +168,6 @@ void Operations::addToHistory(int idCompteEmetteur, int idCompteRecepteur, int t
         Sleep(3000);
     }
 }
-
 
 void Operations::setvalue(){
     User user;

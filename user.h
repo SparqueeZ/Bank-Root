@@ -8,13 +8,13 @@
 class User {
 public:
     User();
-    User(const QString& login, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, double balance, int isLoggedIn, int role, double PELBalance, double LCBalance, int firstAccountId, int PELAccountId, int LCAccountId, int userId);
+    User(const QString& login, const QString& username, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, double balance, int isLoggedIn, int role, double PELBalance, double LCBalance, int firstAccountId, int PELAccountId, int LCAccountId, int userId);
 
     //int getprofil(QString login, QString password);
     bool signin(QString login , QString password);
 
     bool logIn(QString login, QString password);
-    void createAccount();
+    //void createAccount(); <- Ancien sys de creation de compte
     QString generateAccountNumber() const;
     QString generateRandomPassword() const;
     bool isAdmin(const QString& username) const;
@@ -37,6 +37,8 @@ public:
     QString getLastName() const;
     QString getLogin() const;
     int getRole() const;
+    QString getUsername() const;
+
     void setCredentials(const QString& username, const QString& password);
 
     int getUserId() const;
@@ -44,10 +46,24 @@ public:
     void refreshUserData();
     void addBeneficiaire(int beneficiaireId, int propId);
     void addToHistory(int idCompteEmetteur, int idCompteRecepteur, int type, double montant, QString title, QString description);
+
+    // Création de comptes User
+    int createUser(QString username, int role);
+
+    // Création de commptes Profils
+    bool createProfil(int userId, QString firstname, QString lastname, QString login, QString password, int type);
+
+    // Création de comptes Bancaires
+    bool createAccount(int userId, int type, double balance);
+
     void getInformations(int userId);
+
+    int checkIfProfileExists(int userId);
+    bool checkIfUserIsAdmin(int userId);
 
 private:
     int m_role;
+    QString m_username;
     QString m_login;
     QString m_lastName;
     QString m_firstName;
