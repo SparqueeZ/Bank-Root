@@ -1,6 +1,7 @@
 #ifndef ADMIN_HOMEPAGE_H
 #define ADMIN_HOMEPAGE_H
 
+#include "user.h"
 #include <QWidget>
 
 namespace Ui {
@@ -14,9 +15,50 @@ class admin_homepage : public QWidget
 public:
     explicit admin_homepage(QWidget *parent = nullptr);
     ~admin_homepage();
+    void setUserInformation(const User& user);
+
+private slots:
+    void on_cruser_ad_clicked();
+
+    void on_associer_ad_clicked();
+
+    void on_crprofil_ad_clicked();
+
+    void on_logcl_ad_clicked();
+
+    void on_logem_ad_clicked();
+
+    void on_logst_ad_clicked();
+
+    void on_close_ad_clicked();
+
+    void on_fullscreen_ad_clicked();
+
+    void on_reduced_ad_clicked();
+
+
+
+    void on_logcl_adm_clicked();
+
+    void on_associer_adm_clicked();
+
+    void on_crprofil_adm_clicked();
+
+    void on_logst_adm_clicked();
+
+    void on_logem_adm_clicked();
+
+    void on_cruser_adm_clicked();
+
+    void on_close_adm_clicked();
+
+    void on_fullscreen_adm_clicked();
+
+    void on_reduced_adm_clicked();
 
 private:
     Ui::admin_homepage *ui;
+    User *currentUser;
 };
 
 #endif // ADMIN_HOMEPAGE_H

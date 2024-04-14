@@ -18,11 +18,14 @@ credit::credit(User *user, Home *parentHome, QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
+
     parentHome = dynamic_cast<Home*>(parent);
     if (!parentHome) {
         qDebug() << "Erreur : Le parent n'est pas une instance de la classe Home.";
         // Gérer l'erreur ici
     }
+
+    currentUser = user;
 }
 
 credit::~credit()
@@ -68,7 +71,7 @@ void credit::on_send_clicked()
     Home home;
     QString value = ui->value->text();
     Operations operations;
-    operations.addBalance(value.toInt(), 1);
+    operations.addBalance(value.toInt(), currentUser->getUserId());
 
     // Rafraîchissement des informations de l'utilisateur sur la page d'accueil
     parentHome->refreshUserInfo();

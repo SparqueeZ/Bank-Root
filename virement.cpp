@@ -49,7 +49,7 @@ virement::virement(User *user, Home *parentHome, QWidget *parent)
                              "WHERE u.id = :userId");
 
     // Liaison de la valeur de l'ID utilisateur à la requête
-    getBeneficiaires.bindValue(":userId", 1);
+    getBeneficiaires.bindValue(":userId", currentUser->getUserId());
 
     // Exécution de la requête
     if (!getBeneficiaires.exec()) {
@@ -119,7 +119,7 @@ void virement::mouseMoveEvent(QMouseEvent *event) {
 void virement::on_Envoyer_clicked()
 {
     Operations operations;
-    QString montant = ui->lineEdit->text();
+    QString montant = ui->value->text();
     QString idProprietaire = ui->comboBoxProp->currentData().toString();
     QString idDestinataire = ui->combo->currentData().toString();
 
@@ -129,5 +129,11 @@ void virement::on_Envoyer_clicked()
     parentHome->refreshUserInfo();
 
     close();
+}
+
+
+void virement::on_reduced_clicked()
+{
+    showMinimized();
 }
 

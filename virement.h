@@ -22,6 +22,8 @@ private slots:
 
     void on_Envoyer_clicked();
 
+    void on_reduced_clicked();
+
 private:
     Ui::virement *ui;
     void mousePressEvent(QMouseEvent *event);

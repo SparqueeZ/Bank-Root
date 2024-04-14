@@ -10,6 +10,7 @@ public:
     User();
     User(const QString& login, const QString& username, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, double balance, int isLoggedIn, int role, double PELBalance, double LCBalance, int firstAccountId, int PELAccountId, int LCAccountId, int userId);
 
+    //int getprofil(QString login, QString password);
     bool signin(QString login , QString password);
 
     bool logIn(QString login, QString password);

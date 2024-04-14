@@ -7,10 +7,12 @@
 #include <QDebug>
 #include <synchapi.h>
 #include "debit.h"
+#include <iostream>
 #include "login.h"
 #include "qsqlquery.h"
 #include "qsqlerror.h"
 #include "virement.h"
+#include "add_beneficiaire.h"
 
 Home::Home(QWidget *parent)
     : QWidget(parent)
@@ -75,7 +77,7 @@ void Home::setUserInformation(const User& user)
     if (db.isValid()) {
         // Exécuter la requête SQL pour récupérer les données de l'historique
         QSqlQuery query(db);
-        query.prepare("SELECT * FROM history WHERE id_compte_emetteur = :id OR id_compte_destinataire = :id ORDER BY date DESC LIMIT 8");
+        query.prepare("SELECT h.montant, h.id_compte_emetteur, h.id_compte_destinataire, h.type, h.title, h.description, h.date FROM users AS u LEFT JOIN accounts AS ppl ON ppl.userId = u.id AND ppl.type = 0 LEFT JOIN accounts AS pel ON pel.userId = u.id AND pel.type = 1 LEFT JOIN accounts AS lvc ON lvc.userId = u.id AND lvc.type = 2 LEFT JOIN history AS h ON h.id_compte_emetteur = ppl.id OR h.id_compte_emetteur = pel.id OR h.id_compte_emetteur = lvc.id OR h.id_compte_destinataire = ppl.id OR h.id_compte_destinataire = pel.id OR h.id_compte_destinataire = lvc.id WHERE u.id = :id ORDER BY h.date DESC LIMIT 8");
         query.bindValue(":id", user.getUserId());
 
         if (!query.exec()) {
@@ -89,33 +91,32 @@ void Home::setUserInformation(const User& user)
             QString euro = "€";
 
             // Récupérer les valeurs des colonnes
-            int id_history = query.value(0).toInt();
-            double montant = query.value(1).toDouble();
-            QDateTime date = query.value(2).toDateTime();
-            int id_compte_emetteur = query.value(3).toInt();
-            int id_compte_destinataire = query.value(4).toInt();
-            QString type = query.value(5).toString();
-            QString title = query.value(6).toString();
-            QString description = query.value(7).toString();
+            double montant = query.value(0).toDouble();
+            QDateTime date = query.value(6).toDateTime();
+            int id_compte_emetteur = query.value(1).toInt();
+            int id_compte_destinataire = query.value(2).toInt();
+            QString type = query.value(3).toString();
+            QString title = query.value(4).toString();
+            QString description = query.value(5).toString();
 
             QString historyTitle = QString("historytitle%1").arg(count);
             QLabel *label2 = findChild<QLabel *>(historyTitle);
 
-            if (query.value(5) == 0) {
+            if (query.value(3) == 0) {
                 type = "Virement";
                 label2->setText(type);
                 label1->setStyleSheet("color: red");
                 QString signe = "-";
                 QString value = QString("%1%2%3").arg(signe).arg(QString::number(montant)).arg(euro);
                 label1->setText(value);
-            } else if (query.value(5) == 1) {
+            } else if (query.value(3) == 1) {
                 type = "Credit";
                 label2->setText(type);
                 label1->setStyleSheet("color: green");
                 QString signe = "+";
                 QString value = QString("%1%2%3").arg(signe).arg(QString::number(montant)).arg(euro);
                 label1->setText(value);
-            } else if (query.value(5) == 2) {
+            } else if (query.value(3) == 2) {
                 type = "Debit";
                 label2->setText(type);
                 label1->setStyleSheet("color: red");
@@ -160,17 +161,17 @@ void Home::setUserInformation(const User& user)
     currentUser = new User(user);
 }
 //test
-void Home::on_toolButton_2_clicked()
+void Home::on_virement_clicked()
 {
     virement *virementWindow = new virement(currentUser, this); // Passer la référence à la fenêtre principale
     virementWindow->show();
     //this->hide();
 }
 
-void Home::on_toolButton_14_clicked()
+void Home::on_debit_clicked()
 {
-    //virement *credit = new credit(currentUser, this); // Passer la référence à la fenêtre principale
-    //credit->show();
+    debit *debit = new class debit(currentUser, this); // Passer la référence à la fenêtre principale
+    debit->show();
     //this->hide();
 }
 
@@ -187,7 +188,12 @@ void Home::on_logoff_clicked()
     login->show();
     close();
 }
-
+void Home::on_addbenef_cl_clicked()
+{
+    add_beneficiaire *add_beneficiaire = new class add_beneficiaire(currentUser, this); // Passer la référence à la fenêtre principale
+    add_beneficiaire->show();
+    //this->hide();
+}
 void Home::refreshUserInfo() {
     // Récupérer l'utilisateur actuellement connecté
     //User newUser; // Implémentez cette fonction pour récupérer l'utilisateur actuel
@@ -198,6 +204,9 @@ void Home::refreshUserInfo() {
     // Mettre à jour l'interface utilisateur avec les nouvelles données de l'utilisateur
     ui->labelFirstName->setText(currentUser->getFirstName());
     ui->labelFirstAccountBalance->setText(QString::number(currentUser->getBalance()) + " €");
+    ui->labelPELAccountBalance->setText(QString::number(currentUser->getPELBalance()) + " €");
+    ui->labelLCAccountBalance->setText(QString::number(currentUser->getLCBalance()) + " €");
+
     // Mettez à jour d'autres éléments de l'interface utilisateur si nécessaire
 
     QSqlDatabase db = QSqlDatabase::database();
@@ -207,8 +216,9 @@ void Home::refreshUserInfo() {
     if (db.isValid()) {
         // Exécuter la requête SQL pour récupérer les données de l'historique
         QSqlQuery query(db);
-        query.prepare("SELECT * FROM history WHERE id_compte_emetteur = :id OR id_compte_destinataire = :id ORDER BY date DESC LIMIT 8");
+        query.prepare("SELECT h.montant, h.id_compte_emetteur, h.id_compte_destinataire, h.type, h.title, h.description, h.date FROM users AS u LEFT JOIN accounts AS ppl ON ppl.userId = u.id AND ppl.type = 0 LEFT JOIN accounts AS pel ON pel.userId = u.id AND pel.type = 1 LEFT JOIN accounts AS lvc ON lvc.userId = u.id AND lvc.type = 2 LEFT JOIN history AS h ON h.id_compte_emetteur = ppl.id OR h.id_compte_emetteur = pel.id OR h.id_compte_emetteur = lvc.id OR h.id_compte_destinataire = ppl.id OR h.id_compte_destinataire = pel.id OR h.id_compte_destinataire = lvc.id WHERE u.id = :id ORDER BY h.date DESC LIMIT 8");
         query.bindValue(":id", currentUser->getUserId());
+
 
         if (!query.exec()) {
             return;
@@ -221,33 +231,32 @@ void Home::refreshUserInfo() {
             QString euro = "€";
 
             // Récupérer les valeurs des colonnes
-            int id_history = query.value(0).toInt();
-            double montant = query.value(1).toDouble();
-            QDateTime date = query.value(2).toDateTime();
-            int id_compte_emetteur = query.value(3).toInt();
-            int id_compte_destinataire = query.value(4).toInt();
-            QString type = query.value(5).toString();
-            QString title = query.value(6).toString();
-            QString description = query.value(7).toString();
+            double montant = query.value(0).toDouble();
+            QDateTime date = query.value(6).toDateTime();
+            int id_compte_emetteur = query.value(1).toInt();
+            int id_compte_destinataire = query.value(2).toInt();
+            QString type = query.value(3).toString();
+            QString title = query.value(4).toString();
+            QString description = query.value(5).toString();
 
             QString historyTitle = QString("historytitle%1").arg(count);
             QLabel *label2 = findChild<QLabel *>(historyTitle);
 
-            if (query.value(5) == 0) {
+            if (query.value(3) == 0) {
                 type = "Virement";
                 label2->setText(type);
                 label1->setStyleSheet("color: red");
                 QString signe = "-";
                 QString value = QString("%1%2%3").arg(signe).arg(QString::number(montant)).arg(euro);
                 label1->setText(value);
-            } else if (query.value(5) == 1) {
+            } else if (query.value(3) == 1) {
                 type = "Credit";
                 label2->setText(type);
                 label1->setStyleSheet("color: green");
                 QString signe = "+";
                 QString value = QString("%1%2%3").arg(signe).arg(QString::number(montant)).arg(euro);
                 label1->setText(value);
-            } else if (query.value(5) == 2) {
+            } else if (query.value(3) == 2) {
                 type = "Debit";
                 label2->setText(type);
                 label1->setStyleSheet("color: red");

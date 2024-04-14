@@ -11,6 +11,7 @@ CONFIG += c++17 cmdline
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    add_beneficiaire.cpp \
     admin_homepage.cpp \
     choix_principal.cpp \
     credit.cpp \
@@ -28,11 +29,15 @@ SOURCES += \
     main.cpp \
     login.cpp \
     operations.cpp \
+    quel_client.cpp \
+    quel_employe.cpp \
+    quel_stagiaire.cpp \
     stagiaire_homepage.cpp \
     user.cpp \
     virement.cpp
 
 HEADERS += \
+    add_beneficiaire.h \
     admin_homepage.h \
     choix_principal.h \
     credit.h \
@@ -49,11 +54,15 @@ HEADERS += \
     informations_client_stag.h \
     login.h \
     operations.h \
+    quel_client.h \
+    quel_employe.h \
+    quel_stagiaire.h \
     stagiaire_homepage.h \
     user.h \
     virement.h
 
 FORMS += \
+    add_beneficiaire.ui \
     admin_homepage.ui \
     choix_principal.ui \
     credit.ui \
@@ -68,6 +77,9 @@ FORMS += \
     informations_client.ui \
     informations_client_stag.ui \
     login.ui \
+    quel_client.ui \
+    quel_employe.ui \
+    quel_stagiaire.ui \
     stagiaire_homepage.ui \
     virement.ui
 

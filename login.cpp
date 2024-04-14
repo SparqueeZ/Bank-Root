@@ -1,4 +1,5 @@
 #include "login.h"
+#include "admin_homepage.h"
 #include "home.h"
 #include "login.h"
 #include "ui_login.h"
@@ -8,6 +9,7 @@
 #include "home.cpp"
 #include <QMessageBox>
 #include <QGuiApplication>
+#include "admin_homepage.h"
 
 Login::Login(QWidget *parent)
     : QMainWindow(parent)
@@ -40,10 +42,8 @@ void Login::mouseMoveEvent(QMouseEvent *event) {
     cur_pos = event->globalPosition().toPoint();
 }
 
-void Login::on_toolButton_3_clicked()
-{
-    close();
-}
+
+
 
 
 void Login::on_pushButton_clicked()
@@ -55,15 +55,30 @@ void Login::on_pushButton_clicked()
         QMessageBox::warning(this, "Erreur", "Veuillez remplir tous les champs.");
     } else {
         if (user.signin(username, password)) {
-            Home *home = new Home();
-            home->setUserInformation(user); // Envoyer les informations de l'utilisateur à la page d'accueil
-            home->show();
-            this->hide();
+            if (user.getRole() == 1) {
+                // Ouvrir la page d'administration
+                admin_homepage *adminHome = new admin_homepage();
+                adminHome->setUserInformation(user); // Envoyer les informations de l'utilisateur à la page d'accueil admin
+                adminHome->show();
+                this->hide();
+            } else {
+                // Ouvrir la page d'accueil normale
+                Home *home = new Home();
+                home->setUserInformation(user); // Envoyer les informations de l'utilisateur à la page d'accueil
+                home->show();
+                this->hide();
+            }
         } else  {
             // Afficher un message d'erreur si l'authentification a échoué
-
+            QMessageBox::warning(this, "Erreur d'authentification", "Identifiants incorrects.");
         }
     }
+}
+
+
+void Login::on_toolButton_3_clicked()
+{
+    close();
 }
 
 
