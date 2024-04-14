@@ -45,7 +45,6 @@ int User::getprofil(QString login, QString password) {
 }
 
 */
-//lol
 
 bool User::signin(QString login, QString password) {
     QDir::setCurrent(QCoreApplication::applicationDirPath());
@@ -247,7 +246,7 @@ int User::checkIfProfileExists(int userId) {
     if (db.isValid()) {
         QSqlQuery query(db);
         query.prepare("SELECT pro.id AS pro_id, con.id AS con_id, sta.id AS sta_id, emp.id AS emp_id, dir.id AS dir_id "
-                      "FROM newusers AS u "
+                      "FROM users AS u "
                       "LEFT JOIN profil AS pro ON pro.user_id = u.id AND pro.type = 0 "
                       "LEFT JOIN profil AS con ON con.user_id = u.id AND con.type = 1 "
                       "LEFT JOIN profil AS sta ON sta.user_id = u.id AND sta.type = 10 "
@@ -290,7 +289,7 @@ bool User::checkIfUserIsAdmin(int userId) {
     QSqlDatabase db = QSqlDatabase::database();
     if (db.isValid()) {
         QSqlQuery query(db);
-        // TODO : A update pour la table newusers
+        // TODO : A update pour la table users
         query.prepare("SELECT role FROM users WHERE id = :userId");
         query.bindValue(":userId", userId);
 
@@ -454,7 +453,7 @@ void User::getInformations(int userId) {
                         "lvc.balance AS lvc_balance, "
                         "lvc.id AS lvc_id "
                     "FROM "
-                        "newusers AS u "
+                        "users AS u "
                     "LEFT JOIN "
                         "profil AS p ON p.user_id = u.id "
                     "LEFT JOIN "
