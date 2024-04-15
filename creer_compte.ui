@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>518</width>
-    <height>336</height>
+    <height>416</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,7 @@
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>260</y>
+      <y>340</y>
       <width>93</width>
       <height>29</height>
      </rect>
@@ -75,7 +75,7 @@ color: rgb(255, 255, 255);
     <property name="geometry">
      <rect>
       <x>290</x>
-      <y>260</y>
+      <y>340</y>
       <width>93</width>
       <height>29</height>
      </rect>
@@ -134,7 +134,7 @@ color: rgb(255, 255, 255);
      <string>Création Compte</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="value">
+   <widget class="QLineEdit" name="userid">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -198,7 +198,7 @@ color: rgb(255, 255, 255);
 </string>
     </property>
     <property name="text">
-     <string>Utilisateur</string>
+     <string>ID Utilisateur</string>
     </property>
    </widget>
    <widget class="QComboBox" name="comboBox">
@@ -210,21 +210,6 @@ color: rgb(255, 255, 255);
       <height>24</height>
      </rect>
     </property>
-    <item>
-     <property name="text">
-      <string>Compte Courant</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>PEL</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Livret C</string>
-     </property>
-    </item>
    </widget>
    <widget class="QWidget" name="widget_7" native="true">
     <property name="geometry">
@@ -353,6 +338,49 @@ border-radius:45px;
       </size>
      </property>
     </widget>
+   </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>250</y>
+      <width>101</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Montserrat Medium</family>
+      <italic>false</italic>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: transparent;
+color: rgb(255, 255, 255);
+</string>
+    </property>
+    <property name="text">
+     <string>Balance</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="balance">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>280</y>
+      <width>241</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+background:#181F1C;
+border:none;
+border-left:2px solid #ffffff;
+color:#717072;
+padding-left: 10px
+}</string>
+    </property>
    </widget>
   </widget>
  </widget>
