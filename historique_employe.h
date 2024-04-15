@@ -14,7 +14,7 @@ class historique_employe : public QWidget
 public:
     explicit historique_employe(QWidget *parent = nullptr);
     ~historique_employe();
-
+    void setUserId(const QString &userId);
 private slots:
     void on_lastconnect_em_clicked();
 
@@ -34,6 +34,7 @@ private:
     void on_reduced_3_clicked();
 
     void on_toolButton_31_clicked();
+    QString m_userId;
 };
 
 #endif // HISTORIQUE_EMPLOYE_H

@@ -1,5 +1,11 @@
 #include "historique_employe.h"
 #include "ui_historique_employe.h"
+#include "informations_client.h"
+#include "qsqlerror.h"
+#include "qsqlquery.h"
+#include "ui_informations_client.h"
+#include "user.h"
+#include <synchapi.h>
 
 historique_employe::historique_employe(QWidget *parent)
     : QWidget(parent)
@@ -50,4 +56,7 @@ void historique_employe::on_fullscreen_em_clicked()
 }
 
 
+void historique_employe::setUserId(const QString &userId)
+{
 
+}

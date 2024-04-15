@@ -48,11 +48,6 @@ void quel_client::on_return_kiclient_clicked()
 
 void quel_client::on_send_kiclient_clicked()
 {
-
-}
-
-void quel_client::on_pushButton_8_clicked()
-{
     // Récupérer le texte de la ligne de recherche
     QString searchQuery = ui->value->text().trimmed();
 
@@ -63,7 +58,10 @@ void quel_client::on_pushButton_8_clicked()
 
         // Effectuer la requête pour rechercher les utilisateurs par nom
         QSqlQuery query;
-        query.prepare("SELECT id, firstname, lastname FROM users WHERE firstname = :firstname AND role = 0");
+        query.prepare("SELECT p.firstname, p.lastname, u.id "
+                      "FROM users AS u "
+                      "LEFT JOIN profil AS p ON (p.user_id = u.id AND (p.type = 1 OR p.type = 0)) "
+                      "WHERE p.firstname = :firstname");
         query.bindValue(":firstname", searchQuery);
 
         if (query.exec()) {

@@ -1,5 +1,7 @@
 #include "creer_utilisateur.h"
+#include "f_admin.h"
 #include "ui_creer_utilisateur.h"
+#include "qsqlquery.h"
 
 creer_utilisateur::creer_utilisateur(QWidget *parent)
     : QWidget(parent)
@@ -7,6 +9,9 @@ creer_utilisateur::creer_utilisateur(QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
+    ui->type_utilisateur->addItem("Administrateur", 1);
+    ui->type_utilisateur->addItem("Utilisateur", 0);
+
 
 }
 
@@ -38,5 +43,13 @@ void creer_utilisateur::on_return_cruser_clicked()
 
 void creer_utilisateur::on_send_cruser_clicked()
 {
+    f_admin admin;
+    QString type_compte = ui->type_utilisateur->currentData().toString();
+    QString firstname = ui->name_user->text();
+    admin.createUser(firstname, type_compte.toInt());
 
+
+    close();
 }
+
+

@@ -1033,7 +1033,7 @@ border-radius: 10px;
   <widget class="QWidget" name="widget_110" native="true">
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>-40</x>
      <y>0</y>
      <width>1701</width>
      <height>31</height>
@@ -1047,8 +1047,8 @@ border-radius: 10px;
    <widget class="QLabel" name="label_198">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>-1</y>
+      <x>50</x>
+      <y>0</y>
       <width>101</width>
       <height>31</height>
      </rect>
