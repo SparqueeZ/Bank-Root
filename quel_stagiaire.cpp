@@ -41,7 +41,7 @@ void quel_stagiaire::on_fullscreen_kist_clicked()
 
 void quel_stagiaire::on_return_kist_clicked()
 {
-
+    close();
 }
 
 

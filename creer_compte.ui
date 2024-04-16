@@ -210,6 +210,9 @@ color: rgb(255, 255, 255);
       <height>24</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
    </widget>
    <widget class="QWidget" name="widget_7" native="true">
     <property name="geometry">

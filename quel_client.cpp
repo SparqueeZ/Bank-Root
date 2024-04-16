@@ -42,7 +42,7 @@ void quel_client::on_fullscreen_kiclient_clicked()
 
 void quel_client::on_return_kiclient_clicked()
 {
-
+    close();
 }
 
 

@@ -297,6 +297,67 @@ border-radius:45px;
       <height>241</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">/* Style pour la ScrollArea */
+QScrollArea {
+    border: 2px solid #181F1C; /* Bordure sombre */
+    border-radius: 10px; /* Coins arrondis */
+}
+
+/* Style pour le contenu interne */
+QScrollArea QWidget {
+    background-color: #1E2723; /* Couleur de fond sombre */
+}
+
+/* Style pour la barre de défilement verticale */
+QScrollBar:vertical {
+    border: none;
+    background: #1E2723; /* Fond sombre */
+    width: 10px; /* Largeur */
+    margin: 0px 0px 0px 0px;
+}
+
+/* Style pour la poignée de la barre de défilement verticale */
+QScrollBar::handle:vertical {
+    background: #35443D; /* Couleur de la poignée */
+    min-height: 20px; /* Hauteur minimale */
+    border-radius: 5px; /* Coins arrondis */
+}
+
+/* Style pour les boutons de la barre de défilement verticale */
+QScrollBar::add-line:vertical {
+    background: none;
+}
+
+QScrollBar::sub-line:vertical {
+    background: none;
+}
+
+/* Style pour la barre de défilement horizontale */
+QScrollBar:horizontal {
+    border: none;
+    background: #1E2723; /* Fond sombre */
+    height: 10px; /* Hauteur */
+    margin: 0px 0px 0px 0px;
+}
+
+/* Style pour la poignée de la barre de défilement horizontale */
+QScrollBar::handle:horizontal {
+    background: #35443D; /* Couleur de la poignée */
+    min-width: 20px; /* Largeur minimale */
+    border-radius: 5px; /* Coins arrondis */
+}
+
+/* Style pour les boutons de la barre de défilement horizontale */
+QScrollBar::add-line:horizontal {
+    background: none;
+}
+
+QScrollBar::sub-line:horizontal {
+    background: none;
+}
+</string>
+    </property>
     <property name="widgetResizable">
      <bool>true</bool>
     </property>
@@ -305,8 +366,8 @@ border-radius:45px;
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>389</width>
-       <height>239</height>
+       <width>387</width>
+       <height>237</height>
       </rect>
      </property>
     </widget>

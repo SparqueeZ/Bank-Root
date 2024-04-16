@@ -43,7 +43,7 @@ void quel_employe::on_fullscreen_kiem_clicked()
 
 void quel_employe::on_return_kiem_clicked()
 {
-
+    close();
 }
 
 
