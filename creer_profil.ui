@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>518</width>
-    <height>336</height>
+    <width>669</width>
+    <height>686</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>0</x>
      <y>0</y>
      <width>1381</width>
-     <height>661</height>
+     <height>800</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -34,8 +34,8 @@
    <widget class="QPushButton" name="return_crprofil">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>260</y>
+      <x>190</x>
+      <y>610</y>
       <width>93</width>
       <height>29</height>
      </rect>
@@ -74,8 +74,8 @@ color: rgb(255, 255, 255);
    <widget class="QPushButton" name="send_crprofil">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>260</y>
+      <x>340</x>
+      <y>610</y>
       <width>93</width>
       <height>29</height>
      </rect>
@@ -134,11 +134,11 @@ color: rgb(255, 255, 255);
      <string>Création profil</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="value">
+   <widget class="QLineEdit" name="userid">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>200</y>
+      <x>200</x>
+      <y>220</y>
       <width>241</width>
       <height>26</height>
      </rect>
@@ -156,8 +156,8 @@ padding-left: 10px
    <widget class="QLabel" name="label_8">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>90</y>
+      <x>200</x>
+      <y>110</y>
       <width>161</width>
       <height>20</height>
      </rect>
@@ -180,8 +180,8 @@ color: rgb(255, 255, 255);
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>170</y>
+      <x>200</x>
+      <y>190</y>
       <width>101</width>
       <height>20</height>
      </rect>
@@ -198,14 +198,14 @@ color: rgb(255, 255, 255);
 </string>
     </property>
     <property name="text">
-     <string>Utilisateur</string>
+     <string>ID Utilisateur</string>
     </property>
    </widget>
    <widget class="QComboBox" name="comboBox">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>120</y>
+      <x>200</x>
+      <y>140</y>
       <width>241</width>
       <height>24</height>
      </rect>
@@ -229,7 +229,7 @@ color: rgb(255, 255, 255);
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>518</width>
+      <width>671</width>
       <height>41</height>
      </rect>
     </property>
@@ -260,8 +260,8 @@ color:rgb(109, 114, 117);
     <widget class="QToolButton" name="reduced_crprofil">
      <property name="geometry">
       <rect>
-       <x>433</x>
-       <y>0</y>
+       <x>580</x>
+       <y>10</y>
        <width>31</width>
        <height>31</height>
       </rect>
@@ -293,8 +293,8 @@ background:red;
     <widget class="QToolButton" name="close_crprofil">
      <property name="geometry">
       <rect>
-       <x>493</x>
-       <y>0</y>
+       <x>640</x>
+       <y>10</y>
        <width>21</width>
        <height>31</height>
       </rect>
@@ -326,8 +326,8 @@ background:red;
     <widget class="QToolButton" name="fullscreen_crprofil">
      <property name="geometry">
       <rect>
-       <x>460</x>
-       <y>0</y>
+       <x>607</x>
+       <y>10</y>
        <width>31</width>
        <height>31</height>
       </rect>
@@ -351,6 +351,178 @@ border-radius:45px;
       </size>
      </property>
     </widget>
+   </widget>
+   <widget class="QLineEdit" name="firstname">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>300</y>
+      <width>241</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+background:#181F1C;
+border:none;
+border-left:2px solid #ffffff;
+color:#717072;
+padding-left: 10px
+}</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>270</y>
+      <width>101</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Montserrat Medium</family>
+      <italic>false</italic>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: transparent;
+color: rgb(255, 255, 255);
+</string>
+    </property>
+    <property name="text">
+     <string>Prénom</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lastname">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>380</y>
+      <width>241</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+background:#181F1C;
+border:none;
+border-left:2px solid #ffffff;
+color:#717072;
+padding-left: 10px
+}</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_12">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>350</y>
+      <width>101</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Montserrat Medium</family>
+      <italic>false</italic>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: transparent;
+color: rgb(255, 255, 255);
+</string>
+    </property>
+    <property name="text">
+     <string>Nom</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="login">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>470</y>
+      <width>241</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+background:#181F1C;
+border:none;
+border-left:2px solid #ffffff;
+color:#717072;
+padding-left: 10px
+}</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_13">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>440</y>
+      <width>101</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Montserrat Medium</family>
+      <italic>false</italic>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: transparent;
+color: rgb(255, 255, 255);
+</string>
+    </property>
+    <property name="text">
+     <string>Login</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="password">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>550</y>
+      <width>241</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+background:#181F1C;
+border:none;
+border-left:2px solid #ffffff;
+color:#717072;
+padding-left: 10px
+}</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_14">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>520</y>
+      <width>101</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Montserrat Medium</family>
+      <italic>false</italic>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: transparent;
+color: rgb(255, 255, 255);
+</string>
+    </property>
+    <property name="text">
+     <string>Mot de passe</string>
+    </property>
    </widget>
   </widget>
  </widget>

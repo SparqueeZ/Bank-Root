@@ -1,4 +1,5 @@
 #include "creer_profil.h"
+#include "f_admin.h"
 #include "ui_creer_profil.h"
 #include "qscreen.h"
 #include "qevent.h"
@@ -10,6 +11,8 @@ creer_profil::creer_profil(QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
+    ui->comboBox->addItem("Proprietaire", 0);
+    ui->comboBox->addItem("Conjoint", 1);
 
 }
 
@@ -55,5 +58,15 @@ void creer_profil::on_return_crprofil_clicked()
 
 void creer_profil::on_send_crprofil_clicked()
 {
+    f_admin admin;
+    QString type_profil = ui->comboBox->currentData().toString();
+    QString firstname = ui->firstname->text();
+    QString userID = ui->userid->text();
+    QString lastname = ui->lastname->text();
+    QString login = ui->login->text();
+    QString password = ui->password->text();
+    admin.createProfil(userID.toInt(), firstname, lastname, login, password, type_profil.toInt());
 
+
+    close();
 }

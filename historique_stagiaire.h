@@ -15,7 +15,7 @@ class historique_stagiaire : public QWidget
 public:
     explicit historique_stagiaire(QWidget *parent = nullptr);
     ~historique_stagiaire();
-
+    void setUserId(const QString &userId);
 private slots:
     void on_lastconnect_st_clicked();
 

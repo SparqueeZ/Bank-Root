@@ -60,3 +60,7 @@ void historique_stagiaire::on_lastcons_st_clicked()
 
 }
 
+void historique_stagiaire::setUserId(const QString &userId)
+{
+
+}

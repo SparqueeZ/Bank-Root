@@ -27,7 +27,6 @@ private slots:
 
     void on_close_kiclient_clicked();
 
-
 private:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);

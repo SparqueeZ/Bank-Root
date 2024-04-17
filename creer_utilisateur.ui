@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>543</width>
-    <height>402</height>
+    <height>362</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -247,97 +247,58 @@ border-radius:45px;
      <string>Création utilisateur</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QComboBox" name="type_utilisateur">
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>250</y>
-      <width>151</width>
+      <y>230</y>
+      <width>241</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>200</y>
+      <width>161</width>
       <height>20</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Montserrat Medium</family>
+      <italic>false</italic>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(255,255,255);
+     <string notr="true">background-color: transparent;
+color: rgb(255, 255, 255);
 </string>
     </property>
     <property name="text">
-     <string>Date de naissance</string>
+     <string>Type d'utilisateur</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="firstname_user">
+   <widget class="QPushButton" name="return_cruser">
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>200</y>
-      <width>241</width>
-      <height>26</height>
+      <y>290</y>
+      <width>93</width>
+      <height>29</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">QFrame{
-background:#181F1C;
-border:none;
-border-radius: 5px;
-color:#717072;
-}
-QLineEdit{
-background:#181F1C;
-border:none;
-border-left:2px solid #ffffff;
-color:#717072;
-padding-left: 10px
-}</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="datenaissance_user">
-    <property name="geometry">
-     <rect>
-      <x>140</x>
-      <y>280</y>
-      <width>241</width>
-      <height>26</height>
-     </rect>
+    <property name="font">
+     <font>
+      <family>Montserrat Medium</family>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">QFrame{
-background:#181F1C;
-border:none;
-border-radius: 5px;
-color:#717072;
-}
-QLineEdit{
-background:#181F1C;
-border:none;
-border-left:2px solid #ffffff;
-color:#717072;
-padding-left: 10px
-}</string>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QPushButton" name="return_cruser">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>340</y>
-     <width>93</width>
-     <height>29</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Montserrat Medium</family>
-     <italic>false</italic>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">
+     <string notr="true">
 QPushButton{
 color: rgb(255, 255, 255);
 border-radius:10px;
@@ -356,29 +317,29 @@ color: rgb(255, 255, 255);
 }
 
 </string>
-   </property>
-   <property name="text">
-    <string>Retour</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="send_cruser">
-   <property name="geometry">
-    <rect>
-     <x>290</x>
-     <y>340</y>
-     <width>93</width>
-     <height>29</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Montserrat Medium</family>
-     <italic>false</italic>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">
+    </property>
+    <property name="text">
+     <string>Retour</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="send_cruser">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>290</y>
+      <width>93</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Montserrat Medium</family>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
 QPushButton{
 color: rgb(255, 255, 255);
 border-radius:10px;
@@ -397,10 +358,11 @@ color: rgb(255, 255, 255);
 }
 
 </string>
-   </property>
-   <property name="text">
-    <string>Confirmer</string>
-   </property>
+    </property>
+    <property name="text">
+     <string>Confirmer</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources>
