@@ -10,6 +10,10 @@
 #include "quel_stagiaire.h"
 #include "ui_admin_homepage.h"
 #include "creer_utilisateur.h"
+#include "user.h"
+#include "qevent.h"
+#include <QGuiApplication>
+#include "home.h"
 
 admin_homepage::admin_homepage(QWidget *parent)
     : QWidget(parent)
@@ -24,6 +28,20 @@ admin_homepage::admin_homepage(QWidget *parent)
 admin_homepage::~admin_homepage()
 {
     delete ui;
+}
+
+void admin_homepage::mousePressEvent(QMouseEvent *event) {
+    if (ui->topbar->underMouse()) {
+        cur_pos = event->globalPosition().toPoint();
+    }
+}
+
+void admin_homepage::mouseMoveEvent(QMouseEvent *event) {
+    if (ui->topbar->underMouse()) {
+        new_pos = QPoint(event->globalPosition().toPoint() - cur_pos);
+        move(x() + new_pos.x(), y() + new_pos.y());
+        cur_pos = event->globalPosition().toPoint();
+    }
 }
 
 void admin_homepage::setUserInformation(const User& user)

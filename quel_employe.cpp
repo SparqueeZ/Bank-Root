@@ -1,5 +1,8 @@
 #include "quel_employe.h"
 #include "ui_quel_employe.h"
+#include "qscreen.h"
+#include "qevent.h"
+#include <QGuiApplication>
 
 quel_employe::quel_employe(QWidget *parent)
     : QWidget(parent)
@@ -12,6 +15,20 @@ quel_employe::quel_employe(QWidget *parent)
 quel_employe::~quel_employe()
 {
     delete ui;
+}
+
+void quel_employe::mousePressEvent(QMouseEvent *event) {
+    if (ui->topbar->underMouse()) {
+        cur_pos = event->globalPosition().toPoint();
+    }
+}
+
+void quel_employe::mouseMoveEvent(QMouseEvent *event) {
+    if (ui->topbar->underMouse()) {
+        new_pos = QPoint(event->globalPosition().toPoint() - cur_pos);
+        move(x() + new_pos.x(), y() + new_pos.y());
+        cur_pos = event->globalPosition().toPoint();
+    }
 }
 
 void quel_employe::on_reduced_kiem_clicked()

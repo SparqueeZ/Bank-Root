@@ -1,7 +1,8 @@
 #ifndef QUEL_CLIENT_H
 #define QUEL_CLIENT_H
-
+#include "home.h"
 #include <QWidget>
+#include "user.h"
 
 namespace Ui {
 class quel_client;
@@ -26,9 +27,14 @@ private slots:
 
     void on_close_kiclient_clicked();
 
-    void on_pushButton_8_clicked();
 
 private:
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    QPoint cur_pos;
+    QPoint new_pos;
+    User *currentUser;
+    Home *parentHome;
     Ui::quel_client *ui;
 };
 

@@ -210,6 +210,9 @@ color: rgb(255, 255, 255);
       <height>24</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(255,255,255);</string>
+    </property>
     <item>
      <property name="text">
       <string>Compte Courant</string>
@@ -226,7 +229,7 @@ color: rgb(255, 255, 255);
      </property>
     </item>
    </widget>
-   <widget class="QWidget" name="widget_7" native="true">
+   <widget class="QWidget" name="topbar" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>

@@ -5,6 +5,8 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include "operations.h"
+#include "qscreen.h"
+#include <QGuiApplication>
 
 virement::virement(User *user, Home *parentHome, QWidget *parent)
     : QDialog(parent)
@@ -103,13 +105,13 @@ void virement::on_toolButton_3_clicked()
 }
 
 void virement::mousePressEvent(QMouseEvent *event) {
-    if (ui->widget_7->underMouse()) { // Vérifie si le curseur est sur le widget_7
+    if (ui->topbar->underMouse()) { // Vérifie si le curseur est sur le widget_7
         cur_pos = event->globalPosition().toPoint();
     }
 }
 
 void virement::mouseMoveEvent(QMouseEvent *event) {
-    if (ui->widget_7->underMouse()) { // Vérifie si le curseur est sur le widget_7
+    if (ui->topbar->underMouse()) { // Vérifie si le curseur est sur le widget_7
         new_pos = QPoint(event->globalPosition().toPoint() - cur_pos);
         move(x() + new_pos.x(), y() + new_pos.y());
         cur_pos = event->globalPosition().toPoint();

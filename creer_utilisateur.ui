@@ -97,7 +97,7 @@ padding-left: 10px
      <string>Prénom</string>
     </property>
    </widget>
-   <widget class="QWidget" name="widget_7" native="true">
+   <widget class="QWidget" name="topbar" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>

@@ -1,7 +1,8 @@
 #ifndef HISTORIQUE_EMPLOYE_H
 #define HISTORIQUE_EMPLOYE_H
-
+#include "home.h"
 #include <QWidget>
+#include "user.h"
 
 namespace Ui {
 class historique_employe;
@@ -30,10 +31,12 @@ private slots:
 
 private:
     Ui::historique_employe *ui;
-
-    void on_reduced_3_clicked();
-
-    void on_toolButton_31_clicked();
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    QPoint cur_pos;
+    QPoint new_pos;
+    User *currentUser;
+    Home *parentHome;
 };
 
 #endif // HISTORIQUE_EMPLOYE_H

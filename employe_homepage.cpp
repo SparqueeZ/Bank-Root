@@ -1,5 +1,8 @@
 #include "employe_homepage.h"
 #include "ui_employe_homepage.h"
+#include "qscreen.h"
+#include "qevent.h"
+#include <QGuiApplication>
 
 employe_homepage::employe_homepage(QWidget *parent)
     : QWidget(parent)
@@ -12,6 +15,20 @@ employe_homepage::employe_homepage(QWidget *parent)
 employe_homepage::~employe_homepage()
 {
     delete ui;
+}
+
+void employe_homepage::mousePressEvent(QMouseEvent *event) {
+    if (ui->topbar->underMouse()) {
+        cur_pos = event->globalPosition().toPoint();
+    }
+}
+
+void employe_homepage::mouseMoveEvent(QMouseEvent *event) {
+    if (ui->topbar->underMouse()) {
+        new_pos = QPoint(event->globalPosition().toPoint() - cur_pos);
+        move(x() + new_pos.x(), y() + new_pos.y());
+        cur_pos = event->globalPosition().toPoint();
+    }
 }
 
 void employe_homepage::on_reduced_em_clicked()

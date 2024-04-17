@@ -1,7 +1,8 @@
 #ifndef EMPLOYE_HOMEPAGE_H
 #define EMPLOYE_HOMEPAGE_H
-
+#include "home.h"
 #include <QWidget>
+#include "user.h"
 
 namespace Ui {
 class employe_homepage;
@@ -33,6 +34,12 @@ private slots:
     void on_crcompte_em_clicked();
 
 private:
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    QPoint cur_pos;
+    QPoint new_pos;
+    User *currentUser;
+    Home *parentHome;
     Ui::employe_homepage *ui;
 };
 
