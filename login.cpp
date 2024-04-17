@@ -9,6 +9,10 @@
 #include "home.cpp"
 #include <QMessageBox>
 #include <QGuiApplication>
+#include <QDateTime>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
 #include "admin_homepage.h"
 
 Login::Login(QWidget *parent)
@@ -43,7 +47,15 @@ void Login::mouseMoveEvent(QMouseEvent *event) {
 }
 
 
+QString getCurrentDateTimeForSQL() {
+    // Récupérer l'heure actuelle
+    QDateTime currentDateTime = QDateTime::currentDateTime();
 
+    // Formater l'heure pour une requête SQL (format YYYY-MM-DD HH:MM:SS)
+    QString formattedDateTime = currentDateTime.toString("yyyy-MM-dd HH:mm:ss");
+
+    return formattedDateTime;
+}
 
 
 void Login::on_pushButton_clicked()
@@ -55,6 +67,29 @@ void Login::on_pushButton_clicked()
         QMessageBox::warning(this, "Erreur", "Veuillez remplir tous les champs.");
     } else {
         if (user.signin(username, password)) {
+            // SQL request pour history_admin
+            if(user.getRole() == 1) {
+                QSqlDatabase db = QSqlDatabase::database();
+
+                if (db.isValid()) {
+                    // Exécuter la requête SQL pour récupérer les données de l'historique
+                    QSqlQuery query(db);
+                    QString currentDateTimeSQL = getCurrentDateTimeForSQL();
+                    query.prepare("INSERT INTO history_admin"
+                                  "(user_id, last_connexion)"
+                                  "VALUES (:userId, :currentDateTimeSQL)");
+                    query.bindValue(":userId", user.getUserId());
+                    query.bindValue(":currentDateTimeSQL", currentDateTimeSQL);
+
+                    if (!query.exec()) {
+                        qDebug() << "Erreur SQL:" << query.lastError().text();
+                        return;
+                    }
+
+                }
+            }
+
+
             if (user.getRole() == 1) {
                 // Ouvrir la page d'administration
                 admin_homepage *adminHome = new admin_homepage();
