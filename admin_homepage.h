@@ -1,6 +1,6 @@
 #ifndef ADMIN_HOMEPAGE_H
 #define ADMIN_HOMEPAGE_H
-
+#include "home.h"
 #include "user.h"
 #include <QWidget>
 
@@ -37,6 +37,10 @@ private slots:
     void on_reduced_adm_clicked();
 
 private:
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    QPoint cur_pos;
+    QPoint new_pos;
     Ui::admin_homepage *ui;
     User *currentUser;
 };

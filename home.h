@@ -44,6 +44,7 @@ private:
     QPoint cur_pos;
     QPoint new_pos;
     User *currentUser;
+    Home *parentHome;
 };
 
 #endif // HOME_H

@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QWidget" name="widget_7" native="true">
+  <widget class="QWidget" name="topbar" native="true">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -23,9 +23,9 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">QWidget {
-    background-color: #181F1C;
-}</string>
+    <string notr="true">background-color:rgb(24,31, 28);
+color:rgb(109, 114, 117);
+</string>
    </property>
    <widget class="QLabel" name="label_64">
     <property name="geometry">
@@ -43,9 +43,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">QLabel{
-	color:white;
-}</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>BankRoot</string>

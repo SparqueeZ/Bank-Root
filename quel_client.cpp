@@ -8,6 +8,10 @@
 #include <QScrollArea>
 #include <QLayout>
 #include <QEvent>
+#include "qscreen.h"
+#include "home.h"
+#include "qevent.h"
+#include <QGuiApplication>
 
 quel_client::quel_client(QWidget *parent)
     : QWidget(parent)
@@ -20,6 +24,20 @@ quel_client::quel_client(QWidget *parent)
 quel_client::~quel_client()
 {
     delete ui;
+}
+
+void quel_client::mousePressEvent(QMouseEvent *event) {
+    if (ui->topbar->underMouse()) {
+        cur_pos = event->globalPosition().toPoint();
+    }
+}
+
+void quel_client::mouseMoveEvent(QMouseEvent *event) {
+    if (ui->topbar->underMouse()) {
+        new_pos = QPoint(event->globalPosition().toPoint() - cur_pos);
+        move(x() + new_pos.x(), y() + new_pos.y());
+        cur_pos = event->globalPosition().toPoint();
+    }
 }
 
 void quel_client::on_reduced_kiclient_clicked()
@@ -45,13 +63,7 @@ void quel_client::on_return_kiclient_clicked()
 
 }
 
-
 void quel_client::on_send_kiclient_clicked()
-{
-
-}
-
-void quel_client::on_pushButton_8_clicked()
 {
     // Récupérer le texte de la ligne de recherche
     QString searchQuery = ui->value->text().trimmed();

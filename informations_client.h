@@ -1,6 +1,6 @@
 #ifndef INFORMATIONS_CLIENT_H
 #define INFORMATIONS_CLIENT_H
-
+#include "home.h"
 #include "user.h"
 #include <QWidget>
 
@@ -35,6 +35,12 @@ private slots:
 private:
     Ui::informations_client *ui;
     QString m_userId;
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    QPoint cur_pos;
+    QPoint new_pos;
+    User *currentUser;
+    Home *parentHome;
 };
 
 #endif // INFORMATIONS_CLIENT_H

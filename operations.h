@@ -2,7 +2,7 @@
 #define OPERATIONS_H
 
 #include <QString>
-
+#include "home.h"
 class Operations {
 public:
     // Nouveau système de classes
