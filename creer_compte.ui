@@ -213,21 +213,6 @@ color: rgb(255, 255, 255);
     <property name="styleSheet">
      <string notr="true">color:rgb(255,255,255);</string>
     </property>
-    <item>
-     <property name="text">
-      <string>Compte Courant</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>PEL</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Livret C</string>
-     </property>
-    </item>
    </widget>
    <widget class="QWidget" name="topbar" native="true">
     <property name="geometry">

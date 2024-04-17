@@ -1,8 +1,6 @@
 #include "creer_compte.h"
 #include "f_admin.h"
 #include "ui_creer_compte.h"
-#include "user.h"
-#include "qscreen.h"
 #include "qevent.h"
 #include <QGuiApplication>
 
@@ -54,7 +52,7 @@ void creer_compte::on_fullscreen_crcompte_clicked()
 
 void creer_compte::on_return_crcompte_clicked()
 {
-
+    close();
 }
 
 void creer_compte::on_send_crcompte_clicked()

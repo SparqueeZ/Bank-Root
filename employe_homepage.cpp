@@ -1,6 +1,5 @@
 #include "employe_homepage.h"
 #include "ui_employe_homepage.h"
-#include "qscreen.h"
 #include "qevent.h"
 #include <QGuiApplication>
 

@@ -1,7 +1,6 @@
 #include "quel_employe.h"
 #include "historique_employe.h"
 #include "ui_quel_employe.h"
-#include "informations_client.h"
 #include "qsqlerror.h"
 #include "qsqlquery.h"
 #include "user.h"
@@ -115,6 +114,7 @@ void quel_employe::on_send_kiem_clicked()
                     historique_employe *HistoEmploye = new historique_employe();
                     HistoEmploye->setUserId(userId);
                     HistoEmploye->show();
+                    close();
                 });
 
                 // Ajouter le QPushButton à la mise en page de la zone de défilement

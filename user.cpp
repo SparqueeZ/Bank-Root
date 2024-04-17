@@ -1,5 +1,4 @@
 #include "user.h"
-#include "operations.h"
 #include <QRandomGenerator>
 #include <QSqlQuery>
 #include <QSqlError>

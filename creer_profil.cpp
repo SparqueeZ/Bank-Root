@@ -1,7 +1,6 @@
 #include "creer_profil.h"
 #include "f_admin.h"
 #include "ui_creer_profil.h"
-#include "qscreen.h"
 #include "qevent.h"
 #include <QGuiApplication>
 
@@ -53,7 +52,7 @@ void creer_profil::on_fullscreen_crprofil_clicked()
 
 void creer_profil::on_return_crprofil_clicked()
 {
-
+    close();
 }
 
 void creer_profil::on_send_crprofil_clicked()

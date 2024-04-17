@@ -60,6 +60,7 @@ QString getCurrentDateTimeForSQL() {
 
 void Login::on_pushButton_clicked()
 {
+
     QString username = ui->lineEdit_3->text();
     QString password = ui->lineEdit_2->text();
     User user;

@@ -2,7 +2,6 @@
 #include "qsqlerror.h"
 #include "qsqlquery.h"
 #include "ui_informations_client.h"
-#include "user.h"
 #include <synchapi.h>
 #include "qscreen.h"
 #include "qevent.h"

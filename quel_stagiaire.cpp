@@ -113,6 +113,7 @@ void quel_stagiaire::on_send_kist_clicked()
                     historique_stagiaire *HistoStagiaire = new historique_stagiaire();
                     HistoStagiaire->setUserId(userId);
                     HistoStagiaire->show();
+                    close();
                 });
 
                 // Ajouter le QPushButton à la mise en page de la zone de défilement

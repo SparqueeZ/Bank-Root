@@ -7,10 +7,8 @@
 #include <QDebug>
 #include <synchapi.h>
 #include "debit.h"
-#include <iostream>
 #include "login.h"
 #include "qsqlquery.h"
-#include "qsqlerror.h"
 #include "virement.h"
 #include "add_beneficiaire.h"
 

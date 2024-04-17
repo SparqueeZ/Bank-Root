@@ -1,10 +1,7 @@
 #include "admin_homepage.h"
 #include "creer_compte.h"
 #include "creer_profil.h"
-#include "historique_employe.h"
-#include "historique_stagiaire.h"
-#include "informations_client.h"
-#include "qscreen.h"
+#include "login.h"
 #include "quel_client.h"
 #include "quel_employe.h"
 #include "quel_stagiaire.h"
@@ -13,7 +10,6 @@
 #include "user.h"
 #include "qevent.h"
 #include <QGuiApplication>
-#include "home.h"
 
 admin_homepage::admin_homepage(QWidget *parent)
     : QWidget(parent)
@@ -111,3 +107,11 @@ void admin_homepage::on_fullscreen_adm_clicked()
 {
 
 }
+
+void admin_homepage::on_logoff_clicked()
+{
+    Login *login = new class Login();
+    login->show();
+    close();
+}
+

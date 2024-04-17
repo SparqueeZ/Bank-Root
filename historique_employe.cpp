@@ -1,12 +1,6 @@
 #include "historique_employe.h"
 #include "ui_historique_employe.h"
-#include "informations_client.h"
-#include "qsqlerror.h"
-#include "qsqlquery.h"
-#include "ui_informations_client.h"
-#include "user.h"
 #include <synchapi.h>
-#include "qscreen.h"
 #include "qevent.h"
 #include <QGuiApplication>
 
