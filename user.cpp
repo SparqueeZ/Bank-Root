@@ -14,7 +14,7 @@
 
 User::User() {}
 
-User::User(const QString& login, const QString& username, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, double balance, int isLoggedIn, int role, double PELBalance, double LCBalance, int firstAccountId, int PELAccountId, int LCAccountId, int userId)
+User::User(const QString& login, const QString& username, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, double balance, int isLoggedIn, int role, double PELBalance, double LCBalance, int firstAccountId, int PELAccountId, int LCAccountId, int userId, int profilType)
     : m_role(role), m_login(login), m_lastName(lastName), m_firstName(firstName), m_dateOfBirth(dateOfBirth), m_balance(balance), m_PELBalance(PELBalance), m_LCBalance(LCBalance), m_isLoggedIn(isLoggedIn), m_firstAccountId(firstAccountId), m_PELAccountId(PELAccountId), m_LCAccountId(LCAccountId), m_userId(userId) {
 }
 /*
@@ -89,6 +89,7 @@ bool User::signin(QString login, QString password) {
         m_login = query.value("login").toString();
         m_role = query.value("role").toInt();
         m_isLoggedIn = 1;
+        m_profilType = query.value("type").toInt();
 
         m_PELBalance = query.value("balancePEL").toDouble();
         m_LCBalance = query.value("balanceLC").toDouble();
@@ -206,7 +207,7 @@ void User::addBeneficiaire(int beneficiaireId, int propId) {
 
     // Verification si le beneficiaire est deja ajoute au compte.
     QSqlQuery checkQuery;
-    checkQuery.prepare("SELECT COUNT(*) FROM added_beneficiaires WHERE prop_id = :propId AND beneficiaire_id = :beneficiaireId");
+    checkQuery.prepare("SELECT COUNT(*) FROM saved_accounts WHERE user_id = :propId AND account_id = :beneficiaireId");
     checkQuery.bindValue(":propId", propId);
     checkQuery.bindValue(":beneficiaireId", beneficiaireId);
     if (!checkQuery.exec()) {
@@ -223,12 +224,12 @@ void User::addBeneficiaire(int beneficiaireId, int propId) {
 
     // Insertion du beneficiaire dans la table added_beneficiaires.
     QSqlQuery query;
-    query.prepare("INSERT INTO added_beneficiaires (prop_id, beneficiaire_id) VALUES (:propId, :beneficiaireId)");
-    query.bindValue(":propId", propId);
-    query.bindValue(":beneficiaireId", beneficiaireId);
+    query.prepare("INSERT INTO saved_accounts (user_id, account_id) VALUES (:user_id, :account_id)");
+    query.bindValue(":user_id", propId);
+    query.bindValue(":account_id", beneficiaireId);
 
-    std::cout << propId << beneficiaireId;
-    Sleep(2000);
+    //std::cout << propId << beneficiaireId;
+    //Sleep(2000);
 
     if (query.exec()) {
         std::cout << "Beneficiaire ajoute avec succes.";
@@ -470,6 +471,7 @@ void User::getInformations(int userId) {
         // Profil
         m_firstName = query.value("profil_firstname").toString();
         m_lastName = query.value("profil_lastname").toString();
+        m_profilType = query.value("profil_type").toInt();
 
         // User
         m_username = query.value("username").toString();
@@ -563,6 +565,9 @@ double User::getBalance() const {
 
 int User::getUserId() const {
     return m_userId;
+}
+int User::getProfilType() const {
+    return m_profilType;
 }
 
 void User::setCredentials(const QString& username, const QString& password) {

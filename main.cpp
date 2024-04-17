@@ -478,11 +478,26 @@ public:
         std::cout << "[1] Creer un compte utilisateur" << std:: endl;
         std::cout << "[2] Creer un profil" << std:: endl;
         std::cout << "[3] Creer un compte en banque" << std:: endl;
-        std::cout << "[4] Associer ???" << std:: endl;
-        AffSeparator();
-
-        QString choice =stream.readLine().trimmed();
+        std::cout << "[4] Consulter compte client" << std:: endl;
+        int profilType = user->getProfilType();
+        int maxChoices = 4;
+        if(profilType != 10) {
+            std::cout << "[5] Consulter compte stagiaire" << std:: endl;
+            maxChoices = 5;
+            if(profilType != 11){
+                std::cout << "[6] Consulter compte employe" << std:: endl;
+                maxChoices = 6;
+            }
+        }
+        std::cout << "\n[8] Retour" << std:: endl;
+        QString choice;
         int newUserId = 0;
+        do {
+            choice = stream.readLine().trimmed();
+            if(choice.toInt() == 8) {
+                return;
+            }
+        } while (choice.toInt() < 1 || choice.toInt() > maxChoices);
 
         if(choice.toInt() == 1) {
             newUserId = AffCreateUser();
@@ -511,7 +526,50 @@ public:
             std::cout << "Veuillez entrer l'id de l'user : ";
             QString userId = stream.readLine().trimmed();
             AffCreateAccount(userId.toInt());
+        } else if (choice.toInt() == 4) {
+            clearScreen();
+            std::cout << "Entre l'id de l'user a verifier : ";
+            QString userIdToCheck = stream.readLine().trimmed();
+
+            User userToCheck;
+            userToCheck.getInformations(userIdToCheck.toInt());
+            AffCheckUser(userToCheck);
+        } else if (choice.toInt() == 5) {
+            std::cout << "Choix de l'admin - employe";
+            Sleep(3000);
+        } else if (choice.toInt() == 6) {
+            std::cout << "Choix de l'admin - directeur";
+            Sleep(3000);
         }
+    }
+
+    int AffCheckUser(User userToCheck) {
+        clearScreen();
+        std::cout << "Les informations de l'user ---------------------------------" << std::endl;
+        std::cout << "Username : " << userToCheck.getUsername().toStdString() << std::endl;
+        std::cout << "User ID : " << userToCheck.getUserId() << std::endl;
+
+        std::cout << "\nLes differents profils -------------------------------------" << std::endl;
+        std::cout << "A Realiser" << std::endl;
+
+        std::cout << "\nLes comptes bancaires --------------------------------------" << std::endl;
+        if(userToCheck.getFirstAccountId()) {
+            std::cout << "Compte courant : " << userToCheck.getBalance() << " euros." << std::endl;
+        } else {
+            std::cout << "Cet user n'a pas de compte courant" << std::endl;
+        }
+        if(userToCheck.getPELAccountId()) {
+            std::cout << "Compte PEL : " << userToCheck.getPELBalance() << " euros." << std::endl;
+        } else {
+            std::cout << "Cet user n'a pas de compte PEL" << std::endl;
+        }
+        if(userToCheck.getLCAccountId()) {
+            std::cout << "Compte Livret C : " << userToCheck.getLCBalance() << " euros." << std::endl;
+        } else {
+            std::cout << "Cet user n'a pas de compte Livret C" << std::endl;
+        }
+        std::cout << "\nPour retourner a l'accueil, appuyez sur une touche." << std::endl;
+        getch();
     }
 
     int AffCreateUser() {

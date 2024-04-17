@@ -1,6 +1,15 @@
 #include "f_admin.h"
-#include "QSqlQuery"
+#include "qdatetime.h"
+#include "qrandom.h"
 #include "qsqlerror.h"
+#include "QSqlQuery"
+
+int generateAccountNumber() {
+    QRandomGenerator generator(QDateTime::currentMSecsSinceEpoch());
+    int randomNumber = generator.bounded(10000);
+    QString accountNumber = QString::number(randomNumber).rightJustified(4, '0');
+    return accountNumber.toInt();
+}
 
 f_admin::f_admin() {
 
@@ -27,11 +36,14 @@ int f_admin::createUser(QString username, int role){
     }
 }
 
-bool f_admin::createAccount(int userId, int type, double balance){
+int f_admin::createAccount(int userId, int type, double balance){
+    int accountId = generateAccountNumber();
+
     // Créer le compte bancaire
     QSqlQuery insertAccountQuery;
-    insertAccountQuery.prepare("INSERT INTO accounts (userId, type, balance) "
-                               "VALUES (:userId, :type, :balance)");
+    insertAccountQuery.prepare("INSERT INTO accounts (id, userId, type, balance) "
+                               "VALUES (:id, :userId, :type, :balance)");
+    insertAccountQuery.bindValue(":id", accountId);
     insertAccountQuery.bindValue(":userId", userId);
     insertAccountQuery.bindValue(":type", type);
     insertAccountQuery.bindValue(":balance", balance);
@@ -61,3 +73,7 @@ bool f_admin::createProfil(int userId, QString firstname, QString lastname, QStr
         return false;
     }
 };
+
+//void f_admin::saveToHistoryAdmin(int type, int userId);
+
+
