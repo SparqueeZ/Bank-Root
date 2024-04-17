@@ -1,10 +1,9 @@
 #include "creer_utilisateur.h"
 #include "f_admin.h"
 #include "ui_creer_utilisateur.h"
-#include "qsqlquery.h"
-#include "qscreen.h"
 #include "qevent.h"
 #include <QGuiApplication>
+#include <QMessageBox>
 
 creer_utilisateur::creer_utilisateur(QWidget *parent)
     : QWidget(parent)
@@ -55,7 +54,7 @@ void creer_utilisateur::on_fullscreen_cruser_clicked()
 
 void creer_utilisateur::on_return_cruser_clicked()
 {
-
+    close();
 }
 
 void creer_utilisateur::on_send_cruser_clicked()
@@ -63,8 +62,13 @@ void creer_utilisateur::on_send_cruser_clicked()
     f_admin admin;
     QString type_compte = ui->type_utilisateur->currentData().toString();
     QString firstname = ui->name_user->text();
-    admin.createUser(firstname, type_compte.toInt());
+    int userId = admin.createUser(firstname, type_compte.toInt());
 
+    // Créer le message de la popup
+    QString message = "L'ID de l'utilisateur créé est : " + QString::number(userId);
+
+    // Afficher la popup avec le message
+    QMessageBox::information(this, "Nouvel utilisateur créé", message);
 
     close();
 }

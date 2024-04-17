@@ -36,6 +36,8 @@ private slots:
 
     void on_reduced_adm_clicked();
 
+    void on_logoff_clicked();
+
 private:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);

@@ -1,9 +1,7 @@
 #include "informations_client_stag.h"
 #include "ui_informations_client_stag.h"
-#include "qscreen.h"
 #include "qevent.h"
 #include <QGuiApplication>
-#include "qscreen.h"
 
 informations_client_stag::informations_client_stag(QWidget *parent)
     : QWidget(parent)

@@ -1,6 +1,5 @@
 #include "quel_client.h"
 #include "informations_client.h"
-#include "qsqlerror.h"
 #include "qsqlquery.h"
 #include "ui_quel_client.h"
 #include "user.h"
@@ -8,8 +7,6 @@
 #include <QScrollArea>
 #include <QLayout>
 #include <QEvent>
-#include "qscreen.h"
-#include "home.h"
 #include "qevent.h"
 #include <QGuiApplication>
 
@@ -110,10 +107,10 @@ void quel_client::on_send_kiclient_clicked()
 
                 // Connecter le signal clicked() du bouton à un slot pour gérer le clic
                 connect(button, &QPushButton::clicked, this, [=]() {
-                    qDebug() << "Bouton cliqué pour l'utilisateur ID:" << userId;
                     informations_client *InfoClient = new informations_client();
                     InfoClient->setUserId(userId);
                     InfoClient->show();
+                    close();
                 });
 
                 // Ajouter le QPushButton à la mise en page de la zone de défilement
@@ -123,7 +120,6 @@ void quel_client::on_send_kiclient_clicked()
                 button->installEventFilter(this);
             }
         } else {
-            qDebug() << "Erreur lors de la recherche des utilisateurs :" << query.lastError().text();
         }
     }
 }

@@ -48,6 +48,7 @@ void Login::mouseMoveEvent(QMouseEvent *event) {
 
 void Login::on_pushButton_clicked()
 {
+
     QString username = ui->lineEdit_3->text();
     QString password = ui->lineEdit_2->text();
     User user;
@@ -55,6 +56,8 @@ void Login::on_pushButton_clicked()
         QMessageBox::warning(this, "Erreur", "Veuillez remplir tous les champs.");
     } else {
         if (user.signin(username, password)) {
+
+
             if (user.getRole() == 1) {
                 // Ouvrir la page d'administration
                 admin_homepage *adminHome = new admin_homepage();

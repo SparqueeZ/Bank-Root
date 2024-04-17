@@ -11,7 +11,6 @@
 #include <cstdlib>
 #include <synchapi.h>
 #include <conio.h>
-#include "Home.h"
 #include "f_admin.h"
 
 class UI {

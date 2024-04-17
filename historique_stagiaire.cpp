@@ -1,6 +1,5 @@
 #include "historique_stagiaire.h"
 #include "ui_historique_stagiaire.h"
-#include "qscreen.h"
 #include "qevent.h"
 #include <QGuiApplication>
 

@@ -1,7 +1,6 @@
 #include "add_beneficiaire.h"
 #include "ui_add_beneficiaire.h"
 #include "user.h"
-#include "qscreen.h"
 #include "home.h"
 #include "qevent.h"
 #include <QGuiApplication>
