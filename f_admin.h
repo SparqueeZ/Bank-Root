@@ -10,7 +10,7 @@ public:
     int test();
 
     int createUser(QString username, int role);
-    bool createAccount(int userId, int type, double balance);
+    int createAccount(int userId, int type, double balance);
     bool createProfil(int userId, QString firstname, QString lastname, QString login, QString password, int type);
 };
 
