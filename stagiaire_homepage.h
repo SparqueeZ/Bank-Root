@@ -1,7 +1,8 @@
 #ifndef STAGIAIRE_HOMEPAGE_H
 #define STAGIAIRE_HOMEPAGE_H
-
+#include "home.h"
 #include <QWidget>
+#include "user.h"
 
 namespace Ui {
 class stagiaire_homepage;
@@ -25,6 +26,12 @@ private slots:
     void on_close_st_clicked();
 
 private:
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    QPoint cur_pos;
+    QPoint new_pos;
+    User *currentUser;
+    Home *parentHome;
     Ui::stagiaire_homepage *ui;
 };
 

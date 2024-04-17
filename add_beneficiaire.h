@@ -28,6 +28,10 @@ private slots:
     void on_reduced_addb_clicked();
 
 private:
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    QPoint cur_pos;
+    QPoint new_pos;
     User *currentUser;
     Home *parentHome;
     Ui::add_beneficiaire *ui;

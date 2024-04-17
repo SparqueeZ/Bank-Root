@@ -1,7 +1,8 @@
 #ifndef INFORMATIONS_CLIENT_STAG_H
 #define INFORMATIONS_CLIENT_STAG_H
-
+#include "user.h"
 #include <QWidget>
+#include "home.h"
 
 namespace Ui {
 class informations_client_stag;
@@ -25,6 +26,12 @@ private slots:
     void on_close_infost_clicked();
 
 private:
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    QPoint cur_pos;
+    QPoint new_pos;
+    User *currentUser;
+    Home *parentHome;
     Ui::informations_client_stag *ui;
 };
 

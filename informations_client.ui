@@ -1030,7 +1030,7 @@ border-radius: 10px;
     </widget>
    </widget>
   </widget>
-  <widget class="QWidget" name="widget_110" native="true">
+  <widget class="QWidget" name="topbar" native="true">
    <property name="geometry">
     <rect>
      <x>-40</x>
@@ -1040,9 +1040,9 @@ border-radius: 10px;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">QWidget {
-    background-color: #181F1C;
-}</string>
+    <string notr="true">background-color:rgb(24,31, 28);
+color:rgb(109, 114, 117);
+</string>
    </property>
    <widget class="QLabel" name="label_198">
     <property name="geometry">
@@ -1060,9 +1060,8 @@ border-radius: 10px;
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">QLabel{
-	color:white;
-}</string>
+     <string notr="true">
+</string>
     </property>
     <property name="text">
      <string>BankRoot</string>
@@ -1071,7 +1070,7 @@ border-radius: 10px;
    <widget class="QToolButton" name="reduced_infoc">
     <property name="geometry">
      <rect>
-      <x>1393</x>
+      <x>1370</x>
       <y>10</y>
       <width>15</width>
       <height>15</height>
@@ -1104,7 +1103,7 @@ background:red;
    <widget class="QToolButton" name="fullscreen_infoc">
     <property name="geometry">
      <rect>
-      <x>1420</x>
+      <x>1397</x>
       <y>10</y>
       <width>15</width>
       <height>15</height>
@@ -1132,7 +1131,7 @@ border-radius:45px;
    <widget class="QToolButton" name="close_infoc">
     <property name="geometry">
      <rect>
-      <x>1443</x>
+      <x>1420</x>
       <y>10</y>
       <width>15</width>
       <height>15</height>

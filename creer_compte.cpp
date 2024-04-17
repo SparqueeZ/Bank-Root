@@ -1,6 +1,10 @@
 #include "creer_compte.h"
 #include "f_admin.h"
 #include "ui_creer_compte.h"
+#include "user.h"
+#include "qscreen.h"
+#include "qevent.h"
+#include <QGuiApplication>
 
 creer_compte::creer_compte(QWidget *parent)
     : QWidget(parent)
@@ -16,6 +20,20 @@ creer_compte::creer_compte(QWidget *parent)
 creer_compte::~creer_compte()
 {
     delete ui;
+}
+
+void creer_compte::mousePressEvent(QMouseEvent *event) {
+    if (ui->topbar->underMouse()) {
+        cur_pos = event->globalPosition().toPoint();
+    }
+}
+
+void creer_compte::mouseMoveEvent(QMouseEvent *event) {
+    if (ui->topbar->underMouse()) {
+        new_pos = QPoint(event->globalPosition().toPoint() - cur_pos);
+        move(x() + new_pos.x(), y() + new_pos.y());
+        cur_pos = event->globalPosition().toPoint();
+    }
 }
 
 void creer_compte::on_close_crcompte_clicked()

@@ -75,7 +75,29 @@ padding-left: 10px
      <string>Nom</string>
     </property>
    </widget>
-   <widget class="QWidget" name="widget_7" native="true">
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>170</y>
+      <width>171</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Montserrat Medium</family>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255,255,255);
+</string>
+    </property>
+    <property name="text">
+     <string>Prénom</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="topbar" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
