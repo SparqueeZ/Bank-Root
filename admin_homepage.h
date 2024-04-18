@@ -13,7 +13,7 @@ class admin_homepage : public QWidget
     Q_OBJECT
 
 public:
-    explicit admin_homepage(QWidget *parent = nullptr);
+    explicit admin_homepage(const User& user, QWidget *parent = nullptr);
     ~admin_homepage();
     void setUserInformation(const User& user);
 
@@ -38,7 +38,7 @@ private slots:
 
 private:
     Ui::admin_homepage *ui;
-    User *currentUser;
+    User currentUser;
 };
 
 #endif // ADMIN_HOMEPAGE_H

@@ -11,11 +11,12 @@
 #include "ui_admin_homepage.h"
 #include "creer_utilisateur.h"
 
-admin_homepage::admin_homepage(QWidget *parent)
+admin_homepage::admin_homepage(const User& user,QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::admin_homepage)
 {
     ui->setupUi(this);
+    setUserInformation(user);
     this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
 
 
@@ -34,7 +35,7 @@ void admin_homepage::setUserInformation(const User& user)
     ui->ActionBtnName_11->setAttribute(Qt::WA_TransparentForMouseEvents);
 
     ui->labelFirstName_3->setText(user.getFirstName());
-    currentUser = new User(user);
+    currentUser = user;
 }
 
 void admin_homepage::on_cruser_adm_clicked()

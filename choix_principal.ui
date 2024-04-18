@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>272</width>
-    <height>345</height>
+    <height>289</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,41 +37,6 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>290</y>
-      <width>230</width>
-      <height>35</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat SemiBold</family>
-      <pointsize>14</pointsize>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton{
-background:#181F1C;
-border-radius:5px;
-color: #ffffff;
-}
-
-QPushButton:hover{
-color:#ffffff;
-background:#C20114;
-}</string>
-    </property>
-    <property name="text">
-     <string>Admin</string>
-    </property>
-   </widget>
    <widget class="QToolButton" name="toolButton_4">
     <property name="geometry">
      <rect>
@@ -202,7 +167,7 @@ background:red;
      <string>Qui êtes-vous ?</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="personnel">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -234,10 +199,10 @@ background:#C20114;
 }</string>
     </property>
     <property name="text">
-     <string>Propriétaire</string>
+     <string>Personnel</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
+   <widget class="QPushButton" name="admin">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -269,7 +234,7 @@ background:#C20114;
 }</string>
     </property>
     <property name="text">
-     <string>Conjoint</string>
+     <string>Admin</string>
     </property>
    </widget>
   </widget>

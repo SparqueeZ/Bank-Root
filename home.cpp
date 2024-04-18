@@ -12,7 +12,6 @@
 #include "qsqlquery.h"
 #include "qsqlerror.h"
 #include "virement.h"
-#include "add_beneficiaire.h"
 
 Home::Home(QWidget *parent)
     : QWidget(parent)
@@ -188,12 +187,7 @@ void Home::on_logoff_clicked()
     login->show();
     close();
 }
-void Home::on_addbenef_cl_clicked()
-{
-    add_beneficiaire *add_beneficiaire = new class add_beneficiaire(currentUser, this); // Passer la référence à la fenêtre principale
-    add_beneficiaire->show();
-    //this->hide();
-}
+
 void Home::refreshUserInfo() {
     // Récupérer l'utilisateur actuellement connecté
     //User newUser; // Implémentez cette fonction pour récupérer l'utilisateur actuel
@@ -282,4 +276,8 @@ void Home::refreshUserInfo() {
     } else {
 
     }
+}
+
+void Home::on_addbenef_cl_clicked() {
+
 }
