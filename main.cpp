@@ -949,11 +949,13 @@ int main(int argc, char *argv[]) {
     interfaceUtilisateur->AffLogin();
 
     if (user.getIsLoggedIn() == 1) {
+        while (user.getIsLoggedIn() == 1) {
             if(user.getRole() == 1){
                 interfaceUtilisateur->AffAdminPage();
             } else {
                 interfaceUtilisateur->AffMainPage();
             }
+        }
         QSqlDatabase::removeDatabase("qt_sql_default_connection");
     } else {
         std::cout << "User not found." << std::endl;

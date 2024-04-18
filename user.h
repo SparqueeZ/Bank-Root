@@ -136,7 +136,7 @@ public:
         int getLvc_id() const;
 
 private:
-    int isLoggedIn;
+    int m_isLoggedIn;
     // User
     int m_userId;
     QString m_username;

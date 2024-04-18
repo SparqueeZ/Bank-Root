@@ -141,21 +141,12 @@ bool User::signin(QString login, QString password) {
                   "LEFT JOIN accounts a2 ON u.id = a2.userId AND a2.type = 1 "
                   "LEFT JOIN accounts a3 ON u.id = a3.userId AND a3.type = 2 "
                   "WHERE u.login = :login AND u.password = :password");*/
-    query.prepare("SELECT u.id AS id, u.role AS role, "
-                  "p.firstname AS firstname, p.lastname AS lastname, p.type AS type, p.login AS login, "
-                  "a1.balance AS balance, a1.id AS firstAccountId, "
-                  "a2.balance AS balancePEL, a2.id AS PELAccountId, "
-                  "a3.balance AS balanceLC, a3.id AS LCAccountId "
-                  "FROM profil p "
-                  "LEFT JOIN users u ON p.user_id = u.id "
-                  "LEFT JOIN accounts a1 ON u.id = a1.userId AND a1.type = 0 "
-                  "LEFT JOIN accounts a2 ON u.id = a2.userId AND a2.type = 1 "
-                  "LEFT JOIN accounts a3 ON u.id = a3.userId AND a3.type = 2 "
-                  "WHERE p.login = :login AND p.password = :password");    query.prepare(  "SELECT "
+    query.prepare("SELECT "
                   "p.firstname AS p_firstname, "
                   "p.lastname AS p_lastname, "
                   "p.login AS p_login, "
                   "p.type AS p_type, "
+                  "u.id AS userId, "
                   "u.username AS username, "
                   "u.role AS user_role, "
                   "u.creationDate AS user_creation_date, "
@@ -166,11 +157,11 @@ bool User::signin(QString login, QString password) {
                   "lvc.balance AS lvc_balance, "
                   "lvc.id AS lvc_id "
                   "FROM users AS u "
-                  "LEFT JOIN profil AS p ON p.user_id = u.id"
+                  "LEFT JOIN profil AS p ON p.user_id = u.id "
                   "LEFT JOIN accounts AS ppl ON p.user_id = ppl.userId AND ppl.type = 0 "
                   "LEFT JOIN accounts AS pel ON p.user_id = pel.userId AND pel.type = 1 "
                   "LEFT JOIN accounts AS lvc ON p.user_id = lvc.userId AND lvc.type = 2 "
-                  "WHERE p.login = :login && p.password = :password");
+                  "WHERE p.login = 'Baptiste' AND p.password = 'Test'");
     query.bindValue(":login", login);
     query.bindValue(":password", password);
     if (query.exec() && query.next()) {
@@ -186,6 +177,7 @@ bool User::signin(QString login, QString password) {
         m_username = query.value("username").toString();
         m_role = query.value("user_role").toInt();
         m_creationDate = query.value("user_creation_date").toDate();
+        m_userId = query.value("userId").toInt();
 
         // Accounts
         m_ppl_balance = query.value("ppl_balance").toDouble();
@@ -196,7 +188,9 @@ bool User::signin(QString login, QString password) {
         m_lvc_id = query.value("lvc_id").toInt();
         return true;
     } else {
+
         std::system("cls");
+        qDebug() << "Erreur SQL : " << query.lastError().text();
         std::cout << "Identifiants incorrects" << std::endl;
         Sleep(1500);
         return false;
@@ -241,6 +235,7 @@ void User::disconnect() {
     QSqlDatabase::removeDatabase("qt_sql_default_connection");
 
     // Réinitialiser les informations de l'utilisateur
+    m_isLoggedIn = 0;
     // Profils
     m_owner_firstname.clear();
     m_owner_lastname.clear();
@@ -268,15 +263,11 @@ void User::disconnect() {
 
 void User::refreshUserData() {
     QSqlQuery query;
-    query.prepare(  "SELECT "
-                  "p1.firstname AS p1_firstname, "
-                  "p1.lastname AS p1_lastname, "
-                  "p1.login AS p1_login, "
-                  "p1.type AS p1_type, "
-                  "p2.firstname AS p2firstname, "
-                  "p2.lastname AS p2lastname, "
-                  "p2.login AS p2login, "
-                  "p2.type AS p2type, "
+    query.prepare("SELECT "
+                  "p.firstname AS p_firstname, "
+                  "p.lastname AS p_lastname, "
+                  "p.login AS p_login, "
+                  "p.type AS p_type, "
                   "u.username AS username, "
                   "u.role AS user_role, "
                   "u.creationDate AS user_creation_date, "
@@ -287,41 +278,22 @@ void User::refreshUserData() {
                   "lvc.balance AS lvc_balance, "
                   "lvc.id AS lvc_id "
                   "FROM users AS u "
-                  "LEFT JOIN profil AS p1 ON p1.user_id = u.id ON p1.type = 0"
-                  "LEFT JOIN profil AS p2 ON p2.user_id = u.id ON p2.type = 1"
-                  "LEFT JOIN accounts AS ppl ON p1.user_id = ppl.userId AND ppl.type = 0 "
-                  "LEFT JOIN accounts AS pel ON p1.user_id = pel.userId AND pel.type = 1 "
-                  "LEFT JOIN accounts AS lvc ON p1.user_id = lvc.userId AND lvc.type = 2 "
+                  "LEFT JOIN profil AS p ON p.user_id = u.id "
+                  "LEFT JOIN accounts AS ppl ON p.user_id = ppl.userId AND ppl.type = 0 "
+                  "LEFT JOIN accounts AS pel ON p.user_id = pel.userId AND pel.type = 1 "
+                  "LEFT JOIN accounts AS lvc ON p.user_id = lvc.userId AND lvc.type = 2 "
                   "WHERE u.id = :userId");
     query.bindValue(":userId", m_userId);
     if (query.exec() && query.next()) {
         // Utilisateur trouve
-
-        // Profils
-        m_owner_firstname = query.value("p1_firstname").toString();
-        m_owner_lastname = query.value("p1_lastname").toString();
-        m_owner_login = query.value("p1_login").toString();
-        m_owner_type = query.value("p1_type").toInt();
-        m_coowner_firstname = query.value("p2_firstname").toString();
-        m_coowner_lastname = query.value("p2_lastname").toString();
-        m_coowner_login = query.value("p2_login").toString();
-        m_coowner_type = query.value("p2_type").toInt();
-
-        // User
-        m_username = query.value("username").toString();
-        m_role = query.value("user_role").toInt();
-        m_creationDate = query.value("user_creation_date").toDate();
-
         // Accounts
         m_ppl_balance = query.value("ppl_balance").toDouble();
         m_pel_balance = query.value("pel_balance").toDouble();
         m_lvc_balance = query.value("lvc_balance").toDouble();
-        m_ppl_id = query.value("ppl_id").toInt();
-        m_pel_id = query.value("pel_id").toInt();
-        m_lvc_id = query.value("lvc_id").toInt();
         return;
     } else {
-        std::cout << "Erreur lors de la mise à jour des donnees." << std::endl;
+        qDebug() << "Erreur SQL : " << query.lastError().text();
+        std::cout << "Erreur lors de la mise a jour des donnees." << std::endl;
         Sleep(1500);
         return;
     }
