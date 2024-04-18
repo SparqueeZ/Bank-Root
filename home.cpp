@@ -10,6 +10,7 @@
 #include "login.h"
 #include "qsqlquery.h"
 #include "virement.h"
+#include "add_beneficiaire.h"
 
 Home::Home(QWidget *parent)
     : QWidget(parent)
@@ -63,9 +64,9 @@ void Home::setUserInformation(const User& user)
     ui->ActionBtnName_3->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->ActionBtnName_4->setAttribute(Qt::WA_TransparentForMouseEvents);
     // Convertir le solde en une chaîne de caractères avec le symbole €
-    QString balanceString = QString::number(user.getBalance()) + " €";
-    QString PELString = QString::number(user.getPELBalance()) + " €";
-    QString LivretCString = QString::number(user.getLCBalance()) + " €";
+    QString balanceString = QString::number(user.getPpl_balance()) + " €";
+    QString PELString = QString::number(user.getPel_balance()) + " €";
+    QString LivretCString = QString::number(user.getLvc_balance()) + " €";
 
     QSqlDatabase db = QSqlDatabase::database();
 
@@ -142,13 +143,13 @@ void Home::setUserInformation(const User& user)
 
     //----------------------------------------------------------------------------------------------------------
 
-    double lcBalance = user.getLCBalance();
+    double lcBalance = user.getLvc_balance();
     int progressPercentage = static_cast<int>((lcBalance / 10000.0) * 100.0);
     progressPercentage = std::min(std::max(progressPercentage, 0), 100);
     ui->progressBar_4->setValue(progressPercentage);
 
     // Utiliser les informations de l'utilisateur pour mettre à jour l'interface graphique de la page d'accueil
-    ui->labelFirstName->setText(user.getFirstName());
+    ui->labelFirstName->setText(user.getActual_firstname());
     //ui->labelLastName->setText(user.getLastName());
     ui->labelFirstAccountBalance->setText(balanceString);
 
@@ -194,10 +195,10 @@ void Home::refreshUserInfo() {
     currentUser->refreshUserData(); // Implémentez cette fonction dans la classe User
 
     // Mettre à jour l'interface utilisateur avec les nouvelles données de l'utilisateur
-    ui->labelFirstName->setText(currentUser->getFirstName());
-    ui->labelFirstAccountBalance->setText(QString::number(currentUser->getBalance()) + " €");
-    ui->labelPELAccountBalance->setText(QString::number(currentUser->getPELBalance()) + " €");
-    ui->labelLCAccountBalance->setText(QString::number(currentUser->getLCBalance()) + " €");
+    ui->labelFirstName->setText(currentUser->getActual_firstname());
+    ui->labelFirstAccountBalance->setText(QString::number(currentUser->getPpl_balance()) + " €");
+    ui->labelPELAccountBalance->setText(QString::number(currentUser->getPel_balance()) + " €");
+    ui->labelLCAccountBalance->setText(QString::number(currentUser->getLvc_balance()) + " €");
 
     // Mettez à jour d'autres éléments de l'interface utilisateur si nécessaire
 
@@ -276,6 +277,9 @@ void Home::refreshUserInfo() {
     }
 }
 
-void Home::on_addbenef_cl_clicked() {
-
+void Home::on_addbenef_cl_clicked()
+{
+    add_beneficiaire *add_beneficiaire = new class add_beneficiaire(currentUser, this); // Passer la référence à la fenêtre principale
+    add_beneficiaire->show();
+    //this->hide();
 }

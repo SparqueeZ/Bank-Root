@@ -36,21 +36,17 @@ virement::virement(User *user, Home *parentHome, QWidget *parent)
     }
 
     // Préparation de la requête SQL
-    QSqlQuery getBeneficiaires;
-    getBeneficiaires.prepare("SELECT "
-                             "u.firstname AS prop_firstname, "
-                             "ab.beneficiaire_id, "
-                             "a.type, "
-                             "u_beneficiary.firstname AS beneficiary_firstname, "
-                             "a_beneficiary.userId AS beneficiary_user_id "
-                             "FROM added_beneficiaires AS ab "
-                             "JOIN accounts AS a ON ab.beneficiaire_id = a.id "
-                             "JOIN users AS u ON u.id = ab.prop_id "
-                             "JOIN accounts AS a_beneficiary ON ab.beneficiaire_id = a_beneficiary.id "
-                             "JOIN users AS u_beneficiary ON a_beneficiary.userId = u_beneficiary.id "
-                             "WHERE u.id = :userId");
-
-    // Liaison de la valeur de l'ID utilisateur à la requête
+    QSqlQuery getBeneficiaires(db);
+    getBeneficiaires.prepare("SELECT DISTINCT u_prop.id AS prop_uid, p_prop.firstname AS prop_firstname, "
+                             "a_dest.id AS dest_acc_id , p_dest.firstname AS dest_firstname, a_dest.type AS dest_acc_type "
+                             "FROM saved_accounts AS sa "
+                             "LEFT JOIN users AS u_prop ON u_prop.id = sa.user_id "
+                             "LEFT JOIN accounts AS a_prop ON a_prop.userId = u_prop.id "
+                             "LEFT JOIN profil AS p_prop ON p_prop.user_id = u_prop.id "
+                             "LEFT JOIN accounts AS a_dest ON a_dest.id = sa.account_id "
+                             "LEFT JOIN users AS u_dest ON u_dest.id = a_dest.userId "
+                             "LEFT JOIN profil AS p_dest ON p_dest.user_id = u_dest.id "
+                             "WHERE u_prop.id =  :userId");
     getBeneficiaires.bindValue(":userId", currentUser->getUserId());
 
     // Exécution de la requête
@@ -61,8 +57,8 @@ virement::virement(User *user, Home *parentHome, QWidget *parent)
 
     // Remplissage de la ComboBox avec les valeurs récupérées de la base de données
     while (getBeneficiaires.next()) {
-        QString accountOwnerId = getBeneficiaires.value("beneficiary_firstname").toString();
-        QString accountId = getBeneficiaires.value("beneficiary_user_id").toString(); // Récupère l'ID de l'utilisateur
+        QString accountOwnerId = getBeneficiaires.value("dest_firstname").toString();
+        QString accountId = getBeneficiaires.value("dest_acc_id").toString(); // Récupère l'ID de l'utilisateur
         ui->combo->addItem(accountOwnerId, accountId); // Ajoute le nom de l'utilisateur avec son ID dans la comboBox
     }
 

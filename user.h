@@ -8,7 +8,45 @@
 class User {
 public:
     User();
-    User(const QString& login, const QString& username, const QString& lastName, const QString& firstName, const QDate& dateOfBirth, double balance, int isLoggedIn, int role, double PELBalance, double LCBalance, int firstAccountId, int PELAccountId, int LCAccountId, int userId, int profilType);
+    User(
+        int isLoggedIn,
+        // User
+        int userId,
+        QString username,
+        int role,
+        QDate creationDate,
+        // Profils
+        int actual_profilId,
+        int actual_type,
+        QString actual_firstname,
+        QString actual_lastname,
+        QString actual_login,
+        QString actual_password,
+        QDate actual_dateOfBirth,
+            // Proprietaire
+        int owner_profilId,
+        int owner_type,
+        QString owner_firstname,
+        QString owner_lastname,
+        QString owner_login,
+        QString owner_password,
+        QDate owner_dateOfBirth,
+            // Conjoint
+        int coowner_profilId,
+        int coowner_type,
+        QString coowner_firstname,
+        QString coowner_lastname,
+        QString coowner_login,
+        QString coowner_password,
+        QDate coowner_dateOfBirth,
+        // Accounts
+            // Principal
+        double ppl_balance,
+        int ppl_id,
+        double pel_balance,
+        int pel_id,
+        double lvc_balance,
+        int lvc_id);
 
     //int getprofil(QString login, QString password);
     bool signin(QString login , QString password);
@@ -21,7 +59,6 @@ public:
 
     // Nouvelle méthode pour récupérer les informations de l'utilisateur connecté
     User getLoggedInUser() const;
-    int getIsLoggedIn() const;
 
     int getFirstAccountId() const;
     int getPELAccountId() const;
@@ -36,12 +73,9 @@ public:
     QString getFirstName() const;
     QString getLastName() const;
     QString getLogin() const;
-    int getRole() const;
-    QString getUsername() const;
 
     void setCredentials(const QString& username, const QString& password);
 
-    int getUserId() const;
     int getProfilType() const;
 
     void refreshUserData();
@@ -62,27 +96,86 @@ public:
     int checkIfProfileExists(int userId);
     bool checkIfUserIsAdmin(int userId);
 
-private:
-    int m_role;
-    QString m_username;
-    QString m_login;
-    QString m_lastName;
-    QString m_firstName;
-    QDate m_dateOfBirth;
-    double m_balance;
-    double m_PELBalance;
-    double m_LCBalance;
-    QSqlDatabase m_database;
-    QString m_password;
-    int m_isLoggedIn;
-
+    // Getters
+    int getIsLoggedIn() const;
+    // User
+    int getUserId() const;
+    QString getUsername() const;
+    int getRole() const;
+    QDate getCreationDate() const;
+    // Profils
+        int getActual_profilId() const;
+        int getActual_type() const;
+        QString getActual_firstname() const;
+        QString getActual_lastname() const;
+        QString getActual_login() const;
+        QDate getActual_dateOfBirth() const;
+        // Proprietaire
+        int getOwner_profilId() const;
+        int getOwner_type() const;
+        QString getOwner_firstname() const;
+        QString getOwner_lastname() const;
+        QString getOwner_login() const;
+        QDate getOwner_dateOfBirth() const;
+        // Conjoint
+        int getCoowner_profilId() const;
+        int getCoowner_type() const;
+        QString getCoowner_firstname() const;
+        QString getCoowner_lastname() const;
+        QString getCoowner_login() const;
+        QDate getCoowner_dateOfBirth() const;
     // Accounts
-    int m_firstAccountId;
-    int m_PELAccountId;
-    int m_LCAccountId;
+        // Principal
+        double getPpl_balance() const;
+        int getPpl_id() const;
+        // PEL
+        double getPel_balance() const;
+        int getPel_id() const;
+        // LVC
+        double getLvc_balance() const;
+        int getLvc_id() const;
 
+private:
+    int isLoggedIn;
+    // User
     int m_userId;
-    int m_profilType;
+    QString m_username;
+    int m_role;
+    QDate m_creationDate;
+    // Profils
+        int m_actual_profilId;
+        int m_actual_type;
+        QString m_actual_firstname;
+        QString m_actual_lastname;
+        QString m_actual_login;
+        QString m_actual_password;
+        QDate m_actual_dateOfBirth;
+        // Proprietaire
+        int m_owner_profilId;
+        int m_owner_type;
+        QString m_owner_firstname;
+        QString m_owner_lastname;
+        QString m_owner_login;
+        QString m_owner_password;
+        QDate m_owner_dateOfBirth;
+        // Conjoint
+        int m_coowner_profilId;
+        int m_coowner_type;
+        QString m_coowner_firstname;
+        QString m_coowner_lastname;
+        QString m_coowner_login;
+        QString m_coowner_password;
+        QDate m_coowner_dateOfBirth;
+    // Accounts
+        // Principal
+        double m_ppl_balance;
+        int m_ppl_id;
+        // PEL
+        double m_pel_balance;
+        int m_pel_id;
+        // LVC
+        double m_lvc_balance;
+        int m_lvc_id;
 };
 
 #endif // USER_H

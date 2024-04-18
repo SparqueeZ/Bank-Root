@@ -179,7 +179,7 @@ void Operations::setvalue(){
     QSqlQuery querySet;
     querySet.prepare("UPDATE accounts SET balance = :value WHERE accounts.id = (SELECT users.accountId FROM users WHERE users.login = :username)");
     querySet.bindValue(":value", value);
-    querySet.bindValue(":username", user.getLogin());
+    querySet.bindValue(":username", user.getActual_login());
 
     if (querySet.exec()) {
         system("CLS");

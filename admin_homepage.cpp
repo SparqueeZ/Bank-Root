@@ -48,7 +48,7 @@ void admin_homepage::setUserInformation(const User& user)
     ui->ActionBtnName_14->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->ActionBtnName_11->setAttribute(Qt::WA_TransparentForMouseEvents);
 
-    ui->labelFirstName_3->setText(user.getFirstName());
+    ui->labelFirstName_3->setText(user.getActual_firstname());
     currentUser = user;
 }
 
