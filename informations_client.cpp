@@ -75,6 +75,86 @@ void informations_client::setUserId(const QString &userId)
     ui->labelFirstAccountBalance_91->setText("Date de naissance : " + client.getOwner_firstname()); // TODO : A changer par la date de naissance
     ui->labelFirstAccountBalance_94->setText(QString("ID de l'utilisateur : %1").arg(client.getUserId()));
 
+    if (db.isValid()) {
+        // Exécuter la requête SQL pour récupérer les données de l'historique
+        QSqlQuery query(db);
+        query.prepare("SELECT h.montant, h.id_compte_emetteur, h.id_compte_destinataire, h.type, h.title, h.description, h.date FROM users AS u LEFT JOIN accounts AS ppl ON ppl.userId = u.id AND ppl.type = 0 LEFT JOIN accounts AS pel ON pel.userId = u.id AND pel.type = 1 LEFT JOIN accounts AS lvc ON lvc.userId = u.id AND lvc.type = 2 LEFT JOIN history AS h ON h.id_compte_emetteur = ppl.id OR h.id_compte_emetteur = pel.id OR h.id_compte_emetteur = lvc.id OR h.id_compte_destinataire = ppl.id OR h.id_compte_destinataire = pel.id OR h.id_compte_destinataire = lvc.id WHERE u.id = :id ORDER BY h.date DESC LIMIT 8");
+        query.bindValue(":id", m_userId);
+
+        if (!query.exec()) {
+            return;
+        }
+        int count = 1;
+        // Itérer sur les résultats de la requête
+        while (query.next()) {
+            QString image = QString("image%1").arg(count);
+            QWidget *widget1 = findChild<QWidget *>(image);
+            widget1->setStyleSheet("background-color: #595554");
+
+
+            QString historyValue = QString("historyvalue%1").arg(count);
+            QLabel *label1 = findChild<QLabel *>(historyValue);
+            QString euro = "€";
+
+            // Récupérer les valeurs des colonnes
+            double montant = query.value(0).toDouble();
+            QDateTime date = query.value(6).toDateTime();
+            int id_compte_emetteur = query.value(1).toInt();
+            int id_compte_destinataire = query.value(2).toInt();
+            QString type = query.value(3).toString();
+            QString title = query.value(4).toString();
+            QString description = query.value(5).toString();
+
+            QString historyTitle = QString("historytitle%1").arg(count);
+            QLabel *label2 = findChild<QLabel *>(historyTitle);
+
+            if (query.value(3) == 0) {
+                type = "Virement";
+                label2->setText(type);
+                label1->setStyleSheet("color: red");
+                QString signe = "-";
+                QString value = QString("%1%2%3").arg(signe).arg(QString::number(montant)).arg(euro);
+                label1->setText(value);
+                QString accID = QString("accID%1").arg(count);
+                QLabel *label3 = findChild<QLabel *>(accID);
+                label3->setText(QString::number(id_compte_emetteur));
+            } else if (query.value(3) == 1) {
+                type = "Credit";
+                label2->setText(type);
+                label1->setStyleSheet("color: green");
+                QString signe = "+";
+                QString value = QString("%1%2%3").arg(signe).arg(QString::number(montant)).arg(euro);
+                label1->setText(value);
+                QString accID = QString("accID%1").arg(count);
+                QLabel *label3 = findChild<QLabel *>(accID);
+                label3->setText(QString::number(id_compte_destinataire));
+            } else if (query.value(3) == 2) {
+                type = "Debit";
+                label2->setText(type);
+                label1->setStyleSheet("color: red");
+                QString signe = "-";
+                QString value = QString("%1%2%3").arg(signe).arg(QString::number(montant)).arg(euro);
+                label1->setText(value);
+                QString accID = QString("accID%1").arg(count);
+                QLabel *label3 = findChild<QLabel *>(accID);
+                label3->setText(QString::number(id_compte_emetteur));
+            }
+
+
+            QString historyDescription = QString("historyDescription%1").arg(count);
+            QLabel *label4 = findChild<QLabel *>(historyDescription);
+            label4->setText(description);
+
+            count = count + 1;
+
+
+            // Afficher les valeurs récupérées sur la console avec un menu
+
+        }
+    } else {
+
+    }
+
     // Mettre les informations profils
 
 }

@@ -18,6 +18,10 @@ historique_employe::~historique_employe()
     delete ui;
 }
 
+void historique_employe::setInformations(){
+
+}
+
 void historique_employe::mousePressEvent(QMouseEvent *event) {
     if (ui->topbar->underMouse()) {
         cur_pos = event->globalPosition().toPoint();
@@ -59,6 +63,7 @@ void historique_employe::on_lastop_em_clicked()
 {
 
 }
+
 
 
 void historique_employe::on_fullscreen_em_clicked()
