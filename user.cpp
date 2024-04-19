@@ -482,6 +482,7 @@ void User::getInformations(int userId) {
                         "p2.lastname AS p2lastname, "
                         "p2.login AS p2login, "
                         "p2.type AS p2type, "
+                        "u.id AS userId, "
                         "u.username AS username, "
                         "u.role AS user_role, "
                         "u.creationDate AS user_creation_date, "
@@ -492,8 +493,8 @@ void User::getInformations(int userId) {
                         "lvc.balance AS lvc_balance, "
                         "lvc.id AS lvc_id "
                     "FROM users AS u "
-                    "LEFT JOIN profil AS p1 ON p1.user_id = u.id ON p1.type = 0"
-                    "LEFT JOIN profil AS p2 ON p2.user_id = u.id ON p2.type = 1"
+                    "LEFT JOIN profil AS p1 ON p1.user_id = u.id AND p1.type = 0 "
+                    "LEFT JOIN profil AS p2 ON p2.user_id = u.id AND p2.type = 1 "
                     "LEFT JOIN accounts AS ppl ON p1.user_id = ppl.userId AND ppl.type = 0 "
                     "LEFT JOIN accounts AS pel ON p1.user_id = pel.userId AND pel.type = 1 "
                     "LEFT JOIN accounts AS lvc ON p1.user_id = lvc.userId AND lvc.type = 2 "
@@ -516,6 +517,7 @@ void User::getInformations(int userId) {
         m_username = query.value("username").toString();
         m_role = query.value("user_role").toInt();
         m_creationDate = query.value("user_creation_date").toDate();
+        m_userId = query.value("userId").toInt();
 
         // Accounts
         m_ppl_balance = query.value("ppl_balance").toDouble();
@@ -527,7 +529,7 @@ void User::getInformations(int userId) {
         return;
     } else {
         std::system("cls");
-        std::cout << "User not found." << std::endl;
+        std::cout << "User not found." << userId << std::endl;
         Sleep(1500);
         return;
     }

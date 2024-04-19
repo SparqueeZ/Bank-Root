@@ -16,7 +16,6 @@ admin_homepage::admin_homepage(const User& user,QWidget *parent)
     , ui(new Ui::admin_homepage)
 {
     ui->setupUi(this);
-    setUserInformation(user);
     this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
 
 
