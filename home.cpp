@@ -10,6 +10,7 @@
 #include "login.h"
 #include "qsqlquery.h"
 #include "virement.h"
+#include "add_beneficiaire.h"
 
 Home::Home(QWidget *parent)
     : QWidget(parent)
@@ -83,6 +84,11 @@ void Home::setUserInformation(const User& user)
         int count = 1;
         // Itérer sur les résultats de la requête
         while (query.next()) {
+            QString image = QString("image%1").arg(count);
+            QWidget *widget1 = findChild<QWidget *>(image);
+            widget1->setStyleSheet("background-color: #595554");
+
+
             QString historyValue = QString("historyvalue%1").arg(count);
             QLabel *label1 = findChild<QLabel *>(historyValue);
             QString euro = "€";
@@ -218,6 +224,12 @@ void Home::refreshUserInfo() {
         int count = 1;
         // Itérer sur les résultats de la requête
         while (query.next()) {
+            QString image = QString("image%1").arg(count);
+            QWidget *widget1 = findChild<QWidget *>(image);
+            widget1->setStyleSheet("background-color: #595554");
+
+
+
             QString historyValue = QString("historyvalue%1").arg(count);
             QLabel *label1 = findChild<QLabel *>(historyValue);
             QString euro = "€";
@@ -277,5 +289,7 @@ void Home::refreshUserInfo() {
 }
 
 void Home::on_addbenef_cl_clicked() {
-
+    add_beneficiaire *add_beneficiaire = new class add_beneficiaire(currentUser, this);
+    add_beneficiaire->show();
+    //this->hide();
 }
