@@ -112,6 +112,9 @@ void Home::setUserInformation(const User& user)
                 QString signe = "-";
                 QString value = QString("%1%2%3").arg(signe).arg(QString::number(montant)).arg(euro);
                 label1->setText(value);
+                QString accID = QString("accID%1").arg(count);
+                QLabel *label3 = findChild<QLabel *>(accID);
+                label3->setText(QString::number(id_compte_emetteur));
             } else if (query.value(3) == 1) {
                 type = "Credit";
                 label2->setText(type);
@@ -119,6 +122,9 @@ void Home::setUserInformation(const User& user)
                 QString signe = "+";
                 QString value = QString("%1%2%3").arg(signe).arg(QString::number(montant)).arg(euro);
                 label1->setText(value);
+                QString accID = QString("accID%1").arg(count);
+                QLabel *label3 = findChild<QLabel *>(accID);
+                label3->setText(QString::number(id_compte_destinataire));
             } else if (query.value(3) == 2) {
                 type = "Debit";
                 label2->setText(type);
@@ -126,11 +132,10 @@ void Home::setUserInformation(const User& user)
                 QString signe = "-";
                 QString value = QString("%1%2%3").arg(signe).arg(QString::number(montant)).arg(euro);
                 label1->setText(value);
+                QString accID = QString("accID%1").arg(count);
+                QLabel *label3 = findChild<QLabel *>(accID);
+                label3->setText(QString::number(id_compte_emetteur));
             }
-
-            QString accID = QString("accID%1").arg(count);
-            QLabel *label3 = findChild<QLabel *>(accID);
-            label3->setText(QString::number(id_compte_emetteur));
 
             QString historyDescription = QString("historyDescription%1").arg(count);
             QLabel *label4 = findChild<QLabel *>(historyDescription);
@@ -253,6 +258,9 @@ void Home::refreshUserInfo() {
                 QString signe = "-";
                 QString value = QString("%1%2%3").arg(signe).arg(QString::number(montant)).arg(euro);
                 label1->setText(value);
+                QString accID = QString("accID%1").arg(count);
+                QLabel *label3 = findChild<QLabel *>(accID);
+                label3->setText(QString::number(id_compte_emetteur));
             } else if (query.value(3) == 1) {
                 type = "Credit";
                 label2->setText(type);
@@ -260,6 +268,9 @@ void Home::refreshUserInfo() {
                 QString signe = "+";
                 QString value = QString("%1%2%3").arg(signe).arg(QString::number(montant)).arg(euro);
                 label1->setText(value);
+                QString accID = QString("accID%1").arg(count);
+                QLabel *label3 = findChild<QLabel *>(accID);
+                label3->setText(QString::number(id_compte_destinataire));
             } else if (query.value(3) == 2) {
                 type = "Debit";
                 label2->setText(type);
@@ -267,11 +278,10 @@ void Home::refreshUserInfo() {
                 QString signe = "-";
                 QString value = QString("%1%2%3").arg(signe).arg(QString::number(montant)).arg(euro);
                 label1->setText(value);
+                QString accID = QString("accID%1").arg(count);
+                QLabel *label3 = findChild<QLabel *>(accID);
+                label3->setText(QString::number(id_compte_emetteur));
             }
-
-            QString accID = QString("accID%1").arg(count);
-            QLabel *label3 = findChild<QLabel *>(accID);
-            label3->setText(QString::number(id_compte_emetteur));
 
             QString historyDescription = QString("historyDescription%1").arg(count);
             QLabel *label4 = findChild<QLabel *>(historyDescription);
