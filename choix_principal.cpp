@@ -26,6 +26,7 @@ void choix_principal::on_personnel_clicked() {
 
 void choix_principal::on_admin_clicked(){
     admin_homepage *adminHome = new admin_homepage(currentUser);
+    adminHome->setUserInformation(currentUser);
     adminHome->show();
     this->hide();
 }

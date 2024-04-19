@@ -65,17 +65,17 @@ public:
         user->refreshUserData();
         QTextStream stream(stdin);
         std::system("cls");
-        std::cout << "Bienvenue " << user->getFirstName().toStdString() << "." << std::endl;
+        std::cout << "Bienvenue " << user->getActual_firstname().toStdString() << "." << std::endl;
         std::cout << "\nVos comptes bancaires --------------------------------------" << std::endl;
         // Si le compte a un ID, alors on affiche le compte.
-        if(user->getFirstAccountId()) {
-            std::cout << "Compte courant : " << user->getBalance() << " euros." << std::endl;
+        if(user->getPpl_id()) {
+            std::cout << "Compte courant : " << user->getPpl_balance() << " euros." << std::endl;
         }
-        if(user->getPELAccountId()) {
-            std::cout << "Compte PEL : " << user->getPELBalance() << " euros." << std::endl;
+        if(user->getPel_id()) {
+            std::cout << "Compte PEL : " << user->getPel_balance() << " euros." << std::endl;
         }
-        if(user->getLCAccountId()) {
-            std::cout << "Compte Livret C : " << user->getLCBalance() << " euros." << std::endl;
+        if(user->getLvc_id()) {
+            std::cout << "Compte Livret C : " << user->getLvc_balance() << " euros." << std::endl;
         }
         AffSeparator();
         if (user->getRole() != 1) {
@@ -111,7 +111,7 @@ public:
     void AffAdminPage() override {
         clearScreen();
         QTextStream stream(stdin);
-        std::cout << "Bienvenue " << user->getFirstName().toStdString() << ", que voulez-vous faire ?" << std::endl;
+        std::cout << "Bienvenue " << user->getActual_firstname().toStdString() << ", que voulez-vous faire ?" << std::endl;
         AffMsg("[1] Acceder au panel admin");
         AffMsg("[2] Acceder votre espace client");
         QString choice =stream.readLine().trimmed();
@@ -195,15 +195,15 @@ public:
         std::system("cls");
         QSqlQuery getBeneficiaires(db);
         getBeneficiaires.prepare("SELECT DISTINCT u_prop.id AS prop_uid, p_prop.firstname AS prop_firstname, "
-                                 "a_dest.id AS dest_acc_id , p_dest.firstname AS dest_firstname, a_dest.type AS dest_acc_type "
+                                 "a_dest.id AS dest_acc_id , u_dest.username AS dest_firstname, a_dest.type AS dest_acc_type "
                                     "FROM saved_accounts AS sa "
                                     "LEFT JOIN users AS u_prop ON u_prop.id = sa.user_id "
                                     "LEFT JOIN accounts AS a_prop ON a_prop.userId = u_prop.id "
                                     "LEFT JOIN profil AS p_prop ON p_prop.user_id = u_prop.id "
                                     "LEFT JOIN accounts AS a_dest ON a_dest.id = sa.account_id "
-                                    "LEFT JOIN users AS u_dest ON u_dest.id = sa.account_id "
+                                    "LEFT JOIN users AS u_dest ON u_dest.id = a_dest.userId "
                                     "LEFT JOIN profil AS p_dest ON p_dest.user_id = u_dest.id "
-                                    "WHERE u_prop.id = 39");
+                                    "WHERE u_prop.id =  :userId");
         getBeneficiaires.bindValue(":userId", user->getUserId());
 
         if (!getBeneficiaires.exec()) {
@@ -479,7 +479,7 @@ public:
         std::cout << "[2] Creer un profil" << std:: endl;
         std::cout << "[3] Creer un compte en banque" << std:: endl;
         std::cout << "[4] Consulter compte client" << std:: endl;
-        int profilType = user->getProfilType();
+        int profilType = user->getActual_type();
         int maxChoices = 4;
         if(profilType != 10) {
             std::cout << "[5] Consulter compte stagiaire" << std:: endl;
@@ -553,18 +553,18 @@ public:
         std::cout << "A Realiser" << std::endl;
 
         std::cout << "\nLes comptes bancaires --------------------------------------" << std::endl;
-        if(userToCheck.getFirstAccountId()) {
-            std::cout << "Compte courant : " << userToCheck.getBalance() << " euros." << std::endl;
+        if(userToCheck.getPpl_id()) {
+            std::cout << "Compte courant : " << userToCheck.getPpl_balance() << " euros." << std::endl;
         } else {
             std::cout << "Cet user n'a pas de compte courant" << std::endl;
         }
-        if(userToCheck.getPELAccountId()) {
-            std::cout << "Compte PEL : " << userToCheck.getPELBalance() << " euros." << std::endl;
+        if(userToCheck.getPel_id()) {
+            std::cout << "Compte PEL : " << userToCheck.getPel_balance() << " euros." << std::endl;
         } else {
             std::cout << "Cet user n'a pas de compte PEL" << std::endl;
         }
-        if(userToCheck.getLCAccountId()) {
-            std::cout << "Compte Livret C : " << userToCheck.getLCBalance() << " euros." << std::endl;
+        if(userToCheck.getLvc_id()) {
+            std::cout << "Compte Livret C : " << userToCheck.getLvc_balance() << " euros." << std::endl;
         } else {
             std::cout << "Cet user n'a pas de compte Livret C" << std::endl;
         }
@@ -932,7 +932,6 @@ int main(int argc, char *argv[]) {
     UI* interfaceUtilisateur = nullptr;
     QApplication app(argc, argv);
 
-    // Affichage de la boîte de dialogue demandant le mode d'ouverture
     QMessageBox msgBox;
     msgBox.setText("Voulez-vous ouvrir le logiciel en mode console ou en mode graphique ?");
     msgBox.addButton("Mode Console", QMessageBox::AcceptRole);
