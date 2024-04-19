@@ -156,5 +156,8 @@ void informations_client::setUserId(const QString &userId)
     }
 
     // Mettre les informations profils
+    //client.getOwner_dateOfBirth()
+    //client.getOwner_firstname()
+    //client.getOwner
 
 }

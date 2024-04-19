@@ -77,7 +77,7 @@ void quel_employe::on_send_kiem_clicked()
         QSqlQuery query;
         query.prepare("SELECT p.firstname, p.lastname, u.id "
                       "FROM users AS u "
-                      "LEFT JOIN profil AS p ON p.user_id = u.id AND type = 11 "
+                      "LEFT JOIN profil AS p ON (p.user_id = u.id AND p.type = 11 ) "
                       "WHERE p.firstname = :firstname");
         query.bindValue(":firstname", searchQuery);
 
