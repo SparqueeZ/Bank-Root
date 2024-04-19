@@ -296,7 +296,7 @@ border-radius:45px;
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label_6">
+   <widget class="QLabel" name="debit_acc_label">
     <property name="geometry">
      <rect>
       <x>140</x>

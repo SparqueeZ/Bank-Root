@@ -76,5 +76,8 @@ void informations_client::setUserId(const QString &userId)
     ui->labelFirstAccountBalance_94->setText(QString("ID de l'utilisateur : %1").arg(client.getUserId()));
 
     // Mettre les informations profils
+    //client.getOwner_dateOfBirth()
+    //client.getOwner_firstname()
+    //client.getOwner
 
 }

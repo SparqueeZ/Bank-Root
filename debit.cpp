@@ -24,6 +24,33 @@ debit::debit(User *user, Home *parentHome, QWidget *parent)
         // Gérer l'erreur ici
     }
     currentUser = user;
+
+    QSqlDatabase db = QSqlDatabase::database();
+    QSqlQuery getAccounts(db);
+
+    getAccounts.prepare("SELECT type, id FROM accounts WHERE userId = :userId");
+
+    getAccounts.bindValue(":userId", currentUser->getUserId());
+    if (!getAccounts.exec()) {
+        //qDebug() << "Erreur lors de l'exécution de la requête : " << getAccounts.lastError().text();
+        return;
+    }
+
+    while (getAccounts.next()) {
+        QString accountOwnerType = getAccounts.value("type").toString();
+        QString accountId = getAccounts.value("id").toString();
+
+        if(accountOwnerType.toInt() == 0) {
+            accountOwnerType = "Principal";
+        } else if(accountOwnerType.toInt() == 1) {
+            accountOwnerType = "PEL";
+            continue; // Eviter l'affihage du compte PEL
+        } else if(accountOwnerType.toInt() == 2) {
+            accountOwnerType = "Livret C";
+        }
+
+        ui->debit_acc_choice->addItem(accountOwnerType, accountId);
+    }
 }
 
 debit::~debit()
@@ -67,9 +94,11 @@ void debit::on_fullscreen_clicked()
 void debit::on_send_clicked()
 {
     Home home;
-    QString value = ui->value->text();
     Operations operations;
-    operations.removeBalance(value.toInt(), currentUser->getUserId());
+
+    QString amount = ui->value->text();
+    int accountId = ui->debit_acc_choice->currentData().toInt();
+    operations.removeBalance(amount.toInt(), accountId);
 
     // Rafraîchissement des informations de l'utilisateur sur la page d'accueil
     parentHome->refreshUserInfo();

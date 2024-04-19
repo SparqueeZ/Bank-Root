@@ -76,7 +76,7 @@ void quel_stagiaire::on_send_kist_clicked()
         QSqlQuery query;
         query.prepare("SELECT p.firstname, p.lastname, u.id "
                       "FROM users AS u "
-                      "LEFT JOIN profil AS p ON p.user_id = u.id AND type = 10 "
+                      "LEFT JOIN profil AS p ON (p.user_id = u.id AND p.type = 10) "
                       "WHERE p.firstname = :firstname");
         query.bindValue(":firstname", searchQuery);
 
