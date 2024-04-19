@@ -1102,7 +1102,7 @@ border-radius: 10px;
       <string>23 Mai 2024</string>
      </property>
     </widget>
-    <widget class="QWidget" name="widget_25" native="true">
+    <widget class="QWidget" name="image1" native="true">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -1113,7 +1113,7 @@ border-radius: 10px;
      </property>
      <property name="styleSheet">
       <string notr="true">QWidget {
-    background-color: #595554;
+    background-color: #181F1C;
 border-radius: 10px; 
 }</string>
      </property>
@@ -1168,7 +1168,7 @@ border-radius: 10px;
 </string>
      </property>
      <property name="text">
-      <string>5485-2654-2563</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="historyDescription1">
@@ -1193,7 +1193,7 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>Virement de test pour l'historique</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="historyvalue1">
@@ -1223,7 +1223,7 @@ border-radius: 10px;
       <string/>
      </property>
     </widget>
-    <widget class="QWidget" name="widget_26" native="true">
+    <widget class="QWidget" name="image2" native="true">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -1234,7 +1234,7 @@ border-radius: 10px;
      </property>
      <property name="styleSheet">
       <string notr="true">QWidget {
-    background-color: #595554;
+    background-color: #181F1C;
 border-radius: 10px; 
 }</string>
      </property>
@@ -1263,7 +1263,7 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>-50€</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="historyDescription2">
@@ -1288,7 +1288,7 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>Virement de test pour l'historique</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="accID2">
@@ -1316,7 +1316,7 @@ border-radius: 10px;
 </string>
      </property>
      <property name="text">
-      <string>5485-2654-2563</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="historytitle2">
@@ -1341,7 +1341,7 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>Virement PEL</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="accID3">
@@ -1369,7 +1369,7 @@ border-radius: 10px;
 </string>
      </property>
      <property name="text">
-      <string>5485-2654-2563</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="historyDescription3">
@@ -1394,7 +1394,7 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>Virement de test pour l'historique</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="historytitle3">
@@ -1419,7 +1419,7 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>Virement PEL</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="historyvalue3">
@@ -1446,10 +1446,10 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>-50€</string>
+      <string/>
      </property>
     </widget>
-    <widget class="QWidget" name="widget_27" native="true">
+    <widget class="QWidget" name="image3" native="true">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -1460,7 +1460,7 @@ border-radius: 10px;
      </property>
      <property name="styleSheet">
       <string notr="true">QWidget {
-    background-color: #595554;
+    background-color: #181F1C;
 border-radius: 10px; 
 }</string>
      </property>
@@ -1489,7 +1489,7 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>-50€</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="historyDescription4">
@@ -1514,7 +1514,7 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>Virement de test pour l'historique</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="historytitle4">
@@ -1539,7 +1539,7 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>Virement PEL</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="accID4">
@@ -1567,10 +1567,10 @@ border-radius: 10px;
 </string>
      </property>
      <property name="text">
-      <string>5485-2654-2563</string>
+      <string/>
      </property>
     </widget>
-    <widget class="QWidget" name="widget_28" native="true">
+    <widget class="QWidget" name="image4" native="true">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -1581,12 +1581,12 @@ border-radius: 10px;
      </property>
      <property name="styleSheet">
       <string notr="true">QWidget {
-    background-color: #595554;
+    background-color: #181F1C;
 border-radius: 10px; 
 }</string>
      </property>
     </widget>
-    <widget class="QWidget" name="widget_29" native="true">
+    <widget class="QWidget" name="image5" native="true">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -1597,7 +1597,7 @@ border-radius: 10px;
      </property>
      <property name="styleSheet">
       <string notr="true">QWidget {
-    background-color: #595554;
+    background-color: #181F1C;
 border-radius: 10px; 
 }</string>
      </property>
@@ -1626,7 +1626,7 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>-50€</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="accID5">
@@ -1654,7 +1654,7 @@ border-radius: 10px;
 </string>
      </property>
      <property name="text">
-      <string>5485-2654-2563</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="historyDescription5">
@@ -1679,7 +1679,7 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>Virement de test pour l'historique</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="historytitle5">
@@ -1704,10 +1704,10 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>Virement PEL</string>
+      <string/>
      </property>
     </widget>
-    <widget class="QWidget" name="widget_30" native="true">
+    <widget class="QWidget" name="image6" native="true">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -1718,7 +1718,7 @@ border-radius: 10px;
      </property>
      <property name="styleSheet">
       <string notr="true">QWidget {
-    background-color: #595554;
+    background-color: #181F1C;
 border-radius: 10px; 
 }</string>
      </property>
@@ -1748,7 +1748,7 @@ border-radius: 10px;
 </string>
      </property>
      <property name="text">
-      <string>5485-2654-2563</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="historyDescription6">
@@ -1773,7 +1773,7 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>Virement de test pour l'historique</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="historytitle6">
@@ -1798,7 +1798,7 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>Virement PEL</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="historyvalue6">
@@ -1825,10 +1825,10 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>-50€</string>
+      <string/>
      </property>
     </widget>
-    <widget class="QWidget" name="widget_31" native="true">
+    <widget class="QWidget" name="image7" native="true">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -1839,7 +1839,7 @@ border-radius: 10px;
      </property>
      <property name="styleSheet">
       <string notr="true">QWidget {
-    background-color: #595554;
+    background-color: #181F1C;
 border-radius: 10px; 
 }</string>
      </property>
@@ -1869,7 +1869,7 @@ border-radius: 10px;
 </string>
      </property>
      <property name="text">
-      <string>5485-2654-2563</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="historyvalue7">
@@ -1896,7 +1896,7 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>-50€</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="historyDescription7">
@@ -1921,7 +1921,7 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>Virement de test pour l'historique</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="historytitle7">
@@ -1946,10 +1946,10 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>Virement PEL</string>
+      <string/>
      </property>
     </widget>
-    <widget class="QWidget" name="widget_32" native="true">
+    <widget class="QWidget" name="image8" native="true">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -1960,7 +1960,7 @@ border-radius: 10px;
      </property>
      <property name="styleSheet">
       <string notr="true">QWidget {
-    background-color: #595554;
+    background-color: #181F1C;
 border-radius: 10px; 
 }</string>
      </property>
@@ -1987,7 +1987,7 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>Virement de test pour l'historique</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="accID8">
@@ -2015,7 +2015,7 @@ border-radius: 10px;
 </string>
      </property>
      <property name="text">
-      <string>5485-2654-2563</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="historyvalue8">
@@ -2042,7 +2042,7 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>-50€</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="historytitle8">
@@ -2067,17 +2067,17 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>Virement PEL</string>
+      <string/>
      </property>
     </widget>
     <zorder>listWidget</zorder>
     <zorder>label_21</zorder>
-    <zorder>widget_25</zorder>
+    <zorder>image1</zorder>
     <zorder>historytitle1</zorder>
     <zorder>accID1</zorder>
     <zorder>historyDescription1</zorder>
     <zorder>historyvalue1</zorder>
-    <zorder>widget_26</zorder>
+    <zorder>image2</zorder>
     <zorder>historyDescription2</zorder>
     <zorder>accID2</zorder>
     <zorder>historytitle2</zorder>
@@ -2086,25 +2086,25 @@ border-radius: 10px;
     <zorder>historyDescription3</zorder>
     <zorder>historytitle3</zorder>
     <zorder>historyvalue3</zorder>
-    <zorder>widget_27</zorder>
+    <zorder>image3</zorder>
     <zorder>historyDescription4</zorder>
     <zorder>historytitle4</zorder>
     <zorder>accID4</zorder>
-    <zorder>widget_28</zorder>
-    <zorder>widget_29</zorder>
+    <zorder>image4</zorder>
+    <zorder>image5</zorder>
     <zorder>accID5</zorder>
     <zorder>historyDescription5</zorder>
     <zorder>historytitle5</zorder>
-    <zorder>widget_30</zorder>
+    <zorder>image6</zorder>
     <zorder>accID6</zorder>
     <zorder>historyDescription6</zorder>
     <zorder>historytitle6</zorder>
     <zorder>historyvalue6</zorder>
-    <zorder>widget_31</zorder>
+    <zorder>image7</zorder>
     <zorder>accID7</zorder>
     <zorder>historyDescription7</zorder>
     <zorder>historytitle7</zorder>
-    <zorder>widget_32</zorder>
+    <zorder>image8</zorder>
     <zorder>historyDescription8</zorder>
     <zorder>accID8</zorder>
     <zorder>historytitle8</zorder>
