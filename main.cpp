@@ -420,8 +420,17 @@ public:
         if (db.isValid()) {
             // Exécuter la requête SQL pour récupérer les données de l'historique
             QSqlQuery query(db);
-            query.prepare("SELECT * FROM history WHERE id_compte_emetteur = 8 OR id_compte_destinataire = 8 ORDER BY date ASC");
-            query.bindValue(":id", user->getUserId());
+            query.prepare("SELECT * FROM history "
+                          "WHERE id_compte_emetteur = :PplId "
+                          "OR id_compte_emetteur = :PelId "
+                          "OR id_compte_emetteur = :LvcId "
+                          "OR id_compte_destinataire = :PplId "
+                          "OR id_compte_destinataire = :PelId "
+                          "OR id_compte_destinataire = :LvcId "
+                          "ORDER BY date ASC");
+            query.bindValue(":PplId", user->getPpl_id());
+            query.bindValue(":PelId", user->getPel_id());
+            query.bindValue(":LvcId", user->getLvc_id());
 
             if (!query.exec()) {
                 std::cout << "Erreur lors de l'execution de la requete : " << query.lastError().text().toStdString() << std::endl;
@@ -1020,6 +1029,8 @@ int main(int argc, char *argv[]) {
 
     if (user.getIsLoggedIn() == 1) {
         while (user.getIsLoggedIn() == 1) {
+            user.checkPELIncome(user.getPpl_id(), user.getPel_id(), user.getUserId());
+            user.updateLastConnexion(user.getUserId());
             if(user.getRole() == 1){
                 interfaceUtilisateur->AffAdminPage();
             } else {

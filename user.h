@@ -96,6 +96,9 @@ public:
     int checkIfProfileExists(int userId);
     bool checkIfUserIsAdmin(int userId);
 
+    void checkPELIncome(int PplAccountId, int PELAccountId, int userId);
+    void updateLastConnexion(int userId);
+
     // Getters
     int getIsLoggedIn() const;
     // User

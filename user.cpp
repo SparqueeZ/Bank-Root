@@ -1,4 +1,5 @@
 #include "user.h"
+#include "operations.h"
 #include <QRandomGenerator>
 #include <QSqlQuery>
 #include <QSqlError>
@@ -108,12 +109,6 @@ bool User::signin(QString login, QString password) {
 
     // Requete pour recuperer les informations de l'utilisateur
     QSqlQuery query;
-    /*query.prepare("SELECT u.id AS id, u.firstname AS firstname, u.lastname AS lastname, u.dateOfBirth AS dateofbirth, u.role AS role, u.login AS login, a1.balance AS balance, a1.id AS firstAccountId, a2.balance AS balancePEL, a2.id AS PELAccountId, a3.balance AS balanceLC, a3.id AS LCAccountId "
-                  "FROM users u "
-                  "LEFT JOIN accounts a1 ON u.id = a1.userId AND a1.type = 0 "
-                  "LEFT JOIN accounts a2 ON u.id = a2.userId AND a2.type = 1 "
-                  "LEFT JOIN accounts a3 ON u.id = a3.userId AND a3.type = 2 "
-                  "WHERE u.login = :login AND u.password = :password");*/
     query.prepare("SELECT "
                   "p.firstname AS p_firstname, "
                   "p.lastname AS p_lastname, "
@@ -139,6 +134,7 @@ bool User::signin(QString login, QString password) {
     query.bindValue(":password", password);
     if (query.exec() && query.next()) {
         // Utilisateur trouve
+
         m_isLoggedIn = 1;
         // Profils
         m_actual_firstname = query.value("p_firstname").toString();
@@ -402,7 +398,7 @@ int User::createUser(QString username, int role){
     if (insertUserQuery.exec()){
         return insertUserQuery.lastInsertId().toInt();
     } else {
-        qDebug() << "Erreur lors de la création de l'utilisateur :" << insertUserQuery.lastError().text();
+        qDebug() << "Erreur lors de la creation de l'utilisateur :" << insertUserQuery.lastError().text();
         return 0;
     }
 }
@@ -510,6 +506,51 @@ void User::getInformations(int userId) {
         Sleep(1500);
         return;
     }
+}
+
+void User::checkPELIncome(int PplAccountId, int PELAccountId, int userId){
+    QSqlQuery queryLastConnexion;
+    queryLastConnexion.prepare("SELECT lastConnexion FROM users WHERE id = :userId");
+    queryLastConnexion.bindValue(":userId", userId);
+
+    if (!queryLastConnexion.exec() || !queryLastConnexion.next()) {
+        qDebug() << "Erreur lors de la récupération de la dernière connexion de l'utilisateur :" << queryLastConnexion.lastError().text();
+        Sleep(3000);
+        return;
+    }
+
+    QDateTime lastConnexion = queryLastConnexion.value("lastConnexion").toDateTime();
+    qDebug() << lastConnexion;
+    QDateTime currentTime = QDateTime::currentDateTime();
+    qDebug() << currentTime;
+    int hoursDifference = lastConnexion.secsTo(currentTime) / 3600;
+    qDebug() << hoursDifference;
+
+    int numberOfTransactions = hoursDifference / 24;
+    if (hoursDifference % 24 != 0) {
+        numberOfTransactions++;
+    }
+    qDebug() << numberOfTransactions;
+    if (numberOfTransactions != 0) {
+        Operations operations;
+        for (int i = 0; i < numberOfTransactions; i++) {
+            if (operations.removeBalance(50, PplAccountId, "Approvisionnement automatique PEL.")) {
+                operations.addBalance(50, PELAccountId, "Approvisionnement automatique PEL.");
+            }
+        }
+    }
+}
+
+void User::updateLastConnexion(int userId) {
+    // Mettre à jour la dernière date de connexion.
+    QDateTime currentDateTime = QDateTime::currentDateTime();
+    QSqlQuery updateLastLoginQuery;
+    updateLastLoginQuery.prepare("UPDATE users SET lastConnexion=:currentDateTime WHERE id = :userId");
+    updateLastLoginQuery.bindValue(":userId", userId);
+    updateLastLoginQuery.bindValue(":currentDateTime", currentDateTime);
+    if(updateLastLoginQuery.exec()){
+        std::cout << "Mise a jour de la date de connexion...";
+    };
 }
 
 QString User::generateAccountNumber() const {
