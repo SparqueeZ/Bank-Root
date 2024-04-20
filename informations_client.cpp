@@ -69,11 +69,24 @@ void informations_client::setUserId(const QString &userId)
     ui->labelPELAccountBalance_12->setText(QString("%1").arg(client.getPel_balance()));
     ui->labelLCAccountBalance_12->setText(QString("%1").arg(client.getLvc_balance()));
 
-    // Mettre les informations user
-    ui->labelFirstAccountBalance_89->setText("Nom : " + client.getOwner_lastname());
-    ui->labelFirstAccountBalance_90->setText("Prénom : " + client.getOwner_firstname());
-    ui->labelFirstAccountBalance_91->setText("Date de naissance : " + client.getOwner_firstname()); // TODO : A changer par la date de naissance
-    ui->labelFirstAccountBalance_94->setText(QString("ID de l'utilisateur : %1").arg(client.getUserId()));
+    // Mettre les informations proprietaire
+    ui->inf_cli_owner_lastname->setText("Nom : " + client.getOwner_lastname());
+    ui->inf_cli_owner_firstname->setText("Prénom : " + client.getOwner_firstname());
+    ui->inf_cli_owner_dateOfBirth->setText("Date de naissance : " + client.getOwner_firstname()); // TODO : A changer par la date de naissance
+    ui->inf_cli_owner_profilId->setText(QString("ID du profil : %1").arg(client.getOwner_profilId()));
+    ui->inf_cli_owner_login->setText("Identifiant : " + client.getOwner_firstname());
+
+    // Mettre les informations conjoint
+    ui->inf_cli_coowner_lastname->setText("Nom : " + client.getCoowner_lastname());
+    ui->inf_cli_coowner_firstname->setText("Prénom : " + client.getCoowner_firstname());
+    ui->inf_cli_coowner_dateOfBirth->setText("Date de naissance : " + client.getCoowner_firstname()); // TODO : A changer par la date de naissance
+    ui->inf_cli_coowner_profilId->setText(QString("ID de l'utilisateur : %1").arg(client.getCoowner_profilId()));
+    ui->inf_cli_coowner_login->setText("Identifiant : " + client.getCoowner_firstname());
+
+    // Mettre les informations utilisateur
+    ui->inf_cli_username->setText("Utilisateur : " + client.getUsername());
+    QString userRole = client.getRole() == 1 ? "Administrateur" : "Utilisateur";
+    ui->inf_cli_userrole->setText("Role : " + userRole);
 
     if (db.isValid()) {
         // Exécuter la requête SQL pour récupérer les données de l'historique
@@ -81,7 +94,7 @@ void informations_client::setUserId(const QString &userId)
         query.prepare("SELECT h.montant, h.id_compte_emetteur, h.id_compte_destinataire, h.type, h.title, h.description, h.date FROM users AS u LEFT JOIN accounts AS ppl ON ppl.userId = u.id AND ppl.type = 0 LEFT JOIN accounts AS pel ON pel.userId = u.id AND pel.type = 1 LEFT JOIN accounts AS lvc ON lvc.userId = u.id AND lvc.type = 2 LEFT JOIN history AS h ON h.id_compte_emetteur = ppl.id OR h.id_compte_emetteur = pel.id OR h.id_compte_emetteur = lvc.id OR h.id_compte_destinataire = ppl.id OR h.id_compte_destinataire = pel.id OR h.id_compte_destinataire = lvc.id WHERE u.id = :id ORDER BY h.date DESC LIMIT 8");
         query.bindValue(":id", m_userId);
 
-        if (!query.exec()) {
+        if (!query.exec() || !query.next()) {
             return;
         }
         int count = 1;
@@ -154,10 +167,4 @@ void informations_client::setUserId(const QString &userId)
     } else {
 
     }
-
-    // Mettre les informations profils
-    //client.getOwner_dateOfBirth()
-    //client.getOwner_firstname()
-    //client.getOwner
-
 }

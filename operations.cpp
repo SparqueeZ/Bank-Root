@@ -79,7 +79,7 @@ void Operations::addBalance(double amount, int destinataireId) {
 
     if (queryAdd.exec()) {
         std::cout << "Ajout effectue" << std::endl;
-        addToHistory(0, destinataireId, 1, amount, "Credit", "Description (a completer)");
+        addToHistory(0, destinataireId, 1, amount, "Credit", "description");
         //Sleep(3000);
     } else {
         std::cerr << "L'ajout n'a pas ete effectue." << std::endl;

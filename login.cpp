@@ -61,9 +61,9 @@ QString getCurrentDateTimeForSQL() {
 
 void Login::on_pushButton_clicked()
 {
-
-    QString username = ui->lineEdit_3->text();
-    QString password = ui->lineEdit_2->text();
+    
+    QString username = ui->username->text();
+    QString password = ui->password->text();
     User user;
     if (username.isEmpty() || password.isEmpty()) {
         QMessageBox::warning(this, "Erreur", "Veuillez remplir tous les champs.");

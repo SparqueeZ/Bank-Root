@@ -56,18 +56,18 @@
 border-radius: 10px; 
 }</string>
     </property>
-    <widget class="QLabel" name="labelFirstAccountBalance_89">
+    <widget class="QLabel" name="inf_cli_owner_lastname">
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>40</y>
+       <y>70</y>
        <width>221</width>
        <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Montserrat SemiBold</family>
+       <family>Montserrat Medium</family>
        <pointsize>16</pointsize>
       </font>
      </property>
@@ -79,19 +79,22 @@ border-radius: 10px;
      <property name="text">
       <string>Nom :</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
     </widget>
-    <widget class="QLabel" name="labelFirstAccountBalance_90">
+    <widget class="QLabel" name="inf_cli_owner_firstname">
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>90</y>
+       <y>120</y>
        <width>221</width>
        <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Montserrat SemiBold</family>
+       <family>Montserrat Medium</family>
        <pointsize>16</pointsize>
       </font>
      </property>
@@ -104,18 +107,18 @@ border-radius: 10px;
       <string>Prénom :</string>
      </property>
     </widget>
-    <widget class="QLabel" name="labelFirstAccountBalance_91">
+    <widget class="QLabel" name="inf_cli_owner_dateOfBirth">
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>140</y>
+       <y>170</y>
        <width>481</width>
        <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Montserrat SemiBold</family>
+       <family>Montserrat Medium</family>
        <pointsize>16</pointsize>
       </font>
      </property>
@@ -128,18 +131,18 @@ border-radius: 10px;
       <string>Date de Naissance :</string>
      </property>
     </widget>
-    <widget class="QLabel" name="labelFirstAccountBalance_94">
+    <widget class="QLabel" name="inf_cli_owner_profilId">
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>190</y>
+       <y>220</y>
        <width>501</width>
        <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Montserrat SemiBold</family>
+       <family>Montserrat Medium</family>
        <pointsize>16</pointsize>
       </font>
      </property>
@@ -149,21 +152,21 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>AccountId : </string>
+      <string>ID du profil :</string>
      </property>
     </widget>
-    <widget class="QLabel" name="labelFirstAccountBalance_95">
+    <widget class="QLabel" name="inf_cli_owner_login">
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>240</y>
+       <y>270</y>
        <width>221</width>
        <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Montserrat SemiBold</family>
+       <family>Montserrat Medium</family>
        <pointsize>16</pointsize>
       </font>
      </property>
@@ -173,7 +176,258 @@ border-radius: 10px;
 }</string>
      </property>
      <property name="text">
-      <string>Profil : </string>
+      <string>Identifiant  : </string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="OwnerIconContainer" native="true">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>61</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QWidget {
+    background-color: #181F1C;
+border-radius: 10px; 
+}</string>
+     </property>
+     <widget class="QFrame" name="OwnerIcon">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>41</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame{
+background:url(:/assets/user.png);
+background-repeat: none;
+background-position: center;
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QLabel" name="label_189">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>14</y>
+       <width>391</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>20</pointsize>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Proprietaire</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_190">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>324</y>
+       <width>391</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>20</pointsize>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Conjoint</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="inf_cli_coowner_login">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>580</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat Medium</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Identifiant  : </string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="inf_cli_coowner_dateOfBirth">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>480</y>
+       <width>481</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat Medium</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Date de Naissance :</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="inf_cli_coowner_firstname">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>430</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat Medium</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Prénom :</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="inf_cli_coowner_lastname">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>380</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat Medium</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Nom :</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QWidget" name="OwnerIconContainer_2" native="true">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>320</y>
+       <width>61</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QWidget {
+    background-color: #181F1C;
+border-radius: 10px; 
+}</string>
+     </property>
+     <widget class="QFrame" name="OwnerIcon_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>41</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame{
+background:url(:/assets/user.png);
+background-repeat: none;
+background-position: center;
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QLabel" name="inf_cli_coowner_profilId">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>530</y>
+       <width>501</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat Medium</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>ID du profil :</string>
      </property>
     </widget>
    </widget>
@@ -1716,6 +1970,124 @@ border-radius: 10px;
     <zorder>historyvalue6</zorder>
     <zorder>historyvalue7</zorder>
     <zorder>historyvalue8</zorder>
+   </widget>
+   <widget class="QWidget" name="widget_106" native="true">
+    <property name="geometry">
+     <rect>
+      <x>1240</x>
+      <y>600</y>
+      <width>381</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget {
+    background-color: #181F1C;
+border-radius: 10px; 
+}</string>
+    </property>
+    <widget class="QLabel" name="label_192">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>24</y>
+       <width>391</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat SemiBold</family>
+       <pointsize>20</pointsize>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Utilisateur</string>
+     </property>
+    </widget>
+    <widget class="QFrame" name="OwnerIcon_3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>41</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QFrame{
+background:url(:/assets/user.png);
+background-repeat: none;
+background-position: center;
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="inf_cli_username">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>70</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat Medium</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Username : </string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="inf_cli_userrole">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>110</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Montserrat Medium</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Role : </string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QWidget" name="topbar" native="true">
