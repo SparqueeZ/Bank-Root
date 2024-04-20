@@ -329,8 +329,7 @@ public:
             QString amountStr = stream.readLine().trimmed();
             double amount = amountStr.toDouble();
 
-            operations.removeBalance(amount, selectedPropId.toInt());
-            user->addToHistory(selectedPropId.toInt(), 0 , 2 , amount , "Debit", "Description (a completer)");
+            operations.removeBalance(amount, selectedPropId.toInt(), "Retrait DAB");
         } else {
             qDebug() << "Aucun compte trouve pour l'utilisateur specifie.";
         }
@@ -403,7 +402,7 @@ public:
             QString amountStr = stream.readLine().trimmed();
             double amount = amountStr.toDouble(); // Convertir en double
 
-            operations.addBalance(amount, selectedPropId.toInt()); // Appel de la méthode addBalance() avec le montant spécifié
+            operations.addBalance(amount, selectedPropId.toInt(), "description a completer"); // Appel de la méthode addBalance() avec le montant spécifié
         } else {
             qDebug() << "Aucun compte trouvé pour l'utilisateur spécifié.";
         }
@@ -421,7 +420,7 @@ public:
         if (db.isValid()) {
             // Exécuter la requête SQL pour récupérer les données de l'historique
             QSqlQuery query(db);
-            query.prepare("SELECT * FROM history WHERE id_compte_emetteur = 8 OR id_compte_destinataire = 8 ORDER BY date DESC");
+            query.prepare("SELECT * FROM history WHERE id_compte_emetteur = 8 OR id_compte_destinataire = 8 ORDER BY date ASC");
             query.bindValue(":id", user->getUserId());
 
             if (!query.exec()) {
@@ -527,13 +526,7 @@ public:
             QString userId = stream.readLine().trimmed();
             AffCreateAccount(userId.toInt());
         } else if (choice.toInt() == 4) {
-            clearScreen();
-            std::cout << "Entre l'id de l'user a verifier : ";
-            QString userIdToCheck = stream.readLine().trimmed();
-
-            User userToCheck;
-            userToCheck.getInformations(userIdToCheck.toInt());
-            AffCheckUser(userToCheck);
+            AffCheckUser();
         } else if (choice.toInt() == 5) {
             std::cout << "Choix de l'admin - employe";
             Sleep(3000);
@@ -543,7 +536,51 @@ public:
         }
     }
 
-    int AffCheckUser(User userToCheck) {
+    int AffCheckUser() {
+        QTextStream stream(stdin);
+        clearScreen();
+        std::cout << "Entrez le nom de l'utilisateur : ";
+        QString username = stream.readLine().trimmed();
+
+        // Afficher la liste
+        // Effectuer la requête pour rechercher les utilisateurs par nom
+
+        QMap<int, QString> accountMap;
+        QSqlQuery query;
+        query.prepare("SELECT p.firstname AS firstname, p.lastname AS lastname, u.id AS id "
+                      "FROM users AS u "
+                      "LEFT JOIN profil AS p ON (p.user_id = u.id AND (p.type = 1 OR p.type = 0)) "
+                      "WHERE p.firstname = :firstname");
+        query.bindValue(":firstname", username);
+
+        if (query.exec()) {
+            int count = 0;
+            // Parcourir les résultats de la requête et afficher dans la liste
+            while (query.next()) {
+                QString firstname = query.value("firstname").toString();
+                QString lastname = query.value("lastname").toString();
+                QString id = query.value("id").toString();
+                std::cout << "[" << count << "] " << firstname.toStdString() << " " << lastname.toStdString() << " (PID:" << id.toStdString() << ")"<< std::endl;
+                accountMap.insert(count, id);
+                count++;
+            }
+        } else {
+            qDebug() << "Erreur lors de l'execution de la requete : " << query.lastError().text();
+        }
+        AffSeparator();
+        std::cout << "\nSelectionnez le compte utilisateur a verifier : ";
+        int choice = stream.readLine().trimmed().toInt();
+        if (!accountMap.contains(choice)) {
+            qDebug() << "Choix invalide";
+            return -1;
+        }
+        // Récupération de l'ID sélectionné
+        QString selectedUserId = accountMap.value(choice);
+        User userToCheck;
+        // Charger les informations de l'utilisateur sélectionné
+        userToCheck.getInformations(selectedUserId.toInt());
+
+
         clearScreen();
         std::cout << "Les informations de l'user ---------------------------------" << std::endl;
         std::cout << "Username : " << userToCheck.getUsername().toStdString() << std::endl;

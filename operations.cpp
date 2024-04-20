@@ -1,4 +1,5 @@
 #include "operations.h"
+#include "f_admin.h"
 #include "qsqlerror.h"
 #include "user.h"
 #include <QSqlQuery>
@@ -27,8 +28,9 @@ void Operations::virement(int accountPropId, int accountDestId, double amount) {
             if(queryDest.exec() && queryDest.next()) {
                 //double balanceDest = queryDest.value("balance").toDouble();
 
-                addBalance(amount, accountDestId);
-                removeBalance(amount, accountPropId);
+                if(removeBalance(amount, accountPropId, "Virement bancaire") == true) {
+                    addBalance(amount, accountDestId, "Virement bancaire");
+                };
             }
 
         } else {
@@ -37,14 +39,14 @@ void Operations::virement(int accountPropId, int accountDestId, double amount) {
     }
 }
 
-void Operations::addBalance(double amount, int destinataireId) {
+bool Operations::addBalance(double amount, int destinataireId, QString description) {
     QSqlQuery queryAdd;
     // Get the current balance of the account
     queryAdd.prepare("SELECT balance, type FROM accounts WHERE id = :destinataireId");
     queryAdd.bindValue(":destinataireId", destinataireId);
     if (!queryAdd.exec() || !queryAdd.next()) {
         std::cerr << "Error retrieving account balance." << std::endl;
-        return;
+        return false;
     }
     int type = queryAdd.value("type").toInt();
     double currentBalance = queryAdd.value("balance").toDouble();
@@ -54,8 +56,7 @@ void Operations::addBalance(double amount, int destinataireId) {
         if (currentBalance + amount > 10000) {
             std::cerr << "L'ajout n'a pas ete effectue, le Livret C ne peut pas depasser 10 000€" << std::endl;
             Sleep(3000);
-            return;
-
+            return false;
         }
         else{
             queryAdd.prepare("UPDATE accounts SET balance = balance + :amount WHERE id = :destinataireId");
@@ -66,9 +67,11 @@ void Operations::addBalance(double amount, int destinataireId) {
                 std::cout << "Ajout effectue" << std::endl;
                 addToHistory(0, destinataireId, 1, amount, "Credit", "Description (a completer)");
                 Sleep(3000);
+                return true;
             } else {
-                std::cerr << "L'ajout n'a pas ete effectue." << std::endl;
+                std::cerr << "L'ajout n'a pas pu etre effectue." << std::endl;
                 Sleep(3000);
+                return false;
             }
         }
     }else{
@@ -79,29 +82,53 @@ void Operations::addBalance(double amount, int destinataireId) {
 
     if (queryAdd.exec()) {
         std::cout << "Ajout effectue" << std::endl;
-        addToHistory(0, destinataireId, 1, amount, "Credit", "description");
+        addToHistory(0, destinataireId, 1, amount, "Credit", description);
+        return true;
         //Sleep(3000);
     } else {
         std::cerr << "L'ajout n'a pas ete effectue." << std::endl;
         Sleep(3000);
+        return false;
     }
     }
 }
 
-void Operations::removeBalance(double amount, int destinataireId) {
+bool Operations::removeBalance(double amount, int destinataireId, QString description) {
     QSqlQuery queryType;
-    queryType.prepare("SELECT type FROM accounts WHERE id = :destinataireId");
+    queryType.prepare("SELECT balance, type FROM accounts WHERE id = :destinataireId");
     queryType.bindValue(":destinataireId", destinataireId);
     if (!queryType.exec() || !queryType.next()) {
         std::cerr << "Error retrieving account type." << std::endl;
-        return;
+        return false;
     }
     int type = queryType.value("type").toInt();
+    double balance = queryType.value("balance").toDouble();
 
     if (type == 1) { // Si c'est un PEL
         std::cerr << "Retrait bloqué : Impossible de retirer de l'argent d'un Plan d'Epargne Logement (PEL)." << std::endl;
         Sleep(2000);
-        return;
+        return false;
+    } else if (type == 2){ // Si c'est un Livret C
+        // Calculer la somme totale retirée dans les 24 dernières heures
+        QSqlQuery queryCheckLVC;
+        queryCheckLVC.prepare("SELECT SUM(montant) AS total FROM history WHERE date > (NOW() - INTERVAL 24 HOUR) AND id_compte_emetteur = :destinataireId");
+        queryCheckLVC.bindValue(":destinataireId", destinataireId);
+
+        if (!queryCheckLVC.exec() || !queryCheckLVC.next()) {
+            std::cerr << "Il y a eu une erreur lors de la récupération des données bancaires." << std::endl;
+            return false;
+        }
+
+        double totalRemovedToday = queryCheckLVC.value("total").toDouble();
+
+        // Calculer la limite de retrait
+        double limite = (balance * 5) / 100 - totalRemovedToday;
+
+        if (amount > limite) {
+            std::cout << "Virement impossible, le plafond sera depasse." << std::endl;
+            Sleep(3000);
+            return false;
+        }
     }
 
     // Si ce n'est pas un PEL, procéder au retrait
@@ -109,15 +136,15 @@ void Operations::removeBalance(double amount, int destinataireId) {
     queryRemove.prepare("SELECT balance FROM accounts WHERE id = :destinataireId");
     queryRemove.bindValue(":destinataireId", destinataireId);
     if (!queryRemove.exec() || !queryRemove.next()) {
-        std::cerr << "Error retrieving account balance." << std::endl;
-        return;
+        std::cerr << "Il y a eu une erreur lors de la recuperation des donnees bancaires." << std::endl;
+        return false;
     }
     double currentBalance = queryRemove.value("balance").toDouble();
 
     // Vérifier si le retrait rendra le solde négatif
     if (currentBalance - amount < 0) {
-        std::cerr << "Removing " << amount << "€ would result in a negative balance." << std::endl;
-        return;
+        std::cerr << "Votre compte ne possede pas assez de fonds." << std::endl;
+        return false;
     }
 
     // Effectuer le retrait
@@ -127,11 +154,13 @@ void Operations::removeBalance(double amount, int destinataireId) {
 
     if (queryRemove.exec()) {
         std::cout << "Retrait effectue" << std::endl;
-        addToHistory(destinataireId, 0, 2, amount, "Debit", "Description (a completer)");
+        addToHistory(destinataireId, 0, 2, amount, "Debit", description);
         //Sleep(3000);
+        return true;
     } else {
         std::cerr << "Le retrait n'a pas ete effectue." << std::endl;
         Sleep(3000);
+        return false;
     }
 }
 

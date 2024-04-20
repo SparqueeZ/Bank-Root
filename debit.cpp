@@ -98,7 +98,7 @@ void debit::on_send_clicked()
 
     QString amount = ui->value->text();
     int accountId = ui->debit_acc_choice->currentData().toInt();
-    operations.removeBalance(amount.toInt(), accountId);
+    operations.removeBalance(amount.toInt(), accountId, "Description a completer.");
 
     // Rafraîchissement des informations de l'utilisateur sur la page d'accueil
     parentHome->refreshUserInfo();

@@ -12,6 +12,8 @@ public:
     int createUser(QString username, int role);
     int createAccount(int userId, int type, double balance);
     bool createProfil(int userId, QString firstname, QString lastname, QString login, QString password, int type);
+
+    double checkBalance(int accountId);
 };
 
 #endif // F_ADMIN_H
