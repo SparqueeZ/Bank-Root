@@ -81,6 +81,11 @@ void Home::setUserInformation(const User& user)
         if (!query.exec()) {
             return;
         }
+
+        if (!query.next()) {
+            return;
+        }
+
         int count = 1;
         // Itérer sur les résultats de la requête
         while (query.next()) {

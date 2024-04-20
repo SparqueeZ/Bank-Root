@@ -550,21 +550,54 @@ public:
         std::cout << "User ID : " << userToCheck.getUserId() << std::endl;
 
         std::cout << "\nLes differents profils -------------------------------------" << std::endl;
-        std::cout << "A Realiser" << std::endl;
+        std::cout << "Proprietaire -----------------------------------------------" << std::endl;
+        if (userToCheck.getOwner_profilId()) {
+            std::cout << "Prenom du proprietaire : " << userToCheck.getOwner_firstname().toStdString() << std::endl;
+            std::cout << "Nom de famille du proprietaire : " << userToCheck.getOwner_lastname().toStdString() << std::endl;
+            std::cout << "Login du proprietaire : " << userToCheck.getOwner_login().toStdString() << std::endl;
+            std::cout << "ID du profil proprietaire : " << userToCheck.getOwner_profilId() << std::endl;
+        } else {
+            std::cout << "Cet utilisateur n'a pas de profil proprietaire." << std::endl;
+        }
+
+
+        std::cout << "Conjoint ---------------------------------------------------" << std::endl;
+        if (userToCheck.getCoowner_profilId()) {
+
+            std::cout << "Prenom du conjoint : " << userToCheck.getCoowner_firstname().toStdString() << std::endl;
+            std::cout << "Nom de famille du conjoint : " << userToCheck.getCoowner_lastname().toStdString() << std::endl;
+            std::cout << "Login du conjoint : " << userToCheck.getCoowner_login().toStdString() << std::endl;
+            std::cout << "ID du profil conjoint : " << userToCheck.getCoowner_profilId() << std::endl;
+        } else {
+            std::cout << "Cet utilisateur n'a pas de profil conjoint." << std::endl;
+        }
+
 
         std::cout << "\nLes comptes bancaires --------------------------------------" << std::endl;
         if(userToCheck.getPpl_id()) {
-            std::cout << "Compte courant : " << userToCheck.getPpl_balance() << " euros." << std::endl;
+            if (user->getActual_type() == 10) {
+                std::cout << "Compte courant : censure." << std::endl;
+            } else {
+                std::cout << "Compte courant : " << userToCheck.getPpl_balance() << " euros." << std::endl;
+            }
         } else {
             std::cout << "Cet user n'a pas de compte courant" << std::endl;
         }
         if(userToCheck.getPel_id()) {
-            std::cout << "Compte PEL : " << userToCheck.getPel_balance() << " euros." << std::endl;
+            if (user->getActual_type() == 10) {
+                std::cout << "Compte courant : censure." << std::endl;
+            } else {
+                std::cout << "Compte PEL : " << userToCheck.getPel_balance() << " euros." << std::endl;
+            }
         } else {
             std::cout << "Cet user n'a pas de compte PEL" << std::endl;
         }
         if(userToCheck.getLvc_id()) {
-            std::cout << "Compte Livret C : " << userToCheck.getLvc_balance() << " euros." << std::endl;
+            if (user->getActual_type() == 10) {
+                std::cout << "Compte courant : censure." << std::endl;
+            } else {
+                std::cout << "Compte Livret C : " << userToCheck.getLvc_balance() << " euros." << std::endl;
+            }
         } else {
             std::cout << "Cet user n'a pas de compte Livret C" << std::endl;
         }

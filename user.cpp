@@ -90,33 +90,6 @@ User::User(
     m_lvc_balance(lvc_balance),
     m_lvc_id(lvc_id) {
 }
-/*
-int User::getprofil(QString login, QString password) {
-    QDir::setCurrent(QCoreApplication::applicationDirPath());
-    QString configFilePath = QDir(QCoreApplication::applicationDirPath()).filePath("config.ini");
-
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-    QSettings settings(configFilePath, QSettings::IniFormat);
-    db.setHostName("90.26.217.25");
-    db.setUserName("test");
-    db.setPassword("I-B*!O0vGqyFkMed");
-    db.setDatabaseName("bank_root");
-    if (!db.open()) {
-        qDebug() << "Erreur lors de la connexion a  la base de donnees :" << db.lastError().text();
-        return false;
-    };
-
-    QSqlQuery query;
-    query.prepare("SELECT type FROM profil WHERE login = :login AND password = :password");
-    query.bindValue(":login", login);
-    query.bindValue(":password", password);
-    int profil1 = -1;
-    int profil2 = -1;
-    int profil3 = -1;
-    while (query.next)
-}
-
-*/
 
 bool User::signin(QString login, QString password) {
     QDir::setCurrent(QCoreApplication::applicationDirPath());
@@ -161,7 +134,7 @@ bool User::signin(QString login, QString password) {
                   "LEFT JOIN accounts AS ppl ON p.user_id = ppl.userId AND ppl.type = 0 "
                   "LEFT JOIN accounts AS pel ON p.user_id = pel.userId AND pel.type = 1 "
                   "LEFT JOIN accounts AS lvc ON p.user_id = lvc.userId AND lvc.type = 2 "
-                  "WHERE p.login = 'Baptiste' AND p.password = 'Test'");
+                  "WHERE p.login = :login AND p.password = :password");
     query.bindValue(":login", login);
     query.bindValue(":password", password);
     if (query.exec() && query.next()) {
@@ -478,10 +451,12 @@ void User::getInformations(int userId) {
                         "p1.lastname AS p1_lastname, "
                         "p1.login AS p1_login, "
                         "p1.type AS p1_type, "
-                        "p2.firstname AS p2firstname, "
-                        "p2.lastname AS p2lastname, "
-                        "p2.login AS p2login, "
-                        "p2.type AS p2type, "
+                        "p1.id AS p1_id, "
+                        "p2.firstname AS p2_firstname, "
+                        "p2.lastname AS p2_lastname, "
+                        "p2.login AS p2_login, "
+                        "p2.type AS p2_type, "
+                        "p2.id AS p2_id, "
                         "u.id AS userId, "
                         "u.username AS username, "
                         "u.role AS user_role, "
@@ -508,10 +483,12 @@ void User::getInformations(int userId) {
         m_owner_lastname = query.value("p1_lastname").toString();
         m_owner_login = query.value("p1_login").toString();
         m_owner_type = query.value("p1_type").toInt();
+        m_owner_profilId = query.value("p1_id").toInt();
         m_coowner_firstname = query.value("p2_firstname").toString();
         m_coowner_lastname = query.value("p2_lastname").toString();
         m_coowner_login = query.value("p2_login").toString();
         m_coowner_type = query.value("p2_type").toInt();
+        m_coowner_profilId = query.value("p2_id").toInt();
 
         // User
         m_username = query.value("username").toString();

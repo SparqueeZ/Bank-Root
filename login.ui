@@ -57,6 +57,9 @@
      <property name="cursor">
       <cursorShape>PointingHandCursor</cursorShape>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::TabFocus</enum>
+     </property>
      <property name="styleSheet">
       <string notr="true">QPushButton{
 background:#181F1C;
@@ -82,6 +85,9 @@ background:#C20114;
        <height>15</height>
       </rect>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
      <property name="styleSheet">
       <string notr="true">QToolButton{
 border-radius:45px;
@@ -100,7 +106,7 @@ background:red;
        <normaloff>:/assets/exit-btn.png</normaloff>:/assets/exit-btn.png</iconset>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_2">
+    <widget class="QLineEdit" name="password">
      <property name="geometry">
       <rect>
        <x>49</x>
@@ -108,6 +114,9 @@ background:red;
        <width>201</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
      </property>
      <property name="styleSheet">
       <string notr="true">QLineEdit{
@@ -136,6 +145,9 @@ padding-left: 10px
        <width>141</width>
        <height>91</height>
       </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
       <string notr="true">QToolButton{
@@ -204,7 +216,7 @@ background-position: center;
       </property>
      </widget>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_3">
+    <widget class="QLineEdit" name="username">
      <property name="geometry">
       <rect>
        <x>49</x>
@@ -212,6 +224,9 @@ background-position: center;
        <width>201</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
      </property>
      <property name="styleSheet">
       <string notr="true">QLineEdit{
@@ -310,6 +325,9 @@ border-radius:45px;
        <height>15</height>
       </rect>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
      <property name="styleSheet">
       <string notr="true">QToolButton{
 border-radius:45px;
@@ -332,9 +350,9 @@ background:red;
     <zorder>frame_3</zorder>
     <zorder>pushButton</zorder>
     <zorder>toolButton_3</zorder>
-    <zorder>lineEdit_2</zorder>
+    <zorder>password</zorder>
     <zorder>toolButton</zorder>
-    <zorder>lineEdit_3</zorder>
+    <zorder>username</zorder>
     <zorder>fullscreen</zorder>
     <zorder>reduced</zorder>
    </widget>
