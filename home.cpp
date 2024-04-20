@@ -81,14 +81,18 @@ void Home::setUserInformation(const User& user)
         if (!query.exec()) {
             return;
         }
-
-        if (!query.next()) {
-            return;
-        }
-
         int count = 1;
         // Itérer sur les résultats de la requête
         while (query.next()) {
+
+
+            // Récupérer les valeurs des colonnes
+            double montant = query.value(0).toDouble();
+
+            if (montant == NULL) {
+                break;
+            }
+
             QString image = QString("image%1").arg(count);
             QWidget *widget1 = findChild<QWidget *>(image);
             widget1->setStyleSheet("background-color: #595554");
@@ -98,8 +102,6 @@ void Home::setUserInformation(const User& user)
             QLabel *label1 = findChild<QLabel *>(historyValue);
             QString euro = "€";
 
-            // Récupérer les valeurs des colonnes
-            double montant = query.value(0).toDouble();
             QDateTime date = query.value(6).toDateTime();
             int id_compte_emetteur = query.value(1).toInt();
             int id_compte_destinataire = query.value(2).toInt();
@@ -234,6 +236,14 @@ void Home::refreshUserInfo() {
         int count = 1;
         // Itérer sur les résultats de la requête
         while (query.next()) {
+
+            // Récupérer les valeurs des colonnes
+            double montant = query.value(0).toDouble();
+
+            if (montant == NULL) {
+                break;
+            }
+
             QString image = QString("image%1").arg(count);
             QWidget *widget1 = findChild<QWidget *>(image);
             widget1->setStyleSheet("background-color: #595554");
@@ -244,8 +254,7 @@ void Home::refreshUserInfo() {
             QLabel *label1 = findChild<QLabel *>(historyValue);
             QString euro = "€";
 
-            // Récupérer les valeurs des colonnes
-            double montant = query.value(0).toDouble();
+
             QDateTime date = query.value(6).toDateTime();
             int id_compte_emetteur = query.value(1).toInt();
             int id_compte_destinataire = query.value(2).toInt();
