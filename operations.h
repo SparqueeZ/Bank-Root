@@ -6,7 +6,7 @@
 class Operations {
 public:
     // Nouveau système de classes
-    static void virement(int accountPropId, int accountDestId, double amount);
+    static bool virement(int accountPropId, int accountDestId, double amount);
     static bool addBalance(double balance, int destinataireId, QString description);
     static bool removeBalance(double balance, int destinataireId, QString description);
 
@@ -15,7 +15,7 @@ public:
     static void setvalue();
     static void defaultChoices(QString choice);
 
-    static void addToHistory(int idCompteEmetteur, int idCompteRecepteur, int type, double montant, QString title, QString description);
+    static bool addToHistory(int idCompteEmetteur, int idCompteRecepteur, int type, double montant, QString title, QString description);
 };
 
 #endif // OPERATIONS_H

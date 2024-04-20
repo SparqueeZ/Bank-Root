@@ -1,5 +1,4 @@
 #include "operations.h"
-#include "f_admin.h"
 #include "qsqlerror.h"
 #include "user.h"
 #include <QSqlQuery>
@@ -7,7 +6,7 @@
 #include <QTextStream>
 #include <windows.h>
 
-void Operations::virement(int accountPropId, int accountDestId, double amount) {
+bool Operations::virement(int accountPropId, int accountDestId, double amount) {
 
     // Récupère la balance actuelle de l'user qui vas etre debite.
     QSqlQuery queryProp;
@@ -26,17 +25,16 @@ void Operations::virement(int accountPropId, int accountDestId, double amount) {
             queryDest.bindValue(":id", accountDestId);
 
             if(queryDest.exec() && queryDest.next()) {
-                //double balanceDest = queryDest.value("balance").toDouble();
 
-                if(removeBalance(amount, accountPropId, "Virement bancaire") == true) {
-                    addBalance(amount, accountDestId, "Virement bancaire");
-                };
+                if(removeBalance(amount, accountPropId, "Virement bancaire"))
+                    if(addBalance(amount, accountDestId, "Virement bancaire")) return true;;
             }
 
         } else {
-            return;
+            std::cout << "L'utilisateur n'a pas assez de fonds.";
+            Sleep(4000);
         }
-    }
+    } else return false;
 }
 
 bool Operations::addBalance(double amount, int destinataireId, QString description) {
@@ -164,7 +162,7 @@ bool Operations::removeBalance(double amount, int destinataireId, QString descri
     }
 }
 
-void Operations::addToHistory(int idCompteEmetteur, int idCompteRecepteur, int type, double montant, QString title, QString description){
+bool Operations::addToHistory(int idCompteEmetteur, int idCompteRecepteur, int type, double montant, QString title, QString description){
 
     // Définir la date actuelle en tant que variable utilisable ici
     QDateTime currentDateTime = QDateTime::currentDateTime();
@@ -189,7 +187,8 @@ void Operations::addToHistory(int idCompteEmetteur, int idCompteRecepteur, int t
     // INSERT INTO `history`(`id_history`, `montant`, `date`, `id_compte_emetteur`, `id_compte_destinataire`, `type`, `title`, `description`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]')
     if (addToHistory.exec()) {
         // Afficher un message, ou return true.
-        std::cout << "Ajout a l'historique effectue.";
+        //std::cout << "Ajout a l'historique effectue.";
+        return true;
         //Sleep(3000);
     } else {
         // Gestion de l"erreur.
