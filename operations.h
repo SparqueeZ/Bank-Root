@@ -7,8 +7,8 @@ class Operations {
 public:
     // Nouveau système de classes
     static void virement(int accountPropId, int accountDestId, double amount);
-    static void addBalance(double balance, int destinataireId);
-    static void removeBalance(double balance, int destinataireId);
+    static bool addBalance(double balance, int destinataireId, QString description);
+    static bool removeBalance(double balance, int destinataireId, QString description);
 
     static void transfert();
     static void choices(QString choice);

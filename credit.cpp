@@ -71,7 +71,7 @@ void credit::on_send_clicked()
     Home home;
     QString value = ui->value->text();
     Operations operations;
-    operations.addBalance(value.toInt(), currentUser->getPpl_id());
+    operations.addBalance(value.toInt(), currentUser->getPpl_id(), "description a completer");
 
     // Rafraîchissement des informations de l'utilisateur sur la page d'accueil
     parentHome->refreshUserInfo();

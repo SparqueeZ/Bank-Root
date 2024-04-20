@@ -843,7 +843,7 @@ background-position: center;
      </property>
     </widget>
    </widget>
-   <widget class="QLabel" name="labelFirstName_12">
+   <widget class="QLabel" name="inf_cli_showName">
     <property name="geometry">
      <rect>
       <x>310</x>

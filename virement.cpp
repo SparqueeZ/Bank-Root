@@ -37,12 +37,11 @@ virement::virement(User *user, Home *parentHome, QWidget *parent)
 
     // Préparation de la requête SQL
     QSqlQuery getBeneficiaires(db);
-    getBeneficiaires.prepare("SELECT DISTINCT u_prop.id AS prop_uid, p_prop.firstname AS prop_firstname, "
+    getBeneficiaires.prepare("SELECT DISTINCT u_prop.id AS prop_uid, "
                              "a_dest.id AS dest_acc_id , p_dest.firstname AS dest_firstname, a_dest.type AS dest_acc_type "
                              "FROM saved_accounts AS sa "
                              "LEFT JOIN users AS u_prop ON u_prop.id = sa.user_id "
                              "LEFT JOIN accounts AS a_prop ON a_prop.userId = u_prop.id "
-                             "LEFT JOIN profil AS p_prop ON p_prop.user_id = u_prop.id "
                              "LEFT JOIN accounts AS a_dest ON a_dest.id = sa.account_id "
                              "LEFT JOIN users AS u_dest ON u_dest.id = a_dest.userId "
                              "LEFT JOIN profil AS p_dest ON p_dest.user_id = u_dest.id "

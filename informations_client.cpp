@@ -64,10 +64,11 @@ void informations_client::setUserId(const QString &userId)
     User client;
     // Récuperer les informations de l'user via son ID.
     client.getInformations(userId.toInt());
+    ui->inf_cli_showName->setText(client.getOwner_firstname());
     // Mettre les infos des comptes en banque
-    ui->labelFirstAccountBalance_96->setText(QString("%1").arg(client.getPpl_balance()));
-    ui->labelPELAccountBalance_12->setText(QString("%1").arg(client.getPel_balance()));
-    ui->labelLCAccountBalance_12->setText(QString("%1").arg(client.getLvc_balance()));
+    ui->labelFirstAccountBalance_96->setText(QString("%1 €").arg(client.getPpl_balance()));
+    ui->labelPELAccountBalance_12->setText(QString("%1 €").arg(client.getPel_balance()));
+    ui->labelLCAccountBalance_12->setText(QString("%1 €").arg(client.getLvc_balance()));
 
     // Mettre les informations proprietaire
     ui->inf_cli_owner_lastname->setText("Nom : " + client.getOwner_lastname());

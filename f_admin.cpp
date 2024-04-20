@@ -3,6 +3,8 @@
 #include "qrandom.h"
 #include "qsqlerror.h"
 #include "QSqlQuery"
+#include <iostream>
+#include <ostream>
 
 int generateAccountNumber() {
     QRandomGenerator generator(QDateTime::currentMSecsSinceEpoch());
@@ -73,6 +75,21 @@ bool f_admin::createProfil(int userId, QString firstname, QString lastname, QStr
         return false;
     }
 };
+
+double f_admin::checkBalance(int accountId) {
+    QSqlQuery query;
+    query.prepare("SELECT balance FROM accounts WHERE id = :accountId");
+    query.bindValue(":accountId", accountId);
+    double balance = query.value("balance").toDouble();
+    std::cout << balance << std::endl;
+
+    if (query.exec()){
+        return balance;
+    } else {
+        qDebug() << "Erreur lors de la recuperation de la balance :" << query.lastError().text();
+        return -1;
+    }
+}
 
 //void f_admin::saveToHistoryAdmin(int type, int userId);
 
