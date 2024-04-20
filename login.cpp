@@ -69,6 +69,8 @@ void Login::on_pushButton_clicked()
         QMessageBox::warning(this, "Erreur", "Veuillez remplir tous les champs.");
     } else {
         if (user.signin(username, password)) {
+            user.checkPELIncome(user.getPpl_id(), user.getPel_id(), user.getUserId());
+            user.updateLastConnexion(user.getUserId());
             // SQL request pour history_admin
             if(user.getRole() == 1) {
                 QSqlDatabase db = QSqlDatabase::database();
