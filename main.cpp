@@ -424,13 +424,9 @@ public:
         // Partie propriétaire -------------------
         QString selectedPropId;
         QSqlQuery getAccounts(db);
-        getAccounts.prepare("SELECT "
-                            "MAX(CASE WHEN a.type = 0 THEN a.id END) AS principalId, "
-                            "MAX(CASE WHEN a.type = 1 THEN a.id END) AS PELId, "
-                            "MAX(CASE WHEN a.type = 2 THEN a.id END) AS LCId "
+        getAccounts.prepare("SELECT a.id AS principalId "
                             "FROM accounts AS a "
-                            "WHERE userId = :userId "
-                            "AND a.type IN (0, 1, 2)");
+                            "WHERE userId = :userId AND a.type = 0");
         getAccounts.bindValue(":userId", user->getUserId());
         if (!getAccounts.exec()) {
             qDebug() << "Erreur lors de l'exécution de la requête : " << getAccounts.lastError().text();
@@ -438,47 +434,20 @@ public:
         }
 
         // Affichage des résultats
-        std::cout << "Liste des comptes propriétaires ----------------------------" << std:: endl;
+        std::cout << "Liste des comptes proprietaires ----------------------------" << std:: endl;
         if (getAccounts.next()) {
             QMap<int, QString> accountMap;
             int count = 1;
             QString principalId = getAccounts.value("principalId").toString();
-            QString PELId = getAccounts.value("PELId").toString();
-            QString LCId = getAccounts.value("LCId").toString();
 
-            if (principalId.toInt() != 0) {
-                std::cout << "[" << count << "] Principal : " << principalId.toStdString() << std::endl;
-                accountMap.insert(count, principalId);
-                count++;
-            }
-            if (PELId.toInt() != 0) {
-                std::cout << "[" << count << "] PEL : " << PELId.toStdString() << std::endl;
-                accountMap.insert(count, PELId);
-                count++;
-            }
-            if (LCId.toInt() != 0) {
-                std::cout << "[" << count << "] Livret C : " << LCId.toStdString() << std::endl;
-                accountMap.insert(count, LCId);
-                count++;
-            }
-
-            AffSeparator();
-            std::cout << "Sélectionnez le compte sur lequel vous allez ajouter de l'argent : ";
-            int choice = stream.readLine().trimmed().toInt();
-            if (!accountMap.contains(choice)) {
-                qDebug() << "Choix invalide";
-                return;
-            }
-            selectedPropId = accountMap.value(choice);
-
-            // Demander à l'utilisateur le montant à déposer
-            std::cout << "Entrez le montant à ajouter : ";
+            std::cout << "Entrez le montant a ajouter : ";
             QString amountStr = stream.readLine().trimmed();
-            double amount = amountStr.toDouble(); // Convertir en double
+            double amount = amountStr.toDouble();
 
-            operations.addBalance(amount, selectedPropId.toInt(), "description a completer"); // Appel de la méthode addBalance() avec le montant spécifié
+            operations.addBalance(amount, principalId.toInt(), "description a completer");
         } else {
             qDebug() << "Aucun compte trouvé pour l'utilisateur spécifié.";
+            Sleep(3000);
         }
     }
 

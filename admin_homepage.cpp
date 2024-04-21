@@ -11,7 +11,7 @@
 #include "qevent.h"
 #include <QGuiApplication>
 
-admin_homepage::admin_homepage(const User& user,QWidget *parent)
+admin_homepage::admin_homepage(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::admin_homepage)
 {
