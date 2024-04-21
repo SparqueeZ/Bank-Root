@@ -74,16 +74,20 @@ void Login::on_pushButton_clicked()
 
             if (user.getRole() == 1) {
                 // Ouvrir la page d'administration
-                choix_principal *choixPrincipal = new choix_principal();
-                choixPrincipal->setUserInformation(user);
-                choixPrincipal->show();
-                this->hide();
-                /*
-                admin_homepage *adminHome = new admin_homepage();
-                adminHome->setUserInformation(user); // Envoyer les informations de l'utilisateur à la page d'accueil admin
-                adminHome->show();
-                this->hide();
-                */
+
+                if (user.getPpl_id() || user.getPel_id() || user.getLvc_id()) {
+                    choix_principal *choixPrincipal = new choix_principal();
+                    choixPrincipal->setUserInformation(user);
+                    choixPrincipal->show();
+                    this->hide();
+                } else {
+                    admin_homepage *adminHome = new admin_homepage();
+                    adminHome->setUserInformation(user);
+                    adminHome->show();
+                    this->hide();
+                }
+
+
             } else {
                 // Ouvrir la page d'accueil normale
                 Home *home = new Home();
