@@ -14,6 +14,8 @@ public:
     bool createProfil(int userId, QString firstname, QString lastname, QString login, QString password, int type);
 
     double checkBalance(int accountId);
+    bool checkUserAccountType(int userId, int accountType);
+    void saveToHistoryAdmin(int userId, int type, QString description);
 };
 
 #endif // F_ADMIN_H

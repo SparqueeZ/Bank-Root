@@ -71,28 +71,6 @@ void Login::on_pushButton_clicked()
         if (user.signin(username, password)) {
             user.checkPELIncome(user.getPpl_id(), user.getPel_id(), user.getUserId());
             user.updateLastConnexion(user.getUserId());
-            // SQL request pour history_admin
-            if(user.getRole() == 1) {
-                QSqlDatabase db = QSqlDatabase::database();
-
-                if (db.isValid()) {
-                    // Exécuter la requête SQL pour récupérer les données de l'historique
-                    QSqlQuery query(db);
-                    QString currentDateTimeSQL = getCurrentDateTimeForSQL();
-                    query.prepare("INSERT INTO history_admin"
-                                  "(user_id, last_connexion)"
-                                  "VALUES (:userId, :currentDateTimeSQL)");
-                    query.bindValue(":userId", user.getUserId());
-                    query.bindValue(":currentDateTimeSQL", currentDateTimeSQL);
-
-                    if (!query.exec()) {
-                        qDebug() << "Erreur SQL:" << query.lastError().text();
-                        return;
-                    }
-
-                }
-            }
-
 
             if (user.getRole() == 1) {
                 // Ouvrir la page d'administration
