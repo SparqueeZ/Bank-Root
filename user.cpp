@@ -579,17 +579,17 @@ void User::checkPELIncome(int PplAccountId, int PELAccountId, int userId){
     }
 
     QDateTime lastConnexion = queryLastConnexion.value("lastConnexion").toDateTime();
-    qDebug() << lastConnexion;
+    //qDebug() << lastConnexion;
     QDateTime currentTime = QDateTime::currentDateTime();
-    qDebug() << currentTime;
+    //qDebug() << currentTime;
     int hoursDifference = lastConnexion.secsTo(currentTime) / 3600;
-    qDebug() << hoursDifference;
+    //qDebug() << hoursDifference;
 
     int numberOfTransactions = hoursDifference / 24;
     if (hoursDifference % 24 != 0) {
         numberOfTransactions++;
     }
-    qDebug() << numberOfTransactions;
+    //qDebug() << numberOfTransactions;
     if (numberOfTransactions != 0) {
         Operations operations;
         for (int i = 0; i < numberOfTransactions; i++) {
