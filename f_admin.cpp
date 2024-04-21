@@ -5,6 +5,7 @@
 #include "QSqlQuery"
 #include <iostream>
 #include <ostream>
+#include <synchapi.h>
 
 int generateAccountNumber() {
     QRandomGenerator generator(QDateTime::currentMSecsSinceEpoch());
@@ -40,6 +41,8 @@ int f_admin::createUser(QString username, int role){
 
 int f_admin::createAccount(int userId, int type, double balance){
     int accountId = generateAccountNumber();
+
+    if (type == -1) return false;
 
     // Créer le compte bancaire
     QSqlQuery insertAccountQuery;
@@ -91,6 +94,30 @@ double f_admin::checkBalance(int accountId) {
     }
 }
 
-//void f_admin::saveToHistoryAdmin(int type, int userId);
+bool f_admin::checkUserAccountType(int userId, int accountType) {
+    QSqlQuery query;
+    query.prepare("SELECT type FROM accounts WHERE userId = :userId and type = :accountType");
+    query.bindValue(":userId", userId);
+    query.bindValue(":accountType", accountType);
+
+    if(query.exec() && query.next()) {
+        return true;
+    }
+    return false;
+}
+
+void f_admin::saveToHistoryAdmin(int userId, int type, QString description) {
+    QSqlQuery query;
+    query.prepare("INSERT INTO history_admin (user_id, type, description) VALUES (:userId, :type, :description)");
+    query.bindValue(":userId", userId);
+    query.bindValue(":type", type);
+    query.bindValue(":description", description);
+
+    if (!query.exec()) {
+        std::cout << "Erreur lors de l'insertion dans l'historique admin : " << query.lastError().text().toStdString() << std::endl;
+        Sleep(3000);
+        return ;
+    }
+};
 
 

@@ -22,7 +22,7 @@ public:
     virtual void AffVirement()=0;
     virtual void AffAddBeneficiaire()=0;
     virtual void AffRetrait()=0;
-    virtual void AffHistory()=0;
+    virtual void AffHistory(User& user)=0;
     virtual void AffAjout()=0;
 };
 
@@ -66,6 +66,7 @@ public:
         QTextStream stream(stdin);
         std::system("cls");
         std::cout << "Bienvenue " << user->getActual_firstname().toStdString() << "." << std::endl;
+        if(user->getActual_type() == 1) std::cout << "Vous etes connecte en tant que conjoint." << std::endl;
         std::cout << "\nVos comptes bancaires --------------------------------------" << std::endl;
         // Si le compte a un ID, alors on affiche le compte.
         if(user->getPpl_id()) {
@@ -78,10 +79,14 @@ public:
             std::cout << "Compte Livret C : " << user->getLvc_balance() << " euros." << std::endl;
         }
         AffSeparator();
-        if (user->getRole() != 1) {
-            AffMsg("[1] Realiser un transfert \n[2] Ajouter un beneficiaire \n[3] Retirer de l'argent \n[4] Deposer de l'argent \n[5] Consulter l'historique \n\n[9] Deconnexion");
+        if (user->getActual_type() == 1) {
+            AffMsg("[9] Deconnexion");
         } else {
-            AffMsg("[1] Realiser un transfert \n[2] Ajouter un beneficiaire \n[3] Retirer de l'argent \n[4] Deposer de l'argent \n[5] Consulter l'historique \n\n[8] Revenir en arriere\n[9] Deconnexion");
+            if (user->getRole() != 1) {
+                AffMsg("[1] Realiser un transfert \n[2] Ajouter un beneficiaire \n[3] Retirer de l'argent \n[4] Deposer de l'argent \n[5] Consulter l'historique \n\n[9] Deconnexion");
+            } else {
+                AffMsg("[1] Realiser un transfert \n[2] Ajouter un beneficiaire \n[3] Retirer de l'argent \n[4] Deposer de l'argent \n[5] Consulter l'historique \n\n[8] Revenir en arriere\n[9] Deconnexion");
+            }
         }
 
         QString choice = stream.readLine().trimmed();
@@ -90,16 +95,16 @@ public:
         if (choice == "9") {
             user->disconnect();
             AffLogin();
-        } else if (choice == "1") {
+        } else if (choice == "1" && user->getActual_type() != 1) {
             AffVirement();
-        } else if (choice == "2") {
+        } else if (choice == "2" && user->getActual_type() != 1) {
             AffAddBeneficiaire();
-        } else if (choice == "3") {
+        } else if (choice == "3" && user->getActual_type() != 1) {
             AffRetrait();
-        } else if (choice == "4") {
+        } else if (choice == "4" && user->getActual_type() != 1) {
             AffAjout();
-        } else if (choice == "5") {
-            AffHistory();
+        } else if (choice == "5" && user->getActual_type() != 1) {
+            AffHistory(*user);
         } else if (choice == "8" && user->getRole() == 1) {
             AffAdminPage();
         }
@@ -335,6 +340,75 @@ public:
         }
     }
 
+    int AffUserAccountsChoice(int userId) {
+
+        QTextStream stream(stdin);
+
+        // Récupération de la connexion existante à la base de données
+        QSqlDatabase db = QSqlDatabase::database();
+        // Vérification de la connexion
+        if (!db.isValid()) {
+            qDebug() << "Erreur: Aucune connexion valide à la base de données n'a été trouvée";
+            return -1;
+        }
+
+        // Partie propriétaire -------------------
+        QString selectedPropId;
+        QSqlQuery getAccounts(db);
+        getAccounts.prepare("SELECT "
+                            "MAX(CASE WHEN a.type = 0 THEN a.id END) AS principalId, "
+                            "MAX(CASE WHEN a.type = 1 THEN a.id END) AS PELId, "
+                            "MAX(CASE WHEN a.type = 2 THEN a.id END) AS LCId "
+                            "FROM accounts AS a "
+                            "WHERE userId = :userId "
+                            "AND a.type IN (0, 1, 2)");
+        getAccounts.bindValue(":userId", userId);
+        if (!getAccounts.exec()) {
+            qDebug() << "Erreur lors de l'exécution de la requête : " << getAccounts.lastError().text();
+            return -1;
+        }
+
+        // Affichage des résultats
+        std::cout << "Liste des comptes propriétaires ----------------------------" << std:: endl;
+        if (getAccounts.next()) {
+            QMap<int, QString> accountMap;
+            int count = 1;
+            QString principalId = getAccounts.value("principalId").toString();
+            QString PELId = getAccounts.value("PELId").toString();
+            QString LCId = getAccounts.value("LCId").toString();
+
+            if (principalId.toInt() != 0) {
+                std::cout << "[" << count << "] Principal : " << principalId.toStdString() << std::endl;
+                accountMap.insert(count, principalId);
+                count++;
+            }
+            if (PELId.toInt() != 0) {
+                std::cout << "[" << count << "] PEL : " << PELId.toStdString() << std::endl;
+                accountMap.insert(count, PELId);
+                count++;
+            }
+            if (LCId.toInt() != 0) {
+                std::cout << "[" << count << "] Livret C : " << LCId.toStdString() << std::endl;
+                accountMap.insert(count, LCId);
+                count++;
+            }
+
+            AffSeparator();
+            std::cout << "Sélectionnez le compte sur lequel vous allez ajouter de l'argent : ";
+            int choice = stream.readLine().trimmed().toInt();
+            if (!accountMap.contains(choice)) {
+                qDebug() << "Choix invalide";
+                return -1;
+            }
+            selectedPropId = accountMap.value(choice);
+            return selectedPropId.toInt();
+        } else {
+            qDebug() << "Aucun compte trouvé pour l'utilisateur spécifié.";
+            return -1;
+        }
+        return -1;
+    }
+
     void AffAjout() override {
         QTextStream stream(stdin);
         clearScreen();
@@ -408,7 +482,7 @@ public:
         }
     }
 
-    void AffHistory() override {
+    void AffHistory(User& user) override {
         QTextStream stream(stdin);
         clearScreen();
 
@@ -428,12 +502,13 @@ public:
                           "OR id_compte_destinataire = :PelId "
                           "OR id_compte_destinataire = :LvcId "
                           "ORDER BY date ASC");
-            query.bindValue(":PplId", user->getPpl_id());
-            query.bindValue(":PelId", user->getPel_id());
-            query.bindValue(":LvcId", user->getLvc_id());
+            query.bindValue(":PplId", user.getPpl_id());
+            query.bindValue(":PelId", user.getPel_id());
+            query.bindValue(":LvcId", user.getLvc_id());
 
             if (!query.exec()) {
                 std::cout << "Erreur lors de l'execution de la requete : " << query.lastError().text().toStdString() << std::endl;
+                Sleep(3000);
                 return;
             }
 
@@ -477,6 +552,61 @@ public:
         getch();
     }
 
+    void AffHistoryAdmin(User& user) {
+        QTextStream stream(stdin);
+        clearScreen();
+
+
+        // Récupération de la connexion existante à la base de données
+        QSqlDatabase db = QSqlDatabase::database();
+
+        // Vérifier si la connexion à la base de données est valide
+        if (db.isValid()) {
+            // Exécuter la requête SQL pour récupérer les données de l'historique
+            QSqlQuery query(db);
+            query.prepare("SELECT * FROM history_admin "
+                          "WHERE user_id = :userId "
+                          "ORDER BY date ASC");
+            query.bindValue(":userId", user.getUserId());
+
+            if (!query.exec()) {
+                std::cout << "Erreur lors de l'execution de la requete : " << query.lastError().text().toStdString() << std::endl;
+                Sleep(3000);
+                return;
+            }
+
+            // Itérer sur les résultats de la requête
+            while (query.next()) {
+                // Récupérer les valeurs des colonnes
+                int id_history = query.value(0).toInt();
+                double userId = query.value(1).toInt();
+                QDateTime date = query.value(2).toDateTime();
+                QString type = query.value(3).toString();
+                QString description = query.value(4).toString();
+                if (query.value(3) == 0) {
+                    type = "Connexion";
+                } else if (query.value(3) == 1) {
+                    type = "Consultation";
+                } else if (query.value(3) == 2) {
+                    type = "Operation";
+                }
+
+                // Afficher les valeurs récupérées sur la console avec un menu
+                std::cout << "ID de l'utilisateur: " << userId << std::endl;
+                std::cout << "Date: " << date.toString("yyyy-MM-dd hh:mm:ss").toStdString() << std::endl;
+                std::cout << "Description: " << description.toStdString() << std::endl;
+                std::cout << "Type: " << type.toStdString() << std::endl;
+                std::cout << "-------------------------" << std::endl;
+            }
+        } else {
+            std::cout << "Erreur : Connexion a la base de donnees invalide" << std::endl;
+        }
+
+
+        std::cout << "Pour retourner a l'accueil, appuyez sur une touche." << std::endl;
+        getch();
+    }
+
     void AffCreationCompte() override {
         QTextStream stream(stdin);
         clearScreen();
@@ -488,15 +618,6 @@ public:
         std::cout << "[3] Creer un compte en banque" << std:: endl;
         std::cout << "[4] Consulter compte client" << std:: endl;
         int profilType = user->getActual_type();
-        int maxChoices = 4;
-        if(profilType != 10) {
-            std::cout << "[5] Consulter compte stagiaire" << std:: endl;
-            maxChoices = 5;
-            if(profilType != 11){
-                std::cout << "[6] Consulter compte employe" << std:: endl;
-                maxChoices = 6;
-            }
-        }
         std::cout << "\n[8] Retour" << std:: endl;
         QString choice;
         int newUserId = 0;
@@ -505,7 +626,7 @@ public:
             if(choice.toInt() == 8) {
                 return;
             }
-        } while (choice.toInt() < 1 || choice.toInt() > maxChoices);
+        } while (choice.toInt() < 1 || choice.toInt() > 4);
 
         if(choice.toInt() == 1) {
             newUserId = AffCreateUser();
@@ -525,17 +646,15 @@ public:
             std::cout << "Continuer sur la creation d'un compte bancaire ? o/n" << std:: endl;
             QString continueChoice = stream.readLine().trimmed();
             if (continueChoice == "o" || continueChoice == "oui"){
-                AffCreateAccount(newUserId);
+                AffCreateAccount();
             } else {
                 return;
             }
             Sleep(2000);
         } else if (choice.toInt() == 3) {
-            std::cout << "Veuillez entrer l'id de l'user : ";
-            QString userId = stream.readLine().trimmed();
-            AffCreateAccount(userId.toInt());
+            AffCreateAccount();
         } else if (choice.toInt() == 4) {
-            AffCheckUser();
+            AffCheckUser(user->getActual_type());
         } else if (choice.toInt() == 5) {
             std::cout << "Choix de l'admin - employe";
             Sleep(3000);
@@ -545,7 +664,7 @@ public:
         }
     }
 
-    int AffCheckUser() {
+    int AffCheckUser(int userType) {
         QTextStream stream(stdin);
         clearScreen();
         std::cout << "Entrez le nom de l'utilisateur : ";
@@ -556,10 +675,17 @@ public:
 
         QMap<int, QString> accountMap;
         QSqlQuery query;
-        query.prepare("SELECT p.firstname AS firstname, p.lastname AS lastname, u.id AS id "
-                      "FROM users AS u "
-                      "LEFT JOIN profil AS p ON (p.user_id = u.id AND (p.type = 1 OR p.type = 0)) "
-                      "WHERE p.firstname = :firstname");
+        if (userType == 10 || userType == 11) {
+            query.prepare("SELECT p.firstname AS firstname, p.lastname AS lastname, u.id AS id "
+                          "FROM users AS u "
+                          "LEFT JOIN profil AS p ON (p.user_id = u.id AND (p.type = 1 OR p.type = 0)) "
+                          "WHERE p.firstname = :firstname");
+        } else if (userType == 12) {
+            query.prepare("SELECT p.firstname AS firstname, p.lastname AS lastname, u.id AS id "
+                          "FROM users AS u "
+                          "LEFT JOIN profil AS p ON (p.user_id = u.id AND (p.type = 1 OR p.type = 0 OR p.type = 10 OR p.type = 11)) "
+                          "WHERE p.firstname = :firstname");
+        }
         query.bindValue(":firstname", username);
 
         if (query.exec()) {
@@ -588,6 +714,9 @@ public:
         User userToCheck;
         // Charger les informations de l'utilisateur sélectionné
         userToCheck.getInformations(selectedUserId.toInt());
+        f_admin admin;
+        QString admin_consultation_desc = QString("Consultation du compte de l'utilisateur %1 (UID: %2) par %3.").arg(userToCheck.getUsername()).arg(userToCheck.getUserId()).arg(user->getActual_firstname());
+        admin.saveToHistoryAdmin(user->getUserId(), 1, admin_consultation_desc);
 
 
         clearScreen();
@@ -596,27 +725,76 @@ public:
         std::cout << "User ID : " << userToCheck.getUserId() << std::endl;
 
         std::cout << "\nLes differents profils -------------------------------------" << std::endl;
-        std::cout << "Proprietaire -----------------------------------------------" << std::endl;
-        if (userToCheck.getOwner_profilId()) {
-            std::cout << "Prenom du proprietaire : " << userToCheck.getOwner_firstname().toStdString() << std::endl;
-            std::cout << "Nom de famille du proprietaire : " << userToCheck.getOwner_lastname().toStdString() << std::endl;
-            std::cout << "Login du proprietaire : " << userToCheck.getOwner_login().toStdString() << std::endl;
-            std::cout << "ID du profil proprietaire : " << userToCheck.getOwner_profilId() << std::endl;
-        } else {
-            std::cout << "Cet utilisateur n'a pas de profil proprietaire." << std::endl;
+        if (userToCheck.getRole() == 0) {
+            std::cout << "Proprietaire -----------------------------------------------" << std::endl;
+            if (userToCheck.getOwner_profilId()) {
+                std::cout << "Prenom du proprietaire : " << userToCheck.getOwner_firstname().toStdString() << std::endl;
+                std::cout << "Nom de famille du proprietaire : " << userToCheck.getOwner_lastname().toStdString() << std::endl;
+                std::cout << "Login du proprietaire : " << userToCheck.getOwner_login().toStdString() << std::endl;
+                std::cout << "ID du profil proprietaire : " << userToCheck.getOwner_profilId() << std::endl;
+            } else {
+                std::cout << "Cet utilisateur n'a pas de profil proprietaire." << std::endl;
+            }
+
+
+            std::cout << "Conjoint ---------------------------------------------------" << std::endl;
+            if (userToCheck.getCoowner_profilId()) {
+
+                std::cout << "Prenom du conjoint : " << userToCheck.getCoowner_firstname().toStdString() << std::endl;
+                std::cout << "Nom de famille du conjoint : " << userToCheck.getCoowner_lastname().toStdString() << std::endl;
+                std::cout << "Login du conjoint : " << userToCheck.getCoowner_login().toStdString() << std::endl;
+                std::cout << "ID du profil conjoint : " << userToCheck.getCoowner_profilId() << std::endl;
+            } else {
+                std::cout << "Cet utilisateur n'a pas de profil conjoint." << std::endl;
+            }
         }
 
+        if (userToCheck.getRole() == 1) {
+            std::cout << "Proprietaire -----------------------------------------------" << std::endl;
+            if (userToCheck.getOwner_profilId()) {
+                std::cout << "Prenom du proprietaire : " << userToCheck.getOwner_firstname().toStdString() << std::endl;
+                std::cout << "Nom de famille du proprietaire : " << userToCheck.getOwner_lastname().toStdString() << std::endl;
+                std::cout << "Login du proprietaire : " << userToCheck.getOwner_login().toStdString() << std::endl;
+                std::cout << "ID du profil proprietaire : " << userToCheck.getOwner_profilId() << std::endl;
+            } else {
+                std::cout << "Cet utilisateur n'a pas de profil proprietaire." << std::endl;
+            }
 
-        std::cout << "Conjoint ---------------------------------------------------" << std::endl;
-        if (userToCheck.getCoowner_profilId()) {
 
-            std::cout << "Prenom du conjoint : " << userToCheck.getCoowner_firstname().toStdString() << std::endl;
-            std::cout << "Nom de famille du conjoint : " << userToCheck.getCoowner_lastname().toStdString() << std::endl;
-            std::cout << "Login du conjoint : " << userToCheck.getCoowner_login().toStdString() << std::endl;
-            std::cout << "ID du profil conjoint : " << userToCheck.getCoowner_profilId() << std::endl;
-        } else {
-            std::cout << "Cet utilisateur n'a pas de profil conjoint." << std::endl;
+            std::cout << "Conjoint ---------------------------------------------------" << std::endl;
+            if (userToCheck.getCoowner_profilId()) {
+
+                std::cout << "Prenom du conjoint : " << userToCheck.getCoowner_firstname().toStdString() << std::endl;
+                std::cout << "Nom de famille du conjoint : " << userToCheck.getCoowner_lastname().toStdString() << std::endl;
+                std::cout << "Login du conjoint : " << userToCheck.getCoowner_login().toStdString() << std::endl;
+                std::cout << "ID du profil conjoint : " << userToCheck.getCoowner_profilId() << std::endl;
+            } else {
+                std::cout << "Cet utilisateur n'a pas de profil conjoint." << std::endl;
+            }
+
+            std::cout << "Stagiaire --------------------------------------------------" << std::endl;
+            if (userToCheck.getIntern_profilId()) {
+
+                std::cout << "Prenom du stagiaire : " << userToCheck.getIntern_firstname().toStdString() << std::endl;
+                std::cout << "Nom de famille du stagiaire : " << userToCheck.getIntern_lastname().toStdString() << std::endl;
+                std::cout << "Login du stagiaire : " << userToCheck.getIntern_login().toStdString() << std::endl;
+                std::cout << "ID du profil stagiaire : " << userToCheck.getIntern_profilId() << std::endl;
+            } else {
+                std::cout << "Cet utilisateur n'a pas de profil stagiaire." << std::endl;
+            }
+
+            std::cout << "Employe ----------------------------------------------------" << std::endl;
+            if (userToCheck.getEmployee_profilId()) {
+
+                std::cout << "Prenom de l'employe : " << userToCheck.getEmployee_firstname().toStdString() << std::endl;
+                std::cout << "Nom de l'employe : " << userToCheck.getEmployee_lastname().toStdString() << std::endl;
+                std::cout << "Login de l'employe : " << userToCheck.getEmployee_login().toStdString() << std::endl;
+                std::cout << "ID du profil de l'employe : " << userToCheck.getEmployee_profilId() << std::endl;
+            } else {
+                std::cout << "Cet utilisateur n'a pas de profil employe." << std::endl;
+            }
         }
+
 
 
         std::cout << "\nLes comptes bancaires --------------------------------------" << std::endl;
@@ -647,8 +825,59 @@ public:
         } else {
             std::cout << "Cet user n'a pas de compte Livret C" << std::endl;
         }
-        std::cout << "\nPour retourner a l'accueil, appuyez sur une touche." << std::endl;
-        getch();
+
+        if (user->getActual_type() != 10) {
+            std::cout << "\nActions ----------------------------------------------------"<< std::endl;
+            if (userToCheck.getPpl_id() || userToCheck.getPel_id() || userToCheck.getLvc_id()) {
+                std::cout << "[1] Visualiser historique" << std::endl;
+                std::cout << "[2] Crediter des fonds" << std::endl;
+                std::cout << "[3] Debiter des fonds" << std::endl;
+                std::cout << "Selectionnez ce que vous souhaitez realiser : " ;
+                QTextStream stream(stdin);
+                QString choice = stream.readLine().trimmed();
+
+                if (choice.toInt() == 1 && (userToCheck.getPpl_id() || userToCheck.getPel_id() || userToCheck.getLvc_id())) {
+                    AffHistory(userToCheck);
+                } else if (choice.toInt() == 2 && (userToCheck.getPpl_id() || userToCheck.getPel_id() || userToCheck.getLvc_id())) {
+                    clearScreen();
+                    int userAccountId = AffUserAccountsChoice(userToCheck.getUserId());
+                    clearScreen();
+                    std::cout << "Entrez le montant a ajouter : " << std::endl;
+                    QString amount = stream.readLine().trimmed();
+                    operations.addBalance(amount.toDouble(), userAccountId, "Ajout administrateur.");
+                    f_admin admin;
+                    QString username = user->getActual_firstname();
+                    QString admin_his_desc = QString("Ajout de %1€ a l'utilisateur par %2").arg(amount).arg(username);
+                    admin.saveToHistoryAdmin(user->getUserId(), 2, admin_his_desc);
+                } else if (choice.toInt() == 3 && (userToCheck.getPpl_id() || userToCheck.getPel_id() || userToCheck.getLvc_id())) {
+                    clearScreen();
+                    int userAccountId = AffUserAccountsChoice(userToCheck.getUserId());
+                    clearScreen();
+                    std::cout << "Entrez le montant a ajouter : " << std::endl;
+                    QString amount = stream.readLine().trimmed();
+                    operations.removeBalance(amount.toDouble(), userAccountId, "Retrait administrateur.");
+                    f_admin admin;
+                    QString username = user->getActual_firstname();
+                    QString admin_his_desc = QString("Retrait de %1€ a l'utilisateur par %2").arg(amount).arg(username);
+                    admin.saveToHistoryAdmin(user->getUserId(), 2, admin_his_desc);
+                } else {
+                    return -1;
+                }
+            } else if (userToCheck.getRole() == 1) {
+                std::cout << "[1] Visualiser historique administrateur" << std::endl;
+                QTextStream stream(stdin);
+                QString choice = stream.readLine().trimmed();
+                if(choice.toInt() == 1) {
+                    AffHistoryAdmin(userToCheck);
+                }
+            } else {
+                std::cout << "\nPour retourner a l'accueil, appuyez sur une touche." << std::endl;
+                getch();
+            }
+        } else {
+            std::cout << "\nPour retourner a l'accueil, appuyez sur une touche." << std::endl;
+            getch();
+        }
     }
 
     int AffCreateUser() {
@@ -657,7 +886,7 @@ public:
         clearScreen();
 
         std::cout << "Entrez le nom de l'user : ";
-        QString username =stream.readLine().trimmed();
+        QString username = stream.readLine().trimmed();
 
         clearScreen();
         std::cout << "Choisissez le role de l'user : " << std:: endl;
@@ -695,34 +924,115 @@ public:
         return newUserId;
     };
 
-    void AffCreateAccount(int userId) {
+    void AffCreateAccount() {
         f_admin admin;
         QTextStream stream(stdin);
+
+        clearScreen();
+        std::cout << "Entrez le nom de l'utilisateur : ";
+        QString username = stream.readLine().trimmed();
+
+        // Afficher la liste
+        // Effectuer la requête pour rechercher les utilisateurs par nom
+
+        QMap<int, QString> accountMap;
+        QSqlQuery query;
+        query.prepare("SELECT p.firstname AS firstname, p.lastname AS lastname, u.id AS id "
+                      "FROM users AS u "
+                      "LEFT JOIN profil AS p ON (p.user_id = u.id AND (p.type = 1 OR p.type = 0)) "
+                      "WHERE p.firstname = :firstname");
+        query.bindValue(":firstname", username);
+
+        if (query.exec()) {
+            int count = 0;
+            // Parcourir les résultats de la requête et afficher dans la liste
+            while (query.next()) {
+                QString firstname = query.value("firstname").toString();
+                QString lastname = query.value("lastname").toString();
+                QString id = query.value("id").toString();
+                std::cout << "[" << count << "] " << firstname.toStdString() << " " << lastname.toStdString() << " (PID:" << id.toStdString() << ")"<< std::endl;
+                accountMap.insert(count, id);
+                count++;
+            }
+        } else {
+            qDebug() << "Erreur lors de l'execution de la requete : " << query.lastError().text();
+        }
+        AffSeparator();
+        std::cout << "\nSelectionnez le compte utilisateur : ";
+        int choice = stream.readLine().trimmed().toInt();
+        if (!accountMap.contains(choice)) {
+            qDebug() << "Choix invalide";
+            return;
+        }
+        // Récupération de l'ID sélectionné
+        QString selectedUserId = accountMap.value(choice);
+        User userToCheck;
+        // Charger les informations de l'utilisateur sélectionné
+        userToCheck.getInformations(selectedUserId.toInt());
+        int userId = userToCheck.getUserId();
+
         clearScreen();
 
-        if (!userId){
-            QString choice = stream.readLine().trimmed();
+        bool userHavePplAcc = admin.checkUserAccountType(userId, 0);
+        bool userHavePelAcc = admin.checkUserAccountType(userId, 1);
+        bool userHaveLvcAcc = admin.checkUserAccountType(userId, 2);
+
+        if (userHavePplAcc && userHavePelAcc && userHaveLvcAcc) {
+            std::cout << "Cet utilisateur possede deja tous les types de comptes. Retour a l'accueil..." << std::endl;
+            Sleep(3000);
+            return;
         }
 
-        std::cout << "Quel type de compte voulez-vous creer ?" << std:: endl;
-        std::cout << "[1] Compte courant " << std:: endl;
-        std::cout << "[2] Compte PEL " << std:: endl;
-        std::cout << "[3] Compte Livret C " << std:: endl;
-        std::cout << "Votre choix : ";
-        QString accountTypeString = stream.readLine().trimmed();
+        QMap<int, int> accountTypeMap;
+        int count = 1;
+
+        if (!userHavePplAcc) {
+            std::cout << "[" << count << "] Compte courant" << std::endl;
+            int accountType = 0;
+            accountTypeMap.insert(count, accountType);
+            count++;
+        }
+        if (!userHavePelAcc) {
+            std::cout << "[" << count << "] Compte PEL" << std::endl;
+            int accountType = 1;
+            accountTypeMap.insert(count, accountType);
+            count++;
+        }
+        if (!userHaveLvcAcc) {
+            std::cout << "[" << count << "] Compte Livret C" << std::endl;
+            int accountType = 2;
+            accountTypeMap.insert(count, accountType);
+            count++;
+        }
+        std::cout << "[" << count << "] Retour" << std::endl;
+        accountTypeMap.insert(count, -1);
+
+        AffSeparator();
+        std::cout << "Selectionnez le compte a creer : ";
+        QString accountChoice = stream.readLine().trimmed();
+
+        if (accountTypeMap.value(accountChoice.toInt()) == -1) {
+            return;
+        }
+
+        while (!accountTypeMap.contains(accountChoice.toInt())) {
+            std::cout << "Choix invalide" << std::endl;
+            Sleep(1000);
+        }
+
+        int selectedAccountType = accountTypeMap.value(accountChoice.toInt());
 
         clearScreen();
         QString baseBalance = "-1";
         while (baseBalance.toInt() < 0) {
-            std::cout << "Solde de base (0 si aucun) : " << std:: endl;
+            std::cout << "Solde de base (0 si aucun) : " << std::endl;
             baseBalance = stream.readLine().trimmed();
         }
 
-        int accountType = accountTypeString.toInt() - 1;
-        if(admin.createAccount(userId, accountType, baseBalance.toDouble())) {
-            std::cout << "Compte bancaire cree et lie avec succes." << std:: endl;
+        if (admin.createAccount(userId, selectedAccountType, baseBalance.toDouble())) {
+            std::cout << "Compte bancaire cree et lie avec succes." << std::endl;
         } else {
-            std::cout << "Une erreur est survenue lors de la creation du compte bancaire." << std:: endl;
+            std::cout << "Une erreur est survenue lors de la creation du compte bancaire." << std::endl;
         }
         Sleep(1500);
         clearScreen();
@@ -730,16 +1040,16 @@ public:
         User newUser;
         newUser.getInformations(userId);
 
-        std::cout << "----------------------" << std:: endl;
-        std::cout << "        RESUME        "<< std:: endl;
-        std::cout << "----------------------" << std:: endl;
-        std::cout << "Type : " << accountTypeString.toStdString() << std:: endl;
-        std::cout << "Solde : " << baseBalance.toStdString() << std:: endl;
-        std::cout << "----------------------" << std:: endl;
-        std::cout << "Nom : " << newUser.getUsername().toStdString() << std:: endl;
-        std::cout << "Role : " << newUser.getRole() << std:: endl;
-        std::cout << "Id : " << newUser.getUserId() << std:: endl;
-        std::cout << "----------------------" << std:: endl;
+        std::cout << "----------------------" << std::endl;
+        std::cout << "        RESUME        " << std::endl;
+        std::cout << "----------------------" << std::endl;
+        std::cout << "Type : " << selectedAccountType << std::endl;
+        std::cout << "Solde : " << baseBalance.toStdString() << std::endl;
+        std::cout << "----------------------" << std::endl;
+        std::cout << "Nom : " << newUser.getUsername().toStdString() << std::endl;
+        std::cout << "Role : " << newUser.getRole() << std::endl;
+        std::cout << "Id : " << newUser.getUserId() << std::endl;
+        std::cout << "----------------------" << std::endl;
     }
 
     int AffCreateProfil(int userId) {
@@ -997,7 +1307,7 @@ public:
 
     void AffRetrait() override {}
 
-    void AffHistory() override {}
+    void AffHistory(User& user) override {}
 
     void AffAjout() override {}
 };

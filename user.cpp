@@ -1,4 +1,5 @@
 #include "user.h"
+#include "f_admin.h"
 #include "operations.h"
 #include <QRandomGenerator>
 #include <QSqlQuery>
@@ -46,6 +47,22 @@ User::User(
     QString coowner_login,
     QString coowner_password,
     QDate coowner_dateOfBirth,
+    // Stagiaire
+    int intern_profilId,
+    int intern_type,
+    QString intern_firstname,
+    QString intern_lastname,
+    QString intern_login,
+    QString intern_password,
+    QDate intern_dateOfBirth,
+    // Employe
+    int employee_profilId,
+    int employee_type,
+    QString employee_firstname,
+    QString employee_lastname,
+    QString employee_login,
+    QString employee_password,
+    QDate employee_dateOfBirth,
     // Accounts
     // Principal
     double ppl_balance,
@@ -82,6 +99,20 @@ User::User(
     m_coowner_lastname(coowner_lastname),
     m_coowner_login(owner_login),
     m_coowner_dateOfBirth(coowner_dateOfBirth),
+    // Stagiaire
+    m_intern_profilId(intern_profilId),
+    m_intern_type(intern_type),
+    m_intern_firstname(intern_firstname),
+    m_intern_lastname(intern_lastname),
+    m_intern_login(owner_login),
+    m_intern_dateOfBirth(intern_dateOfBirth),
+    // Employe
+    m_employee_profilId(employee_profilId),
+    m_employee_type(employee_type),
+    m_employee_firstname(employee_firstname),
+    m_employee_lastname(employee_lastname),
+    m_employee_login(owner_login),
+    m_employee_dateOfBirth(employee_dateOfBirth),
     // Accounts
     // Principal
     m_ppl_balance(ppl_balance),
@@ -155,6 +186,11 @@ bool User::signin(QString login, QString password) {
         m_ppl_id = query.value("ppl_id").toInt();
         m_pel_id = query.value("pel_id").toInt();
         m_lvc_id = query.value("lvc_id").toInt();
+
+        if (m_role == 1) {
+            f_admin admin;
+            admin.saveToHistoryAdmin(m_userId, 0, "Connexion de l'utilisateur");
+        }
         return true;
     } else {
 
@@ -453,6 +489,16 @@ void User::getInformations(int userId) {
                         "p2.login AS p2_login, "
                         "p2.type AS p2_type, "
                         "p2.id AS p2_id, "
+                        "p3.firstname AS p3_firstname, "
+                        "p3.lastname AS p3_lastname, "
+                        "p3.login AS p3_login, "
+                        "p3.type AS p3_type, "
+                        "p3.id AS p3_id, "
+                        "p4.firstname AS p4_firstname, "
+                        "p4.lastname AS p4_lastname, "
+                        "p4.login AS p4_login, "
+                        "p4.type AS p4_type, "
+                        "p4.id AS p4_id, "
                         "u.id AS userId, "
                         "u.username AS username, "
                         "u.role AS user_role, "
@@ -466,6 +512,8 @@ void User::getInformations(int userId) {
                     "FROM users AS u "
                     "LEFT JOIN profil AS p1 ON p1.user_id = u.id AND p1.type = 0 "
                     "LEFT JOIN profil AS p2 ON p2.user_id = u.id AND p2.type = 1 "
+                    "LEFT JOIN profil AS p3 ON p3.user_id = u.id AND p3.type = 10 "
+                    "LEFT JOIN profil AS p4 ON p4.user_id = u.id AND p4.type = 11 "
                     "LEFT JOIN accounts AS ppl ON p1.user_id = ppl.userId AND ppl.type = 0 "
                     "LEFT JOIN accounts AS pel ON p1.user_id = pel.userId AND pel.type = 1 "
                     "LEFT JOIN accounts AS lvc ON p1.user_id = lvc.userId AND lvc.type = 2 "
@@ -485,6 +533,16 @@ void User::getInformations(int userId) {
         m_coowner_login = query.value("p2_login").toString();
         m_coowner_type = query.value("p2_type").toInt();
         m_coowner_profilId = query.value("p2_id").toInt();
+        m_intern_firstname = query.value("p3_firstname").toString();
+        m_intern_lastname = query.value("p3_lastname").toString();
+        m_intern_login = query.value("p3_login").toString();
+        m_intern_type = query.value("p3_type").toInt();
+        m_intern_profilId = query.value("p3_id").toInt();
+        m_employee_firstname = query.value("p4_firstname").toString();
+        m_employee_lastname = query.value("p4_lastname").toString();
+        m_employee_login = query.value("p4_login").toString();
+        m_employee_type = query.value("p4_type").toInt();
+        m_employee_profilId = query.value("p4_id").toInt();
 
         // User
         m_username = query.value("username").toString();
@@ -499,6 +557,7 @@ void User::getInformations(int userId) {
         m_ppl_id = query.value("ppl_id").toInt();
         m_pel_id = query.value("pel_id").toInt();
         m_lvc_id = query.value("lvc_id").toInt();
+
         return;
     } else {
         std::system("cls");
@@ -681,6 +740,55 @@ QString User::getCoowner_lastname() const {
 
 QDate User::getCoowner_dateOfBirth() const {
     return m_coowner_dateOfBirth;
+}
+// ProfilStagiaire getters
+int User::getIntern_profilId() const {
+    return m_intern_profilId;
+}
+
+int User::getIntern_type() const {
+    return m_intern_type;
+}
+
+QString User::getIntern_login() const {
+    return m_intern_login;
+}
+
+QString User::getIntern_firstname() const {
+    return m_intern_firstname;
+}
+
+QString User::getIntern_lastname() const {
+    return m_intern_lastname;
+}
+
+QDate User::getIntern_dateOfBirth() const {
+    return m_intern_dateOfBirth;
+}
+
+// ProfilEmploye getters
+int User::getEmployee_profilId() const {
+    return m_employee_profilId;
+}
+
+int User::getEmployee_type() const {
+    return m_employee_type;
+}
+
+QString User::getEmployee_login() const {
+    return m_employee_login;
+}
+
+QString User::getEmployee_firstname() const {
+    return m_employee_firstname;
+}
+
+QString User::getEmployee_lastname() const {
+    return m_employee_lastname;
+}
+
+QDate User::getEmployee_dateOfBirth() const {
+    return m_employee_dateOfBirth;
 }
 
 // AccountPrincipal getters

@@ -39,6 +39,22 @@ public:
         QString coowner_login,
         QString coowner_password,
         QDate coowner_dateOfBirth,
+        // Stagiaire
+        int intern_profilId,
+        int intern_type,
+        QString intern_firstname,
+        QString intern_lastname,
+        QString intern_login,
+        QString intern_password,
+        QDate intern_dateOfBirth,
+        // Remploye
+        int employee_profilId,
+        int employee_type,
+        QString employee_firstname,
+        QString employee_lastname,
+        QString employee_login,
+        QString employee_password,
+        QDate employee_dateOfBirth,
         // Accounts
             // Principal
         double ppl_balance,
@@ -127,6 +143,20 @@ public:
         QString getCoowner_lastname() const;
         QString getCoowner_login() const;
         QDate getCoowner_dateOfBirth() const;
+        // Stagiaire
+        int getIntern_profilId() const;
+        int getIntern_type() const;
+        QString getIntern_firstname() const;
+        QString getIntern_lastname() const;
+        QString getIntern_login() const;
+        QDate getIntern_dateOfBirth() const;
+        // Employe
+        int getEmployee_profilId() const;
+        int getEmployee_type() const;
+        QString getEmployee_firstname() const;
+        QString getEmployee_lastname() const;
+        QString getEmployee_login() const;
+        QDate getEmployee_dateOfBirth() const;
     // Accounts
         // Principal
         double getPpl_balance() const;
@@ -169,6 +199,22 @@ private:
         QString m_coowner_login;
         QString m_coowner_password;
         QDate m_coowner_dateOfBirth;
+        // Stagiaire
+        int m_intern_profilId;
+        int m_intern_type;
+        QString m_intern_firstname;
+        QString m_intern_lastname;
+        QString m_intern_login;
+        QString m_intern_password;
+        QDate m_intern_dateOfBirth;
+        // Employe
+        int m_employee_profilId;
+        int m_employee_type;
+        QString m_employee_firstname;
+        QString m_employee_lastname;
+        QString m_employee_login;
+        QString m_employee_password;
+        QDate m_employee_dateOfBirth;
     // Accounts
         // Principal
         double m_ppl_balance;
