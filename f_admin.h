@@ -7,7 +7,6 @@ class f_admin
 {
 public:
     f_admin();
-    int test();
 
     int createUser(QString username, int role);
     int createAccount(int userId, int type, double balance);

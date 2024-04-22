@@ -76,6 +76,7 @@ void admin_homepage::on_crprofil_adm_clicked()
 void admin_homepage::on_logcl_adm_clicked()
 {
     quel_client *InfoClient = new quel_client();
+    InfoClient->setUserInformations(currentUser);
     InfoClient->show();
 }
 

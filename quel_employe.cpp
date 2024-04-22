@@ -77,7 +77,7 @@ void quel_employe::on_send_kiem_clicked()
         QSqlQuery query;
         query.prepare("SELECT p.firstname, p.lastname, u.id "
                       "FROM users AS u "
-                      "LEFT JOIN profil AS p ON (p.user_id = u.id AND p.type = 11 ) "
+                      "LEFT JOIN profil AS p ON (p.user_id = u.id AND p.type = 11) "
                       "WHERE p.firstname = :firstname");
         query.bindValue(":firstname", searchQuery);
 
@@ -112,7 +112,9 @@ void quel_employe::on_send_kiem_clicked()
                 connect(button, &QPushButton::clicked, this, [=]() {
                     qDebug() << "Bouton cliqué pour l'utilisateur ID:" << userId;
                     historique_employe *HistoEmploye = new historique_employe();
-                    HistoEmploye->setUserId(userId);
+                    User userToCheck;
+                    userToCheck.getInformations(userId.toInt());
+                    HistoEmploye->setUserInformations(userToCheck);
                     HistoEmploye->show();
                     close();
                 });
@@ -124,7 +126,8 @@ void quel_employe::on_send_kiem_clicked()
                 button->installEventFilter(this);
             }
         } else {
-            qDebug() << "Erreur lors de la recherche des utilisateurs :" << query.lastError().text();
         }
     }
 }
+
+

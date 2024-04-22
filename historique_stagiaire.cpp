@@ -1,4 +1,7 @@
 #include "historique_stagiaire.h"
+#include "qsqlerror.h"
+#include "qsqlquery.h"
+#include "qstandarditemmodel.h"
 #include "ui_historique_stagiaire.h"
 #include "qevent.h"
 #include <QGuiApplication>
@@ -59,7 +62,86 @@ void historique_stagiaire::on_lastcons_st_clicked()
 
 }
 
-void historique_stagiaire::setUserId(const QString &userId)
+void historique_stagiaire::setUserInformations(User &user)
 {
+    // Récupération de la connexion existante à la base de données
+    QSqlDatabase db = QSqlDatabase::database();
 
+    // Vérifier si la connexion à la base de données est valide
+    if (db.isValid()) {
+        // Exécuter la requête SQL pour récupérer les données de l'historique
+        QSqlQuery query(db);
+        query.prepare("SELECT * FROM history "
+                      "WHERE id_compte_emetteur = :PPLAccountId OR id_compte_destinataire = :PPLAccountId "
+                      "OR id_compte_emetteur = :PELAccountId OR id_compte_destinataire = :PELAccountId "
+                      "OR id_compte_emetteur = :LVCAccountId OR id_compte_destinataire = :LVCAccountId "
+                      "ORDER BY date ASC");
+        query.bindValue(":PPLAccountId", user.getPpl_id());
+        query.bindValue(":PELAccountId", user.getPel_id());
+        query.bindValue(":LVCAccountId", user.getLvc_id());
+
+        // Exécuter la requête
+        if (query.exec()) {
+            // Créer un QStandardItemModel pour stocker les données
+            QStandardItemModel *model = new QStandardItemModel();
+
+            // Ajouter les en-têtes de colonnes au modèle
+            model->setHorizontalHeaderLabels(QStringList() << "Date" << "Type" << "Montant" << "Compte emetteur" << "Compte destinataire" << "Titre" << "Description");
+
+            // Changer la couleur du texte des en-têtes de colonnes et des cellules
+            ui->tableView->horizontalHeader()->setStyleSheet("QHeaderView::section { background-color: transparent; color: white; }");
+            ui->tableView->verticalHeader()->setStyleSheet("QHeaderView::section { background-color: transparent; color: white; }");
+            ui->tableView->setStyleSheet("QHeaderView::section { background-color: transparent; color: white; }");
+            ui->tableView->setStyleSheet("QTableView { color: white; }");
+
+            // Itérer sur les résultats de la requête et ajouter chaque ligne au modèle
+            while (query.next()) {
+                // Récupérer les valeurs des colonnes
+                double montant = query.value("montant").toDouble();
+                QDateTime date = query.value("date").toDateTime();
+                QString formattedDate = date.toString("dd/MM/yyyy - hh:mm:ss");
+                int idCompteEmetteur = query.value("id_compte_emetteur").toInt();
+                int idCompteDestinataire = query.value("id_compte_destinataire").toInt();
+                int typeValue = query.value("type").toInt();
+                QString title = query.value("title").toString();
+                QString description = query.value("description").toString();
+                QString type;
+                switch (typeValue) {
+                case 0:
+                    type = "Virement";
+                    break;
+                case 1:
+                    type = "Crédit";
+                    break;
+                case 2:
+                    type = "Débit";
+                    break;
+                default:
+                    type = "Inconnu";
+                    break;
+                }
+
+                QString montantStr = QString::number(montant);
+                QString idEmetteurStr = QString::number(idCompteEmetteur);
+                QString idDestinataireStr = QString::number(idCompteDestinataire);
+
+                // Créer les items correspondants et les ajouter au modèle
+                QList<QStandardItem*> rowItems;
+                rowItems.append(new QStandardItem(formattedDate));
+                rowItems.append(new QStandardItem(type));
+                rowItems.append(new QStandardItem(montantStr));
+                rowItems.append(new QStandardItem(idEmetteurStr));
+                rowItems.append(new QStandardItem(idDestinataireStr));
+                rowItems.append(new QStandardItem(title));
+                rowItems.append(new QStandardItem(description));
+                model->appendRow(rowItems);
+            }
+
+            // Ajouter le modèle au QTableView
+            ui->tableView->setModel(model);
+
+        } else {
+            qDebug() << "Erreur lors de l'exécution de la requête SQL:" << query.lastError().text();
+        }
+    }
 }

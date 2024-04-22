@@ -18,7 +18,7 @@ public slots:
 public:
     explicit informations_client(QWidget *parent = nullptr);
     ~informations_client();
-    void setUserId(const QString &userId);
+    void setUserInformations(User &user, User &userToCheck);
 private slots:
     //void on_reduced_5_clicked();
 
@@ -32,6 +32,8 @@ private slots:
     void on_fullscreen_infoc_clicked();
 
     void on_close_infoc_clicked();
+    void on_historyBtn_clicked();
+
 private:
     Ui::informations_client *ui;
     QString m_userId;
@@ -40,6 +42,7 @@ private:
     QPoint cur_pos;
     QPoint new_pos;
     User *currentUser;
+    User currentUserChecked;
     Home *parentHome;
 };
 
