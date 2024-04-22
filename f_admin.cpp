@@ -18,14 +18,8 @@ f_admin::f_admin() {
 
 }
 
-int f_admin::test () {
-    // Fonction de test. Appel : Definir instance -> admin.test();
-}
-
-// Migrer les fonctions de creation de compte ici.
-
+// Créer l'utilisateur
 int f_admin::createUser(QString username, int role){
-    // Créer l'utilisateur
     QSqlQuery insertUserQuery;
     insertUserQuery.prepare("INSERT INTO users (username, role) VALUES (:username, :role)");
     insertUserQuery.bindValue(":username", username);
@@ -39,10 +33,11 @@ int f_admin::createUser(QString username, int role){
     }
 }
 
+// Créer un compte bancaire
 int f_admin::createAccount(int userId, int type, double balance){
     int accountId = generateAccountNumber();
 
-    if (type == -1) return false;
+    if (type == -1) return -1;
 
     // Créer le compte bancaire
     QSqlQuery insertAccountQuery;
@@ -54,12 +49,13 @@ int f_admin::createAccount(int userId, int type, double balance){
     insertAccountQuery.bindValue(":balance", balance);
 
     if(insertAccountQuery.exec()){
-        return true;
+        return insertAccountQuery.lastInsertId().toInt();
     } else {
-        return false;
+        return -1;
     }
 };
 
+// Créer un profil utilisateur
 bool f_admin::createProfil(int userId, QString firstname, QString lastname, QString login, QString password, int type){
     // Créer le profil
     QSqlQuery insertProfilQuery;
@@ -79,6 +75,7 @@ bool f_admin::createProfil(int userId, QString firstname, QString lastname, QStr
     }
 };
 
+// Obtenir la balance d'un compte en banque avec son id.
 double f_admin::checkBalance(int accountId) {
     QSqlQuery query;
     query.prepare("SELECT balance FROM accounts WHERE id = :accountId");
@@ -94,6 +91,7 @@ double f_admin::checkBalance(int accountId) {
     }
 }
 
+// Retourne true si un User possède un type de compte en banque (Principal / PEL / Livret C).
 bool f_admin::checkUserAccountType(int userId, int accountType) {
     QSqlQuery query;
     query.prepare("SELECT type FROM accounts WHERE userId = :userId and type = :accountType");
@@ -106,6 +104,7 @@ bool f_admin::checkUserAccountType(int userId, int accountType) {
     return false;
 }
 
+// Sauvegarde d'une action admin en historique.
 void f_admin::saveToHistoryAdmin(int userId, int type, QString description) {
     QSqlQuery query;
     query.prepare("INSERT INTO history_admin (user_id, type, description) VALUES (:userId, :type, :description)");

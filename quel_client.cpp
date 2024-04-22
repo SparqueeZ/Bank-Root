@@ -60,6 +60,10 @@ void quel_client::on_return_kiclient_clicked()
     close();
 }
 
+void quel_client::setUserInformations(User &user) {
+    currentUser = &user;
+}
+
 void quel_client::on_send_kiclient_clicked()
 {
     // Récupérer le texte de la ligne de recherche
@@ -74,7 +78,7 @@ void quel_client::on_send_kiclient_clicked()
         QSqlQuery query;
         query.prepare("SELECT p.firstname, p.lastname, u.id "
                       "FROM users AS u "
-                      "LEFT JOIN profil AS p ON (p.user_id = u.id AND (p.type = 1 OR p.type = 0)) "
+                      "LEFT JOIN profil AS p ON (p.user_id = u.id AND p.type != 12) "
                       "WHERE p.firstname = :firstname");
         query.bindValue(":firstname", searchQuery);
 
@@ -108,7 +112,10 @@ void quel_client::on_send_kiclient_clicked()
                 // Connecter le signal clicked() du bouton à un slot pour gérer le clic
                 connect(button, &QPushButton::clicked, this, [=]() {
                     informations_client *InfoClient = new informations_client();
-                    InfoClient->setUserId(userId);
+                    User userToCheck;
+                    userToCheck.getInformations(userId.toInt());
+                    User TheUser = *currentUser;
+                    InfoClient->setUserInformations(TheUser, userToCheck);
                     InfoClient->show();
                     close();
                 });

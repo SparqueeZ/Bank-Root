@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>494</width>
-    <height>572</height>
+    <width>1027</width>
+    <height>568</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1191</width>
+     <width>1026</width>
      <height>31</height>
     </rect>
    </property>
@@ -43,8 +43,7 @@ color:rgb(109, 114, 117);
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">
-</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>BankRoot</string>
@@ -53,7 +52,7 @@ color:rgb(109, 114, 117);
    <widget class="QToolButton" name="reduced_st">
     <property name="geometry">
      <rect>
-      <x>430</x>
+      <x>960</x>
       <y>10</y>
       <width>15</width>
       <height>15</height>
@@ -86,7 +85,7 @@ background:red;
    <widget class="QToolButton" name="fullscreen_st">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>980</x>
       <y>10</y>
       <width>15</width>
       <height>15</height>
@@ -114,7 +113,7 @@ border-radius:45px;
    <widget class="QToolButton" name="close_st">
     <property name="geometry">
      <rect>
-      <x>470</x>
+      <x>1000</x>
       <y>10</y>
       <width>15</width>
       <height>15</height>
@@ -153,7 +152,7 @@ background:red;
     <rect>
      <x>0</x>
      <y>30</y>
-     <width>1191</width>
+     <width>1026</width>
      <height>871</height>
     </rect>
    </property>
@@ -194,101 +193,20 @@ background:red;
 }</string>
     </property>
     <property name="text">
-     <string>Historique Stagiaire</string>
+     <string>Historique Client</string>
     </property>
    </widget>
-   <widget class="QToolButton" name="lastconnect_st">
+   <widget class="QTableView" name="tableView">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>130</y>
-      <width>411</width>
-      <height>110</height>
+      <x>20</x>
+      <y>50</y>
+      <width>981</width>
+      <height>471</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">QToolButton {
-    background-color: #181F1C;
-	border-radius: 10px; 
-}
-
-QToolButton:hover{
-background:#595554;
-}</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="labelFirstName_4">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>90</y>
-      <width>301</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat SemiBold</family>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLabel {
-    color: white;
-}</string>
-    </property>
-    <property name="text">
-     <string>Dernières connexions</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="labelFirstName_5">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>290</y>
-      <width>331</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat SemiBold</family>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLabel {
-    color: white;
-}</string>
-    </property>
-    <property name="text">
-     <string>Dernières consultations</string>
-    </property>
-   </widget>
-   <widget class="QToolButton" name="lastcons_st">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>340</y>
-      <width>411</width>
-      <height>110</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QToolButton {
-    background-color: #181F1C;
-	border-radius: 10px; 
-}
-
-QToolButton:hover{
-background:#595554;
-}</string>
-    </property>
-    <property name="text">
-     <string/>
+    <property name="sortingEnabled">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

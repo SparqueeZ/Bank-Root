@@ -111,7 +111,7 @@ void quel_stagiaire::on_send_kist_clicked()
                 connect(button, &QPushButton::clicked, this, [=]() {
                     qDebug() << "Bouton cliqué pour l'utilisateur ID:" << userId;
                     historique_stagiaire *HistoStagiaire = new historique_stagiaire();
-                    HistoStagiaire->setUserId(userId);
+                    //HistoStagiaire->setUserId(userId);
                     HistoStagiaire->show();
                     close();
                 });

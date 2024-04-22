@@ -25,7 +25,7 @@ choix_principal::~choix_principal()
 
 void choix_principal::on_personnel_clicked() {
     Home *home = new Home();
-    home->setUserInformation(currentUser); // Envoyer les informations de l'utilisateur à la page d'accueil
+    home->setUserInformation(currentUser);
     home->show();
     this->hide();
 }

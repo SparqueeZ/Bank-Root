@@ -14,6 +14,7 @@ class quel_client : public QWidget
 
 public:
     explicit quel_client(QWidget *parent = nullptr);
+    void setUserInformations(User &user);
     ~quel_client();
 
 private slots:

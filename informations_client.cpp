@@ -1,4 +1,6 @@
 #include "informations_client.h"
+#include "historique_employe.h"
+#include "historique_stagiaire.h"
 #include "qsqlerror.h"
 #include "qsqlquery.h"
 #include "ui_informations_client.h"
@@ -55,20 +57,23 @@ void informations_client::on_deco_infoc_clicked()
 
 }
 
-void informations_client::setUserId(const QString &userId)
+void informations_client::setUserInformations(User &user, User &client)
 {
-    this->m_userId = userId;
 
     QSqlDatabase db = QSqlDatabase::database();
 
-    User client;
     // Récuperer les informations de l'user via son ID.
-    client.getInformations(userId.toInt());
     ui->inf_cli_showName->setText(client.getOwner_firstname());
     // Mettre les infos des comptes en banque
-    ui->labelFirstAccountBalance_96->setText(QString("%1 €").arg(client.getPpl_balance()));
-    ui->labelPELAccountBalance_12->setText(QString("%1 €").arg(client.getPel_balance()));
-    ui->labelLCAccountBalance_12->setText(QString("%1 €").arg(client.getLvc_balance()));
+    if (user.getActual_type() == 10) {
+        ui->labelFirstAccountBalance_96->setText("Censuré");
+        ui->labelPELAccountBalance_12->setText("Censuré");
+        ui->labelLCAccountBalance_12->setText("Censuré");
+    } else {
+        ui->labelFirstAccountBalance_96->setText(QString("%1 €").arg(client.getPpl_balance()));
+        ui->labelPELAccountBalance_12->setText(QString("%1 €").arg(client.getPel_balance()));
+        ui->labelLCAccountBalance_12->setText(QString("%1 €").arg(client.getLvc_balance()));
+    }
 
     // Mettre les informations proprietaire
     ui->inf_cli_owner_lastname->setText("Nom : " + client.getOwner_lastname());
@@ -89,11 +94,54 @@ void informations_client::setUserId(const QString &userId)
     QString userRole = client.getRole() == 1 ? "Administrateur" : "Utilisateur";
     ui->inf_cli_userrole->setText("Role : " + userRole);
 
+    if (client.getPpl_id() || client.getPel_id() || client.getLvc_id()) {
+        ui->noAccountWidget->setVisible(false);
+        ui->noAccountLabel->setVisible(false);
+    }
+
+    if (client.getRole() == 1) {
+        ui->HistoryBtnName->setText("Consulter détails historique admin.");
+        if(client.getEmployee_profilId() != 0) {
+            ui->inf_cli_showName->setText(client.getEmployee_firstname());
+            ui->inf_cli_first_profil->setText("Employé");
+            ui->inf_cli_owner_lastname->setText("Nom : " + client.getEmployee_lastname());
+            ui->inf_cli_owner_firstname->setText("Prénom : " + client.getEmployee_firstname());
+            ui->inf_cli_owner_dateOfBirth->setText("Date de naissance : " + client.getEmployee_firstname()); // TODO : A changer par la date de naissance
+            ui->inf_cli_owner_profilId->setText(QString("ID du profil : %1").arg(client.getEmployee_profilId()));
+            ui->inf_cli_owner_login->setText("Identifiant : " + client.getEmployee_firstname());
+        } else {
+            ui->inf_cli_showName->setText(client.getIntern_firstname());
+            ui->inf_cli_first_profil->setText("Stagiaire");
+            ui->inf_cli_owner_lastname->setText("Nom : " + client.getIntern_lastname());
+            ui->inf_cli_owner_firstname->setText("Prénom : " + client.getIntern_firstname());
+            ui->inf_cli_owner_dateOfBirth->setText("Date de naissance : " + client.getIntern_firstname()); // TODO : A changer par la date de naissance
+            ui->inf_cli_owner_profilId->setText(QString("ID du profil : %1").arg(client.getIntern_profilId()));
+            ui->inf_cli_owner_login->setText("Identifiant : " + client.getIntern_firstname());
+        }
+
+        ui->OwnerIconContainer_2->setVisible(false);
+        ui->inf_cli_second_profil->setText("");
+        ui->inf_cli_coowner_lastname->setText("");
+        ui->inf_cli_coowner_firstname->setText("");
+        ui->inf_cli_coowner_dateOfBirth->setText("");
+        ui->inf_cli_coowner_profilId->setText("");
+        ui->inf_cli_coowner_login->setText("");
+    } else {
+        ui->HistoryBtnName->setText("Consulter détails historique");
+    }
+
+    if (!client.getPpl_id() && !client.getPel_id() && !client.getLvc_id()) {
+        ui->CreditBtnContainer->setVisible(false);
+        ui->DebitBtnContainer->setVisible(false);
+    }
+
+    currentUserChecked = client;
+
     if (db.isValid()) {
         // Exécuter la requête SQL pour récupérer les données de l'historique
         QSqlQuery query(db);
         query.prepare("SELECT h.montant, h.id_compte_emetteur, h.id_compte_destinataire, h.type, h.title, h.description, h.date FROM users AS u LEFT JOIN accounts AS ppl ON ppl.userId = u.id AND ppl.type = 0 LEFT JOIN accounts AS pel ON pel.userId = u.id AND pel.type = 1 LEFT JOIN accounts AS lvc ON lvc.userId = u.id AND lvc.type = 2 LEFT JOIN history AS h ON h.id_compte_emetteur = ppl.id OR h.id_compte_emetteur = pel.id OR h.id_compte_emetteur = lvc.id OR h.id_compte_destinataire = ppl.id OR h.id_compte_destinataire = pel.id OR h.id_compte_destinataire = lvc.id WHERE u.id = :id ORDER BY h.date DESC LIMIT 8");
-        query.bindValue(":id", m_userId);
+        query.bindValue(":id", client.getUserId());
 
         if (!query.exec() || !query.next()) {
             return;
@@ -161,11 +209,25 @@ void informations_client::setUserId(const QString &userId)
 
             count = count + 1;
 
-
-            // Afficher les valeurs récupérées sur la console avec un menu
-
         }
     } else {
 
     }
 }
+
+void informations_client::on_historyBtn_clicked()
+{
+    if (currentUserChecked.getRole() == 1) {
+        historique_employe *HistoEmploye = new historique_employe();
+        HistoEmploye->setUserInformations(currentUserChecked);
+        HistoEmploye->show();
+        close();
+    } else {
+        historique_stagiaire *HistoStagiaire = new historique_stagiaire();
+        HistoStagiaire->setUserInformations(currentUserChecked);
+        HistoStagiaire->show();
+        close();
+
+    }
+}
+

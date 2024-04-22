@@ -25,7 +25,6 @@ bool Operations::virement(int accountPropId, int accountDestId, double amount) {
             queryDest.bindValue(":id", accountDestId);
 
             if(queryDest.exec() && queryDest.next()) {
-
                 if(removeBalance(amount, accountPropId, "Virement bancaire"))
                     if(addBalance(amount, accountDestId, "Virement bancaire")) return true;;
             }
@@ -33,8 +32,10 @@ bool Operations::virement(int accountPropId, int accountDestId, double amount) {
         } else {
             std::cout << "L'utilisateur n'a pas assez de fonds.";
             Sleep(4000);
+            return false;
         }
-    } else return false;
+    }
+    return false;
 }
 
 bool Operations::addBalance(double amount, int destinataireId, QString description) {
@@ -72,7 +73,7 @@ bool Operations::addBalance(double amount, int destinataireId, QString descripti
                 return false;
             }
         }
-    }else{
+    } else {
     // Add the amount to the balance
     queryAdd.prepare("UPDATE accounts SET balance = balance + :amount WHERE id = :destinataireId");
     queryAdd.bindValue(":destinataireId", destinataireId);
@@ -193,35 +194,7 @@ bool Operations::addToHistory(int idCompteEmetteur, int idCompteRecepteur, int t
     } else {
         // Gestion de l"erreur.
         std::cerr << "Erreur lors de l'ajout a l'historique : " << addToHistory.lastError().text().toStdString() << std::endl;
-        Sleep(3000);
+        Sleep(4000);
     }
-}
-
-void Operations::setvalue(){
-    User user;
-    QTextStream stream(stdin);
-    Operations operations;
-    system("CLS");
-    std::cout << "Combien ?" << std::endl;
-    QString value = stream.readLine();
-    QSqlQuery querySet;
-    querySet.prepare("UPDATE accounts SET balance = :value WHERE accounts.id = (SELECT users.accountId FROM users WHERE users.login = :username)");
-    querySet.bindValue(":value", value);
-    querySet.bindValue(":username", user.getActual_login());
-
-    if (querySet.exec()) {
-        system("CLS");
-        std::cout << "opperation effectuee" << std::endl;
-        Sleep(3000);
-        system("CLS");
-        //operations.choices();
-    } else {
-        system("CLS");
-        std::cout << "L'operation n'a pas ete effectuee." << std::endl;
-        Sleep(3000);
-        system("CLS");
-        //operations.choices();
-    }
-
 }
 
