@@ -11,6 +11,12 @@ credit_admin::credit_admin(User *user, informations_client *parentHome, QWidget 
     , parentHome(parentHome)
 {
     ui->setupUi(this);
+    this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
+
+    // Background transparent
+    setStyleSheet("background:transparent;");
+    setAttribute(Qt::WA_TranslucentBackground);
+    setWindowFlags(Qt::FramelessWindowHint);
 }
 
 credit_admin::~credit_admin()

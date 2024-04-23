@@ -14,6 +14,12 @@ debit_admin::debit_admin(User *user, informations_client *parentHome, QWidget *p
     , parentHome(parentHome)
 {
     ui->setupUi(this);
+    this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
+
+    // Background transparent
+    setStyleSheet("background:transparent;");
+    setAttribute(Qt::WA_TranslucentBackground);
+    setWindowFlags(Qt::FramelessWindowHint);
 
     QSqlDatabase db = QSqlDatabase::database();
     QSqlQuery getAccounts(db);

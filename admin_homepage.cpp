@@ -1,4 +1,5 @@
 #include "admin_homepage.h"
+#include "choix_principal.h"
 #include "creer_compte.h"
 #include "creer_profil.h"
 #include "login.h"
@@ -18,7 +19,10 @@ admin_homepage::admin_homepage(QWidget *parent)
     ui->setupUi(this);
     this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
 
-
+    // Background transparent
+    setStyleSheet("background:transparent;");
+    setAttribute(Qt::WA_TranslucentBackground);
+    setWindowFlags(Qt::FramelessWindowHint);
 }
 
 admin_homepage::~admin_homepage()
@@ -114,5 +118,14 @@ void admin_homepage::on_logoff_clicked()
     Login *login = new class Login();
     login->show();
     close();
+}
+
+
+void admin_homepage::on_adminChange_clicked()
+{
+    choix_principal *choixPrincipal = new choix_principal();
+    choixPrincipal->setUserInformation(currentUser);
+    choixPrincipal->show();
+    this->hide();
 }
 
