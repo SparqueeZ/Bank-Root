@@ -209,7 +209,11 @@ void informations_client::setUserInformations(User &user, User &client)
     }
 
     if (client.getRole() == 1) {
-        ui->HistoryBtnName->setText("Consulter détails historique admin.");
+        if (user.getActual_type() == 12) {
+            ui->HistoryBtnName->setText("Consulter détails historique admin.");
+        } else {
+            ui->HistoryBtnName->setText("Consulter détails historique");
+        }
         if(client.getEmployee_profilId() != 0) {
             ui->inf_cli_showName->setText(client.getEmployee_firstname());
             ui->inf_cli_first_profil->setText("Employé");
@@ -235,8 +239,6 @@ void informations_client::setUserInformations(User &user, User &client)
         ui->inf_cli_coowner_dateOfBirth->setText("");
         ui->inf_cli_coowner_profilId->setText("");
         ui->inf_cli_coowner_login->setText("");
-    } else {
-        ui->HistoryBtnName->setText("Consulter détails historique");
     }
 
     if (!client.getPpl_id() && !client.getPel_id() && !client.getLvc_id()) {
@@ -245,6 +247,7 @@ void informations_client::setUserInformations(User &user, User &client)
     }
 
     currentUserChecked = client;
+    currentUser = &user;
 
     if (db.isValid()) {
         // Exécuter la requête SQL pour récupérer les données de l'historique
@@ -333,7 +336,7 @@ void informations_client::setUserInformations(User &user, User &client)
 
 void informations_client::on_historyBtn_clicked()
 {
-    if (currentUserChecked.getRole() == 1) {
+    if (currentUserChecked.getRole() == 1 && currentUser->getActual_type() == 12) {
         historique_employe *HistoEmploye = new historique_employe();
         HistoEmploye->setUserInformations(currentUserChecked);
         HistoEmploye->show();

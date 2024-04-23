@@ -38,7 +38,7 @@ private slots:
 
     void on_logoff_clicked();
 
-    void on_adminChange_clicked();
+    void on_switchRole_clicked();
 
 private:
     void mousePressEvent(QMouseEvent *event);

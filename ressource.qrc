@@ -22,5 +22,10 @@
 	<file>assets/leave.png</file>
 	<file>assets/fullscreen.png</file>
 	<file>assets/reduce.png</file>
+
+	<file>assets/people2.png</file>
+	<file>assets/actions2.png</file>
+	<file>assets/logout2.png</file>
+	<file>assets/unlock2.png</file>
     </qresource>
 </RCC>

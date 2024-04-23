@@ -567,7 +567,7 @@ void User::getInformations(int userId) {
     }
 }
 
-void User::checkPELIncome(int PplAccountId, int PELAccountId, int userId){
+void User::checkPELIncome(int PplAccountId, int PELAccountId, int userId) {
     QSqlQuery queryLastConnexion;
     queryLastConnexion.prepare("SELECT lastConnexion FROM users WHERE id = :userId");
     queryLastConnexion.bindValue(":userId", userId);
@@ -579,20 +579,13 @@ void User::checkPELIncome(int PplAccountId, int PELAccountId, int userId){
     }
 
     QDateTime lastConnexion = queryLastConnexion.value("lastConnexion").toDateTime();
-    //qDebug() << lastConnexion;
     QDateTime currentTime = QDateTime::currentDateTime();
-    //qDebug() << currentTime;
-    int hoursDifference = lastConnexion.secsTo(currentTime) / 3600;
-    //qDebug() << hoursDifference;
 
-    int numberOfTransactions = hoursDifference / 24;
-    if (hoursDifference % 24 != 0) {
-        numberOfTransactions++;
-    }
-    //qDebug() << numberOfTransactions;
-    if (numberOfTransactions != 0) {
+    int daysDifference = lastConnexion.daysTo(currentTime);
+
+    if (daysDifference > 0) {
         Operations operations;
-        for (int i = 0; i < numberOfTransactions; i++) {
+        for (int i = 0; i < daysDifference; ++i) {
             if (operations.removeBalance(50, PplAccountId, "Approvisionnement automatique PEL.")) {
                 operations.addBalance(50, PELAccountId, "Approvisionnement automatique PEL.");
             }
@@ -608,8 +601,12 @@ void User::updateLastConnexion(int userId) {
     updateLastLoginQuery.bindValue(":userId", userId);
     updateLastLoginQuery.bindValue(":currentDateTime", currentDateTime);
     if(updateLastLoginQuery.exec()){
-        std::cout << "Mise a jour de la date de connexion...";
-    };
+        //std::cout << "Mise a jour de la date de connexion...";
+        return;
+    } else {
+        std::cout << "Il y a eu une erreur lors de la mise à jour de la dernière connexion.";
+        Sleep(3000);
+    }
 }
 
 QString User::generateAccountNumber() const {

@@ -50,8 +50,11 @@ void admin_homepage::setUserInformation(const User& user)
     ui->ActionBtnName_9->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->ActionBtnName_14->setAttribute(Qt::WA_TransparentForMouseEvents);
     ui->ActionBtnName_11->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->ActionBtnName_12->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->LittleActionBtnName->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->LittleActionBtnName_2->setAttribute(Qt::WA_TransparentForMouseEvents);
 
-    ui->labelFirstName_3->setText(user.getActual_firstname());
+    ui->labelFirstName_3->setText("Bienvenue " + user.getActual_firstname());
     currentUser = user;
 }
 
@@ -121,7 +124,7 @@ void admin_homepage::on_logoff_clicked()
 }
 
 
-void admin_homepage::on_adminChange_clicked()
+void admin_homepage::on_switchRole_clicked()
 {
     choix_principal *choixPrincipal = new choix_principal();
     choixPrincipal->setUserInformation(currentUser);

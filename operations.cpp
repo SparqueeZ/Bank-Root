@@ -63,9 +63,9 @@ bool Operations::addBalance(double amount, int destinataireId, QString descripti
             queryAdd.bindValue(":amount", amount);
 
             if (queryAdd.exec()) {
-                std::cout << "Ajout effectue" << std::endl;
+                //std::cout << "Ajout effectue" << std::endl;
                 addToHistory(0, destinataireId, 1, amount, "Credit", "Description (a completer)");
-                Sleep(3000);
+                Sleep(1000);
                 return true;
             } else {
                 std::cerr << "L'ajout n'a pas pu etre effectue." << std::endl;
@@ -152,9 +152,9 @@ bool Operations::removeBalance(double amount, int destinataireId, QString descri
     queryRemove.bindValue(":amount", amount);
 
     if (queryRemove.exec()) {
-        std::cout << "Retrait effectue" << std::endl;
+        //std::cout << "Retrait effectue" << std::endl;
         addToHistory(destinataireId, 0, 2, amount, "Debit", description);
-        //Sleep(3000);
+        Sleep(1000);
         return true;
     } else {
         std::cerr << "Le retrait n'a pas ete effectue." << std::endl;
