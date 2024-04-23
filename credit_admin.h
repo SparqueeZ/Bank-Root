@@ -1,23 +1,22 @@
-#ifndef DEBIT_H
-#define DEBIT_H
+#ifndef CREDIT_ADMIN_H
+#define CREDIT_ADMIN_H
 
-#include "user.h"
 #include "home.h"
-#include <QDialog>
 #include "informations_client.h"
+#include "user.h"
+#include <QWidget>
 
 namespace Ui {
-class debit;
+class credit_admin;
 }
 
-class debit : public QDialog
+class credit_admin : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit debit(User *user, Home *parentHome, QWidget *parent = nullptr);
-    explicit debit(User *user, informations_client *parentInfoClient, QWidget *parent = nullptr);
-    ~debit();
+    explicit credit_admin(User *user, informations_client *parentHome, QWidget *parent = nullptr);
+    ~credit_admin();
 
 private slots:
     void on_reduced_clicked();
@@ -31,14 +30,13 @@ private slots:
     void on_return2_clicked();
 
 private:
-    Ui::debit *ui;
+    Ui::credit_admin *ui;
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     QPoint cur_pos;
     QPoint new_pos;
     User *currentUser;
-    Home *parentHome;
-    informations_client *parentInfoClient;
+    informations_client *parentHome;
 };
 
-#endif // DEBIT_H
+#endif // CREDIT_ADMIN_H

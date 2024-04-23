@@ -15,10 +15,12 @@ SOURCES += \
     admin_homepage.cpp \
     choix_principal.cpp \
     credit.cpp \
+    credit_admin.cpp \
     creer_compte.cpp \
     creer_profil.cpp \
     creer_utilisateur.cpp \
     debit.cpp \
+    debit_admin.cpp \
     employe_homepage.cpp \
     f_admin.cpp \
     historique_employe.cpp \
@@ -41,10 +43,12 @@ HEADERS += \
     admin_homepage.h \
     choix_principal.h \
     credit.h \
+    credit_admin.h \
     creer_compte.h \
     creer_profil.h \
     creer_utilisateur.h \
     debit.h \
+    debit_admin.h \
     employe_homepage.h \
     f_admin.h \
     historique_employe.h \
@@ -66,10 +70,12 @@ FORMS += \
     admin_homepage.ui \
     choix_principal.ui \
     credit.ui \
+    credit_admin.ui \
     creer_compte.ui \
     creer_profil.ui \
     creer_utilisateur.ui \
     debit.ui \
+    debit_admin.ui \
     employe_homepage.ui \
     historique_employe.ui \
     historique_stagiaire.ui \
