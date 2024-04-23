@@ -18,11 +18,14 @@ public:
     ~virement();
 
 private slots:
-    void on_toolButton_3_clicked();
+    void on_return_2_clicked();
 
-    void on_Envoyer_clicked();
+    void on_send_clicked();
 
     void on_reduced_clicked();
+
+    void on_close_clicked();
+
 
 private:
     Ui::virement *ui;

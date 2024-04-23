@@ -23,11 +23,22 @@ choix_principal::~choix_principal()
     delete ui;
 }
 
-void choix_principal::on_personnel_clicked() {
+void choix_principal::on_personnel_clicked()
+{
     Home *home = new Home();
     home->setUserInformation(currentUser);
     home->show();
     this->hide();
+}
+
+void choix_principal::on_close_clicked()
+{
+    close();
+}
+
+void choix_principal::on_reduced_2_clicked()
+{
+    showMinimized();
 }
 
 void choix_principal::on_admin_clicked(){

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>543</width>
-    <height>362</height>
+    <height>342</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,6 +36,11 @@ color:#717072;
       <width>241</width>
       <height>26</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">QFrame{
@@ -73,28 +78,6 @@ padding-left: 10px
     </property>
     <property name="text">
      <string>Nom</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>140</x>
-      <y>170</y>
-      <width>171</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat Medium</family>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(255,255,255);
-</string>
-    </property>
-    <property name="text">
-     <string>Prénom</string>
     </property>
    </widget>
    <widget class="QWidget" name="topbar" native="true">
@@ -251,17 +234,22 @@ border-radius:45px;
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>230</y>
+      <y>210</y>
       <width>241</width>
       <height>24</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+     </font>
     </property>
    </widget>
    <widget class="QLabel" name="label_10">
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>200</y>
+      <y>180</y>
       <width>161</width>
       <height>20</height>
      </rect>
@@ -285,7 +273,7 @@ color: rgb(255, 255, 255);
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>290</y>
+      <y>270</y>
       <width>93</width>
       <height>29</height>
      </rect>
@@ -326,7 +314,7 @@ color: rgb(255, 255, 255);
     <property name="geometry">
      <rect>
       <x>280</x>
-      <y>290</y>
+      <y>270</y>
       <width>93</width>
       <height>29</height>
      </rect>

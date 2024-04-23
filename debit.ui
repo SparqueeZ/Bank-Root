@@ -63,12 +63,17 @@ color: rgb(255, 255, 255);
       <height>26</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit{
 background:#181F1C;
 border:none;
 border-left:2px solid #ffffff;
-color:#717072;
+color:rgb(255, 255, 255);
 padding-left: 10px
 }</string>
     </property>
@@ -294,6 +299,15 @@ border-radius:45px;
       <width>241</width>
       <height>24</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <italic>false</italic>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(255, 255, 255);</string>
     </property>
    </widget>
    <widget class="QLabel" name="debit_acc_label">

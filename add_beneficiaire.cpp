@@ -53,7 +53,7 @@ void add_beneficiaire::on_fullscreen_addb_clicked()
 
 void add_beneficiaire::on_return_addb_clicked()
 {
-
+    close();
 }
 
 void add_beneficiaire::on_send_addb_clicked()
