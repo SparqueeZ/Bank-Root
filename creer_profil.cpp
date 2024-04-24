@@ -3,6 +3,7 @@
 #include "ui_creer_profil.h"
 #include "qevent.h"
 #include <QGuiApplication>
+#include "user.h"
 
 creer_profil::creer_profil(QWidget *parent)
     : QWidget(parent)
@@ -64,6 +65,11 @@ void creer_profil::on_send_crprofil_clicked()
     QString lastname = ui->lastname->text();
     QString login = ui->login->text();
     QString password = ui->password->text();
+    User user;
+    if (ui->password->text()==""){
+        user.generateRandomPassword();
+        password = user.generateRandomPassword();
+    }
     admin.createProfil(userID.toInt(), firstname, lastname, login, password, type_profil.toInt());
 
 

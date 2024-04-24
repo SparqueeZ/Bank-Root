@@ -43,17 +43,11 @@ color:#717072;
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">QFrame{
-background:#181F1C;
-border:none;
-border-radius: 5px;
-color:#717072;
-}
-QLineEdit{
+     <string notr="true">QLineEdit{
 background:#181F1C;
 border:none;
 border-left:2px solid #ffffff;
-color:#717072;
+color:rgb(255, 255, 255);
 padding-left: 10px
 }</string>
     </property>
@@ -243,6 +237,9 @@ border-radius:45px;
      <font>
       <family>Segoe UI</family>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(255, 255, 255);</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_10">
