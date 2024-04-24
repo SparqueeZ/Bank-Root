@@ -1,33 +1,25 @@
-#include "debit.h"
-#include "qsqlerror.h"
-#include "ui_debit.h"
-#include "qevent.h"
-#include <QGuiApplication>
-#include <QSqlQuery>
-#include <iostream>
-#include <QTextStream>
-#include "ui_home.h"
-#include "user.h"
-#include "operations.h"
+#include "debit_admin.h"
 #include "home.h"
-#include "login.h"
+#include "operations.h"
+#include "qevent.h"
+#include "qscreen.h"
+#include "qsqlerror.h"
+#include "qsqlquery.h"
+#include "ui_debit_admin.h"
 
-debit::debit(User *user, Home *parentHome, QWidget *parent)
-    : QDialog(parent)
-    , ui(new Ui::debit)
-    , parentHome(parentHome)
+debit_admin::debit_admin(User *user, informations_client *parentHome, QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::debit_admin)
     , currentUser(user)
+    , parentHome(parentHome)
 {
     ui->setupUi(this);
     this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
 
-    // Vérifie si parentHome est une instance valide de Home
-    if (!parentHome) {
-        qDebug() << "Erreur : Le parent n'est pas une instance de la classe Home.";
-        // Gérer l'erreur ici, par exemple en fermant la fenêtre de débit
-        close();
-        return;
-    }
+    // Background transparent
+    setStyleSheet("background:transparent;");
+    setAttribute(Qt::WA_TranslucentBackground);
+    setWindowFlags(Qt::FramelessWindowHint);
 
     QSqlDatabase db = QSqlDatabase::database();
     QSqlQuery getAccounts(db);
@@ -59,28 +51,28 @@ debit::debit(User *user, Home *parentHome, QWidget *parent)
     }
 }
 
-debit::~debit()
+debit_admin::~debit_admin()
 {
     delete ui;
 }
 
-void debit::on_reduced_clicked()
+void debit_admin::on_reduced_clicked()
 {
     showMinimized();
 }
 
-void debit::on_close_clicked()
+void debit_admin::on_close_clicked()
 {
     close();
 }
 
-void debit::mousePressEvent(QMouseEvent *event) {
+void debit_admin::mousePressEvent(QMouseEvent *event) {
     if (ui->topbar->underMouse()) { // Vérifie si le curseur est sur le widget_7
         cur_pos = event->globalPosition().toPoint();
     }
 }
 
-void debit::mouseMoveEvent(QMouseEvent *event) {
+void debit_admin::mouseMoveEvent(QMouseEvent *event) {
     if (ui->topbar->underMouse()) { // Vérifie si le curseur est sur le widget_7
         new_pos = QPoint(event->globalPosition().toPoint() - cur_pos);
         move(x() + new_pos.x(), y() + new_pos.y());
@@ -88,7 +80,7 @@ void debit::mouseMoveEvent(QMouseEvent *event) {
     }
 }
 
-void debit::on_fullscreen_clicked()
+void debit_admin::on_fullscreen_clicked()
 {
     QRect mainScreenSize = QGuiApplication::primaryScreen()->availableGeometry();
     setGeometry(mainScreenSize);
@@ -96,14 +88,14 @@ void debit::on_fullscreen_clicked()
 
 
 
-void debit::on_send_clicked()
+void debit_admin::on_send_clicked()
 {
     Home home;
     Operations operations;
 
     QString amount = ui->value->text();
     int accountId = ui->debit_acc_choice->currentData().toInt();
-    operations.removeBalance(amount.toInt(), accountId, "Retrait Administrateur.");
+    operations.removeBalance(amount.toInt(), accountId, "Retrait administrateur.");
 
     // Rafraîchissement des informations de l'utilisateur sur la page d'accueil
     parentHome->refreshUserInfo();
@@ -111,7 +103,8 @@ void debit::on_send_clicked()
     close();
 }
 
-void debit::on_return2_clicked()
+void debit_admin::on_return2_clicked()
 {
     close();
 }
+

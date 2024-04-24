@@ -40,3 +40,9 @@ void choix_principal::on_admin_clicked(){
 void choix_principal::setUserInformation(const User& user) {
     currentUser = user;
 }
+
+void choix_principal::on_toolButton_4_clicked()
+{
+    close();
+}
+

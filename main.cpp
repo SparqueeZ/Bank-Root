@@ -1036,6 +1036,7 @@ public:
         int profileExists = user->checkIfProfileExists(userId);
         if (profileExists != -1 && profileExists != -2) {
             User newUser;
+            newUser.getInformations(userId);
             if (profileExists == 0) {
                 // Creation de profil prop
                 std::cout << "Entrez le prenom du profil : ";

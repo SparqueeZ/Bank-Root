@@ -223,7 +223,7 @@ void Home::refreshUserInfo() {
     //User newUser; // Implémentez cette fonction pour récupérer l'utilisateur actuel
 
     // Rafraîchir les données de l'utilisateur depuis la base de données
-    currentUser->refreshUserData(); // Implémentez cette fonction dans la classe User
+    currentUser->refreshUserData();
 
     // Mettre à jour l'interface utilisateur avec les nouvelles données de l'utilisateur
     ui->labelFirstName->setText(currentUser->getActual_firstname());
@@ -316,10 +316,6 @@ void Home::refreshUserInfo() {
             label4->setText(description);
 
             count = count + 1;
-
-
-            // Afficher les valeurs récupérées sur la console avec un menu
-
         }
     } else {
 
