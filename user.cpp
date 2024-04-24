@@ -9,6 +9,12 @@
 #include <iostream>
 #include <synchapi.h>
 
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QJsonObject>
+#include <QJsonDocument>
+
 #include <QSettings>
 #include <QDir>
 #include <QSqlDatabase>
@@ -124,6 +130,50 @@ User::User(
 }
 
 bool User::signin(QString login, QString password) {
+    // Création du gestionnaire d'accès réseau
+    QNetworkAccessManager manager;
+
+    // Création de l'objet JSON représentant la requête
+    QJsonObject jsonRequest;
+    jsonRequest["action"] = "IS_ALIVE";
+    jsonRequest["details"] = QJsonObject();
+
+    // Conversion de l'objet JSON en QByteArray
+    QJsonDocument doc(jsonRequest);
+    QByteArray postData = doc.toJson();
+
+    // Création de la requête
+    QNetworkRequest request(QUrl("https://formation.anjousoft.fr/programmationC/API_banque.php"));
+
+    // Définition de l'en-tête de la requête
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    // Envoi de la requête POST
+    QNetworkReply *reply = manager.post(request, postData);
+
+    // Gestion de la réponse
+    QObject::connect(reply, &QNetworkReply::finished, [&]() {
+        if (reply->error() == QNetworkReply::NoError) {
+            // Traitement des données de réponse
+            QByteArray responseData = reply->readAll();
+            qDebug() << "Réponse :" << responseData;
+            Sleep(3000);
+        } else {
+            // Gestion des erreurs
+            qDebug() << "Erreur :" << reply->errorString();
+            Sleep(3000);
+        }
+
+
+        qDebug() << "Erreur lors de la requete" ;
+        Sleep(3000);
+    });
+
+
+
+    qDebug() << "Skipped request." ;
+    Sleep(3000);
+
     QDir::setCurrent(QCoreApplication::applicationDirPath());
     QString configFilePath = QDir(QCoreApplication::applicationDirPath()).filePath("config.ini");
 
