@@ -41,17 +41,12 @@ color:#717072;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">QFrame{
-background:#181F1C;
-border:none;
-border-radius: 5px;
-color:#717072;
-}
+     <string notr="true">
 QLineEdit{
 background:#181F1C;
 border:none;
 border-left:2px solid #ffffff;
-color:#717072;
+color:rgb(255, 255, 255);
 padding-left: 10px
 }</string>
     </property>
@@ -166,7 +161,7 @@ background:red;
       </size>
      </property>
     </widget>
-    <widget class="QToolButton" name="toolButton_3">
+    <widget class="QToolButton" name="close">
      <property name="geometry">
       <rect>
        <x>520</x>
@@ -264,7 +259,7 @@ border-radius:45px;
 background:#181F1C;
 border:none;
 border-left:2px solid #ffffff;
-color:#717072;
+color:rgb(255, 255, 255);
 padding-left: 10px
 }</string>
     </property>
@@ -283,7 +278,7 @@ padding-left: 10px
 background:#181F1C;
 border:none;
 border-left:2px solid #ffffff;
-color:#717072;
+color:rgb(255, 255, 255);
 padding-left: 10px
 }</string>
     </property>
@@ -311,7 +306,7 @@ padding-left: 10px
     </property>
    </widget>
   </widget>
-  <widget class="QPushButton" name="Envoyer">
+  <widget class="QPushButton" name="send">
    <property name="geometry">
     <rect>
      <x>290</x>
@@ -352,7 +347,7 @@ color: rgb(255, 255, 255);
     <string>Envoyer</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="return_2">
    <property name="geometry">
     <rect>
      <x>140</x>

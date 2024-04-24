@@ -94,7 +94,7 @@ virement::~virement()
     delete ui;
 }
 
-void virement::on_toolButton_3_clicked()
+void virement::on_close_clicked()
 {
     close();
 }
@@ -113,7 +113,7 @@ void virement::mouseMoveEvent(QMouseEvent *event) {
     }
 }
 
-void virement::on_Envoyer_clicked()
+void virement::on_send_clicked()
 {
     Operations operations;
     QString montant = ui->value->text();
@@ -134,3 +134,7 @@ void virement::on_reduced_clicked()
     showMinimized();
 }
 
+void virement::on_return_2_clicked()
+{
+    close();
+}

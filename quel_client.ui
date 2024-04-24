@@ -70,7 +70,7 @@ consulter ?
 background:#181F1C;
 border:none;
 border-left:2px solid #ffffff;
-color:#717072;
+color:rgb(255, 255, 255);
 padding-left: 10px
 }</string>
     </property>

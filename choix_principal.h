@@ -24,7 +24,9 @@ private slots:
 
     void on_admin_clicked();
 
-    void on_toolButton_4_clicked();
+    void on_reduced_2_clicked();
+
+    void on_close_clicked();
 
 private:
     Ui::choix_principal *ui;
