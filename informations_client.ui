@@ -2389,6 +2389,7 @@ border-radius: 10px;
      <property name="font">
       <font>
        <family>Montserrat Medium</family>
+       <pointsize>9</pointsize>
       </font>
      </property>
      <property name="styleSheet">
@@ -2441,7 +2442,7 @@ color:rgb(109, 114, 117);
    <widget class="QToolButton" name="reduced_infoc">
     <property name="geometry">
      <rect>
-      <x>1370</x>
+      <x>1410</x>
       <y>10</y>
       <width>15</width>
       <height>15</height>
@@ -2474,7 +2475,7 @@ background:red;
    <widget class="QToolButton" name="fullscreen_infoc">
     <property name="geometry">
      <rect>
-      <x>1397</x>
+      <x>1437</x>
       <y>10</y>
       <width>15</width>
       <height>15</height>
@@ -2502,7 +2503,7 @@ border-radius:45px;
    <widget class="QToolButton" name="close_infoc">
     <property name="geometry">
      <rect>
-      <x>1420</x>
+      <x>1460</x>
       <y>10</y>
       <width>15</width>
       <height>15</height>

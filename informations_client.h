@@ -19,6 +19,8 @@ public:
     explicit informations_client(QWidget *parent = nullptr);
     ~informations_client();
     void setUserInformations(User &user, User &userToCheck);
+    void refreshUserInfo();
+
 private slots:
     //void on_reduced_5_clicked();
 
@@ -33,6 +35,10 @@ private slots:
 
     void on_close_infoc_clicked();
     void on_historyBtn_clicked();
+
+    void on_creditBtn_clicked();
+
+    void on_debitBtn_clicked();
 
 private:
     Ui::informations_client *ui;

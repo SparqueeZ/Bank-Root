@@ -12,6 +12,11 @@ historique_stagiaire::historique_stagiaire(QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
+
+    // Background transparent
+    setStyleSheet("background:transparent;");
+    setAttribute(Qt::WA_TranslucentBackground);
+    setWindowFlags(Qt::FramelessWindowHint);
 }
 
 historique_stagiaire::~historique_stagiaire()

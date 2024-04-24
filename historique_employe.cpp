@@ -15,6 +15,11 @@ historique_employe::historique_employe(QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
+
+    // Background transparent
+    setStyleSheet("background:transparent;");
+    setAttribute(Qt::WA_TranslucentBackground);
+    setWindowFlags(Qt::FramelessWindowHint);
 }
 
 historique_employe::~historique_employe()
