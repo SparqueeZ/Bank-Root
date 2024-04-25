@@ -168,9 +168,9 @@ void informations_client::setUserInformations(User &user, User &client)
 {
 
     // Style
-    ui->CreditBtnContainer->setAttribute(Qt::WA_TransparentForMouseEvents);
-    ui->DebitBtnContainer->setAttribute(Qt::WA_TransparentForMouseEvents);
-    ui->HistoryBtnContainer->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->CreditBtnName->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->DebitBtnName->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->HistoryBtnName->setAttribute(Qt::WA_TransparentForMouseEvents);
 
 
     QSqlDatabase db = QSqlDatabase::database();
