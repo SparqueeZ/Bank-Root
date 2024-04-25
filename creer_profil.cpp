@@ -10,9 +10,6 @@ creer_profil::creer_profil(QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowFlags(Qt::WindowType::FramelessWindowHint);
-    ui->comboBox->addItem("Proprietaire", 0);
-    ui->comboBox->addItem("Conjoint", 1);
-
 }
 
 creer_profil::~creer_profil()
@@ -64,8 +61,44 @@ void creer_profil::on_send_crprofil_clicked()
     QString lastname = ui->lastname->text();
     QString login = ui->login->text();
     QString password = ui->password->text();
+
+    User user;
+    user.getInformations(userID.toInt());
+
+    if (user.getRole() == 1) {
+        ui->comboBox->addItem("Stagiaire", 10);
+        ui->comboBox->addItem("Employé", 11);
+        ui->comboBox->addItem("Directeur", 12);
+    } else {
+        ui->comboBox->addItem("Proprietaire", 0);
+        ui->comboBox->addItem("Conjoint", 1);
+    }
+
+    if (ui->password->text()==""){
+        user.generateRandomPassword();
+        password = user.generateRandomPassword();
+    }
+
     admin.createProfil(userID.toInt(), firstname, lastname, login, password, type_profil.toInt());
-
-
     close();
 }
+
+void creer_profil::on_userid_textChanged(const QString &arg1)
+{
+    if(ui->userid->text() != "") {
+        ui->comboBox->clear();
+        QString userID = ui->userid->text();
+        User user;
+        user.getInformations(userID.toInt());
+
+        if (user.getRole() == 1) {
+            ui->comboBox->addItem("Stagiaire", 10);
+            ui->comboBox->addItem("Employé", 11);
+            ui->comboBox->addItem("Directeur", 12);
+        } else {
+            ui->comboBox->addItem("Proprietaire", 0);
+            ui->comboBox->addItem("Conjoint", 1);
+        }
+    }
+}
+

@@ -56,6 +56,11 @@ void admin_homepage::setUserInformation(const User& user)
 
     ui->labelFirstName_3->setText("Bienvenue " + user.getActual_firstname());
     currentUser = user;
+
+
+    if (!currentUser.getPpl_id()) {
+        ui->LittleActionBtn_2->setVisible(false);
+    }
 }
 
 void admin_homepage::on_cruser_adm_clicked()

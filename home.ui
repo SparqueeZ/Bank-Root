@@ -44,22 +44,6 @@
     background-color: #0C120C;
 }</string>
    </property>
-   <widget class="QWidget" name="widget_10" native="true">
-    <property name="geometry">
-     <rect>
-      <x>630</x>
-      <y>560</y>
-      <width>411</width>
-      <height>211</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QWidget {
-    background-color: #181F1C;
-border-radius: 10px; 
-}</string>
-    </property>
-   </widget>
    <widget class="QWidget" name="widget_12" native="true">
     <property name="geometry">
      <rect>
@@ -382,31 +366,6 @@ QProgressBar::chunk {
      <string>Historique</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_19">
-    <property name="geometry">
-     <rect>
-      <x>700</x>
-      <y>500</y>
-      <width>271</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Montserrat SemiBold</family>
-      <pointsize>23</pointsize>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLabel {
-    color: white;
-}</string>
-    </property>
-    <property name="text">
-     <string>Bank-ROOT</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_22">
     <property name="geometry">
      <rect>
@@ -531,29 +490,6 @@ background-position: center;
     <property name="styleSheet">
      <string notr="true">QFrame{
 background:url(:/assets/wallet.png);
-background-repeat: none;
-background-position: center;
-}</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-   </widget>
-   <widget class="QFrame" name="frame_7">
-    <property name="geometry">
-     <rect>
-      <x>630</x>
-      <y>500</y>
-      <width>41</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QFrame{
-background:url(:/assets/warning.png);
 background-repeat: none;
 background-position: center;
 }</string>

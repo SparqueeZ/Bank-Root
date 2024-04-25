@@ -27,6 +27,8 @@ private slots:
 
     void on_return_crprofil_clicked();
 
+    void on_userid_textChanged(const QString &arg1);
+
 private:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);

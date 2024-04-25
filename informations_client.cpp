@@ -167,6 +167,12 @@ void informations_client::refreshUserInfo() {
 void informations_client::setUserInformations(User &user, User &client)
 {
 
+    // Style
+    ui->CreditBtnContainer->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->DebitBtnContainer->setAttribute(Qt::WA_TransparentForMouseEvents);
+    ui->HistoryBtnContainer->setAttribute(Qt::WA_TransparentForMouseEvents);
+
+
     QSqlDatabase db = QSqlDatabase::database();
 
     // Récuperer les informations de l'user via son ID.
@@ -340,12 +346,12 @@ void informations_client::on_historyBtn_clicked()
         historique_employe *HistoEmploye = new historique_employe();
         HistoEmploye->setUserInformations(currentUserChecked);
         HistoEmploye->show();
-        close();
+        //close();
     } else {
         historique_stagiaire *HistoStagiaire = new historique_stagiaire();
         HistoStagiaire->setUserInformations(currentUserChecked);
         HistoStagiaire->show();
-        close();
+        //close();
     }
 }
 
