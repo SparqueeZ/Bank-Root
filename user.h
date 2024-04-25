@@ -1,6 +1,7 @@
  #ifndef USER_H
 #define USER_H
 
+#include "qnetworkreply.h"
 #include <QString>
 #include <QDate>
 #include <QSqlDatabase>

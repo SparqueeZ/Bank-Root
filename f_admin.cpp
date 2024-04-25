@@ -3,6 +3,7 @@
 #include "qrandom.h"
 #include "qsqlerror.h"
 #include "QSqlQuery"
+#include "user.h"
 #include <iostream>
 #include <ostream>
 #include <synchapi.h>
@@ -36,8 +37,11 @@ int f_admin::createUser(QString username, int role){
 // Créer un compte bancaire
 int f_admin::createAccount(int userId, int type, double balance){
     int accountId = generateAccountNumber();
+    int newAccountId = -1;
 
     if (type == -1) return -1;
+
+
 
     // Créer le compte bancaire
     QSqlQuery insertAccountQuery;
@@ -49,10 +53,17 @@ int f_admin::createAccount(int userId, int type, double balance){
     insertAccountQuery.bindValue(":balance", balance);
 
     if(insertAccountQuery.exec()){
-        return insertAccountQuery.lastInsertId().toInt();
+        newAccountId = insertAccountQuery.lastInsertId().toInt();
     } else {
         return -1;
     }
+
+    if (type == 1 || type == 2) {
+        User user;
+        user.addBeneficiaire(accountId, userId);
+    }
+
+    return newAccountId;
 };
 
 // Créer un profil utilisateur

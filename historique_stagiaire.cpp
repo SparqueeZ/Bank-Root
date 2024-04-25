@@ -5,6 +5,7 @@
 #include "ui_historique_stagiaire.h"
 #include "qevent.h"
 #include <QGuiApplication>
+#include <synchapi.h>
 
 historique_stagiaire::historique_stagiaire(QWidget *parent)
     : QWidget(parent)
@@ -72,6 +73,10 @@ void historique_stagiaire::setUserInformations(User &user)
     // Récupération de la connexion existante à la base de données
     QSqlDatabase db = QSqlDatabase::database();
 
+    int userToCheckPplId = user.getPpl_id() ? user.getPpl_id() : -1;
+    int userToCheckPelId = user.getPel_id() ? user.getPel_id() : -1;
+    int userToCheckLvcId = user.getLvc_id() ? user.getLvc_id() : -1;
+
     // Vérifier si la connexion à la base de données est valide
     if (db.isValid()) {
         // Exécuter la requête SQL pour récupérer les données de l'historique
@@ -81,9 +86,9 @@ void historique_stagiaire::setUserInformations(User &user)
                       "OR id_compte_emetteur = :PELAccountId OR id_compte_destinataire = :PELAccountId "
                       "OR id_compte_emetteur = :LVCAccountId OR id_compte_destinataire = :LVCAccountId "
                       "ORDER BY date ASC");
-        query.bindValue(":PPLAccountId", user.getPpl_id());
-        query.bindValue(":PELAccountId", user.getPel_id());
-        query.bindValue(":LVCAccountId", user.getLvc_id());
+        query.bindValue(":PPLAccountId", userToCheckPplId);
+        query.bindValue(":PELAccountId", userToCheckPelId);
+        query.bindValue(":LVCAccountId", userToCheckLvcId);
 
         // Exécuter la requête
         if (query.exec()) {
@@ -99,8 +104,11 @@ void historique_stagiaire::setUserInformations(User &user)
             ui->tableView->setStyleSheet("QHeaderView::section { background-color: transparent; color: white; }");
             ui->tableView->setStyleSheet("QTableView { color: white; }");
 
+            int count = 0;
+
             // Itérer sur les résultats de la requête et ajouter chaque ligne au modèle
             while (query.next()) {
+                count ++;
                 // Récupérer les valeurs des colonnes
                 double montant = query.value("montant").toDouble();
                 QDateTime date = query.value("date").toDateTime();
@@ -142,7 +150,12 @@ void historique_stagiaire::setUserInformations(User &user)
                 model->appendRow(rowItems);
             }
 
-            // Ajouter le modèle au QTableView
+            if (count == 0) {
+                delete model;
+                ui->tableView->setModel(nullptr);
+                return;
+            }
+
             ui->tableView->setModel(model);
 
         } else {

@@ -13,6 +13,7 @@ CONFIG += c++17 cmdline
 SOURCES += \
     add_beneficiaire.cpp \
     admin_homepage.cpp \
+    centralbank.cpp \
     choix_principal.cpp \
     credit.cpp \
     credit_admin.cpp \
@@ -41,6 +42,7 @@ SOURCES += \
 HEADERS += \
     add_beneficiaire.h \
     admin_homepage.h \
+    centralbank.h \
     choix_principal.h \
     credit.h \
     credit_admin.h \

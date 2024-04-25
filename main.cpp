@@ -4,6 +4,8 @@
 #include <QProcess>
 #include "login.h"
 #include <iostream>
+#include "qjsondocument.h"
+#include "qjsonobject.h"
 #include "qsqlerror.h"
 #include "qsqlquery.h"
 #include "user.h"
@@ -455,13 +457,22 @@ public:
         QTextStream stream(stdin);
         clearScreen();
 
-
         // Récupération de la connexion existante à la base de données
         QSqlDatabase db = QSqlDatabase::database();
+
+        int count = 0;
 
         // Vérifier si la connexion à la base de données est valide
         if (db.isValid()) {
             // Exécuter la requête SQL pour récupérer les données de l'historique
+            int userPplId = user.getPpl_id();
+            int userPelId = user.getPel_id();
+            int userLvcId = user.getLvc_id();
+
+            if (!userPplId) userPplId = -1;
+            if (!userPelId) userPelId = -1;
+            if (!userLvcId) userLvcId = -1;
+
             QSqlQuery query(db);
             query.prepare("SELECT * FROM history "
                           "WHERE id_compte_emetteur = :PplId "
@@ -471,9 +482,9 @@ public:
                           "OR id_compte_destinataire = :PelId "
                           "OR id_compte_destinataire = :LvcId "
                           "ORDER BY date ASC");
-            query.bindValue(":PplId", user.getPpl_id());
-            query.bindValue(":PelId", user.getPel_id());
-            query.bindValue(":LvcId", user.getLvc_id());
+            query.bindValue(":PplId", userPplId);
+            query.bindValue(":PelId", userPelId);
+            query.bindValue(":LvcId", userLvcId);
 
             if (!query.exec()) {
                 std::cout << "Erreur lors de l'execution de la requete : " << query.lastError().text().toStdString() << std::endl;
@@ -483,6 +494,7 @@ public:
 
             // Itérer sur les résultats de la requête
             while (query.next()) {
+                count ++;
                 // Récupérer les valeurs des colonnes
                 int id_history = query.value(0).toInt();
                 double montant = query.value(1).toDouble();
@@ -515,7 +527,7 @@ public:
         } else {
             std::cout << "Erreur : Connexion a la base de donnees invalide" << std::endl;
         }
-
+        if (count == 0) std::cout << "Vous n'avez aucune transaction pour le moment." << std::endl;
 
         std::cout << "Pour retourner a l'accueil, appuyez sur une touche." << std::endl;
         getch();
@@ -1285,10 +1297,43 @@ public:
 
 //--------------------------------------------------------------------------------------------------------------------------------------------
 
+QJsonObject centralBankAlive() {
+    QNetworkAccessManager manager;
+
+    QUrl url("https://formation.anjousoft.fr/programmationC/API_banque.php");
+    QJsonObject requestData;
+    requestData["action"] = "IS_ALIVE";
+    requestData["details"] = QJsonObject();
+    QJsonDocument jsonDoc(requestData);
+    //qDebug() << "postData: " << jsonDoc.toJson(QJsonDocument::Compact);
+
+    QNetworkRequest request(url);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    QByteArray usernamePassword = "esaip:esaip";
+    QByteArray encoded = usernamePassword.toBase64();
+    QString authHeader = "Basic " + QString(encoded);
+    request.setRawHeader("Authorization", authHeader.toUtf8());
+
+    QNetworkReply *reply = manager.post(request, jsonDoc.toJson());
+
+    while (!reply->isFinished()) {
+        qApp->processEvents();
+    }
+
+    if (reply->error() != QNetworkReply::NoError) {
+        qDebug() << "Erreur lors de la requete POST :" << reply->errorString();
+    }
+
+    QByteArray response = reply->readAll();
+    QJsonDocument jsonResponse = QJsonDocument::fromJson(response);
+    reply->deleteLater();
+
+    return jsonResponse.object();
+}
+
 
 int main(int argc, char *argv[]) {
     User user;
-    UI* interfaceUtilisateur = nullptr;
     QApplication app(argc, argv);
 
     QMessageBox msgBox;
@@ -1298,12 +1343,26 @@ int main(int argc, char *argv[]) {
     msgBox.setDefaultButton(QMessageBox::NoButton);
     int choice = msgBox.exec();
 
-    if (choice == 0){
+    // Création de l'interface utilisateur en fonction du choix de l'utilisateur
+    UI* interfaceUtilisateur = nullptr;
+    if (choice == QMessageBox::AcceptRole){
         interfaceUtilisateur = new Console(&user);
-    }
-    else {
+    } else {
         interfaceUtilisateur = new GUI(argc, argv, &user);
     }
+    // Envoie demande a la banque centrale
+    QJsonObject jsonResponse = centralBankAlive();
+
+    if (jsonResponse["succes"].toBool()) {
+        qDebug() << "Reponse de la banque centrale recue :";
+        QString message = jsonResponse["metas"].toObject()["message"].toString();
+        qDebug() << "Message de la reponse:" << message;
+        Sleep(1000);
+    } else {
+        qDebug() << "Reponse de la banque centrale non recue";
+        Sleep(5000);
+    }
+
 
     interfaceUtilisateur->AffLogin();
 
@@ -1323,8 +1382,8 @@ int main(int argc, char *argv[]) {
     }
 
     return app.exec();
-}
 
+}
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 class Choice {

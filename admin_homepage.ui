@@ -31,7 +31,7 @@
     </font>
    </property>
    <property name="cursor">
-    <cursorShape>PointingHandCursor</cursorShape>
+    <cursorShape>ArrowCursor</cursorShape>
    </property>
    <property name="mouseTracking">
     <bool>true</bool>
@@ -91,6 +91,9 @@ border-radius: 10px;
       <height>75</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="styleSheet">
      <string notr="true">background:transparent;</string>
     </property>
@@ -102,6 +105,9 @@ border-radius: 10px;
        <width>260</width>
        <height>71</height>
       </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
      </property>
      <property name="styleSheet">
       <string notr="true">QToolButton {
@@ -237,6 +243,9 @@ background:red;
       <height>75</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="styleSheet">
      <string notr="true">background:transparent;</string>
     </property>
@@ -352,6 +361,9 @@ background:transparent;
       <height>75</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="styleSheet">
      <string notr="true">background:transparent;</string>
     </property>
@@ -442,6 +454,9 @@ background:transparent;
       <width>260</width>
       <height>75</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">background:transparent;</string>
